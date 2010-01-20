@@ -4,6 +4,10 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>include/glutwindow.hpp</itemPath>
+      <itemPath>include/pixel.hpp</itemPath>
+      <itemPath>include/ppmwriter.hpp</itemPath>
+      <itemPath>include/rgb.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -12,7 +16,11 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>src/glutwindow.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
+      <itemPath>src/pixel.cpp</itemPath>
+      <itemPath>src/ppmwriter.cpp</itemPath>
+      <itemPath>src/rgb.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -20,6 +28,9 @@
       <itemPath>Makefile</itemPath>
     </logicalFolder>
   </logicalFolder>
+  <sourceRootList>
+    <Elem>.</Elem>
+  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="Debug" type="1">
@@ -29,8 +40,16 @@
         <platform>2</platform>
       </toolsSet>
       <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>include</pElem>
+            <pElem>/usr/include/boost</pElem>
+          </incDir>
+        </ccTool>
         <linkerTool>
           <linkerLibItems>
+            <linkerLibLibItem>boost_thread-mt</linkerLibLibItem>
+            <linkerLibLibItem>glut</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
