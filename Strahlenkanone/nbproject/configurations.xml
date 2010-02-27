@@ -40,13 +40,23 @@
         <platform>2</platform>
       </toolsSet>
       <compileType>
+        <cTool>
+          <incDir>
+            <pElem>include</pElem>
+          </incDir>
+        </cTool>
         <ccTool>
           <incDir>
             <pElem>include</pElem>
             <pElem>/usr/include/boost</pElem>
+            <pElem>../../../include</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
+          <output>${CND_DISTDIR}/strahlenkanone</output>
+          <linkerAddLib>
+            <pElem>../../../lib</pElem>
+          </linkerAddLib>
           <linkerLibItems>
             <linkerLibLibItem>boost_thread-mt</linkerLibLibItem>
             <linkerLibLibItem>glut</linkerLibLibItem>

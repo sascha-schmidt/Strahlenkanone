@@ -11,7 +11,7 @@ CND_CONF=Debug
 CND_DISTDIR=dist
 TMPDIR=build/${CND_CONF}/${CND_PLATFORM}/tmp-packaging
 TMPDIRNAME=tmp-packaging
-OUTPUT_PATH=${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/strahlenkanone
+OUTPUT_PATH=${CND_DISTDIR}/strahlenkanone
 OUTPUT_BASENAME=strahlenkanone
 PACKAGE_TOP_DIR=strahlenkanone/
 
