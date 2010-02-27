@@ -62,6 +62,18 @@
             <linkerLibLibItem>glut</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
+        <requiredProjects>
+          <makeArtifact PL="../libmath"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="true"
+                        WD="../libmath"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="dist/Debug/GNU-Linux-x86/liblibmath.a">
+          </makeArtifact>
+        </requiredProjects>
       </compileType>
     </conf>
     <conf name="Release" type="1">
