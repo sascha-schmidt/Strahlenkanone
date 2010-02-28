@@ -25,6 +25,7 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>src/glutwindow.cpp</itemPath>
+      <itemPath>src/loader.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
       <itemPath>src/pixel.cpp</itemPath>
       <itemPath>src/ppmwriter.cpp</itemPath>

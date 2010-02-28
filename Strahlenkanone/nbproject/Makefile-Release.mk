@@ -33,6 +33,7 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/src/pixel.o \
 	${OBJECTDIR}/src/glutwindow.o \
+	${OBJECTDIR}/src/loader.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/src/rgb.o \
 	${OBJECTDIR}/src/ppmwriter.o
@@ -70,6 +71,11 @@ ${OBJECTDIR}/src/glutwindow.o: nbproject/Makefile-${CND_CONF}.mk src/glutwindow.
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/glutwindow.o src/glutwindow.cpp
+
+${OBJECTDIR}/src/loader.o: nbproject/Makefile-${CND_CONF}.mk src/loader.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/loader.o src/loader.cpp
 
 ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
