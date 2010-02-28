@@ -14,7 +14,10 @@
 struct light
 {
 public:
-
+  //Position
+  point3d pos;
+  //diffuse Leuchtstärke, farbspezifisch
+  rgb ld;
 };
 
 
