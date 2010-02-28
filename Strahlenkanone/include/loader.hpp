@@ -14,6 +14,10 @@
 class loader
 {
 public:
+
+    loader();
+
+    ~loader();
   //Lädt die in file übergebene Datei und initialisiert damit die world
   bool load(char file[], world& w);
 };

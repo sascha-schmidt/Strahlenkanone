@@ -4,8 +4,11 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+<<<<<<< HEAD:Strahlenkanone/nbproject/configurations.xml
       <itemPath>include/cube.hpp</itemPath>
       <itemPath>include/cuboid.hpp</itemPath>
+=======
+>>>>>>> aa9106e211296d5e30f13f601bfa4d44addec9e2:Strahlenkanone/nbproject/configurations.xml
       <itemPath>include/glutwindow.hpp</itemPath>
       <itemPath>include/light.hpp</itemPath>
       <itemPath>include/loader.hpp</itemPath>
@@ -29,6 +32,7 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>src/glutwindow.cpp</itemPath>
+      <itemPath>src/loader.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
       <itemPath>src/pixel.cpp</itemPath>
       <itemPath>src/ppmwriter.cpp</itemPath>
