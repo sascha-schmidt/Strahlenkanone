@@ -9,6 +9,7 @@
       <itemPath>include/material.hpp</itemPath>
       <itemPath>include/pixel.hpp</itemPath>
       <itemPath>include/ppmwriter.hpp</itemPath>
+      <itemPath>ray.hpp</itemPath>
       <itemPath>include/rgb.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
