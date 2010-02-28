@@ -1,0 +1,48 @@
+glwindow:
+Gibt das berechnete Bild auf dem Monitor aus
+
+eSDF-Loader:
+Lädt (e)SDF Dateien, parsed diese zu shapes, materials, lights und camera-Optionen
+
+ray:
+
+shade:
+
+world:
+Speichert die klassenübergreifend benötigten Variablen und Objekt und die gesamte darzustellende Szene. Es stellt eine Funktion zum Rendern der Szene bereit.
+
+shape:
+stellt ein abstraktes Interface für geometrische Objekte bereit und speichert in diesem Sinne eine Transformationsmatrix und ein Material
+
+cuboid:
+repräsentiert ein Quader und konkretisiert die Schnittpunktberechnung, die es aus shape übernimmt
+
+cube:
+repräsentiert einen Würfel und konkretisiert die Schnittpunktberechnung, die es aus shape übernimmt
+
+sphere:
+repräsentiert eine Kugel und konkretisiert die Schnittpunktberechnung, die es aus shape übernimmt
+
+triangle:
+repräsentiert ein beliebiges Dreieck im dreidimensionalen Raum und konkretisiert die Schnittpunktberechnung, die es aus shape übernimmt
+
+shape_composite:
+Stellt einen std::vector bereit in dem shapes, auch weitere shape_composites, aggregiert werden, erlaubt deren Verwaltung und reicht Funktionsaufrufe an diese weiter.
+
+material:
+Speichert die farbunterscheidenden Koeffizient für die ambiente, diffuse und spekulare Reflektion eines Objektes, sowie seinen Mattheitsgrad(Exponent für die spigelnde Reflexion)
+
+pixel:
+Repräsentiert die kleinsmögliche Ausgabeeinheit durch eine Farbe und zweidimensionale Koordinatenangabe
+
+RGB:
+Speichert eine Farbe(oder Koeffizienten s. material) in Werten von 0 bis 255.
+
+matrix:
+Speichert eine 4x4 Matrix und erlaubt unter Anderem Grundrechenarten, Verkettung/Multiplikation, Inversenbildung und Determinantenberechenung.
+
+vector3d:
+Speichert die Koordianten eines Vektors im Raum(+ homogene Koord.) und stellt dafür Grundrechenarten, Normalisierung, Längenberechnung, Skalar- und Kreuzprodukt etc. bereit.
+
+point3d:
+Speichert die Koordianten eines Punktes im Raum(+ homogene Koord.) und bietet ver. Berechnungen z.B. die Abstandsberechnung oder Grundrechenarten.
