@@ -64,27 +64,27 @@ dist/strahlenkanone: ${OBJECTFILES}
 ${OBJECTDIR}/src/rgb.o: nbproject/Makefile-${CND_CONF}.mk src/rgb.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../../include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rgb.o src/rgb.cpp
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../../include -I../libmath -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rgb.o src/rgb.cpp
 
 ${OBJECTDIR}/src/pixel.o: nbproject/Makefile-${CND_CONF}.mk src/pixel.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../../include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/pixel.o src/pixel.cpp
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../../include -I../libmath -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/pixel.o src/pixel.cpp
 
 ${OBJECTDIR}/src/glutwindow.o: nbproject/Makefile-${CND_CONF}.mk src/glutwindow.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../../include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/glutwindow.o src/glutwindow.cpp
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../../include -I../libmath -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/glutwindow.o src/glutwindow.cpp
 
 ${OBJECTDIR}/src/ppmwriter.o: nbproject/Makefile-${CND_CONF}.mk src/ppmwriter.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../../include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ppmwriter.o src/ppmwriter.cpp
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../../include -I../libmath -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ppmwriter.o src/ppmwriter.cpp
 
 ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../../include -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../../include -I../libmath -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:

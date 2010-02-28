@@ -5,6 +5,8 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>include/glutwindow.hpp</itemPath>
+      <itemPath>include/light.hpp</itemPath>
+      <itemPath>include/material.hpp</itemPath>
       <itemPath>include/pixel.hpp</itemPath>
       <itemPath>include/ppmwriter.hpp</itemPath>
       <itemPath>include/rgb.hpp</itemPath>
@@ -50,6 +52,7 @@
             <pElem>include</pElem>
             <pElem>/usr/include/boost</pElem>
             <pElem>../../../include</pElem>
+            <pElem>../libmath</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
