@@ -4,9 +4,9 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>include/Loader.hpp</itemPath>
       <itemPath>include/glutwindow.hpp</itemPath>
       <itemPath>include/light.hpp</itemPath>
+      <itemPath>include/loader.hpp</itemPath>
       <itemPath>include/material.hpp</itemPath>
       <itemPath>include/pixel.hpp</itemPath>
       <itemPath>include/ppmwriter.hpp</itemPath>
