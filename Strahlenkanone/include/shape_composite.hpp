@@ -8,7 +8,16 @@
 #ifndef _SHAPE_COMPOSITE_HPP
 #define	_SHAPE_COMPOSITE_HPP
 
+#include <shape.hpp>
+#include <vector>
 
+class shape_composite
+{
+public:
+
+private:
+
+};
 
 #endif	/* _SHAPE_COMPOSITE_HPP */
 
