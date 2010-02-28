@@ -11,12 +11,16 @@
 #include <shape.hpp>
 #include <vector>
 
+using namespace std;
+
 class shape_composite
 {
 public:
-
+  shape_composite();
+  ~shape_composite();
+  bool intersect(ray& r, shade& rec);
 private:
-
+  vector<shape*> data_;
 };
 
 #endif	/* _SHAPE_COMPOSITE_HPP */
