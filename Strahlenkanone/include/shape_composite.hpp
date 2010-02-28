@@ -13,7 +13,7 @@
 
 using namespace std;
 
-class shape_composite
+class shape_composite : public shape
 {
 public:
   shape_composite();

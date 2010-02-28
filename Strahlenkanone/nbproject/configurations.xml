@@ -4,9 +4,11 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>include/Loader.hpp</itemPath>
+      <itemPath>include/cube.hpp</itemPath>
+      <itemPath>include/cuboid.hpp</itemPath>
       <itemPath>include/glutwindow.hpp</itemPath>
       <itemPath>include/light.hpp</itemPath>
+      <itemPath>include/loader.hpp</itemPath>
       <itemPath>include/material.hpp</itemPath>
       <itemPath>include/pixel.hpp</itemPath>
       <itemPath>include/ppmwriter.hpp</itemPath>
@@ -15,6 +17,8 @@
       <itemPath>include/shade.hpp</itemPath>
       <itemPath>include/shape.hpp</itemPath>
       <itemPath>include/shape_composite.hpp</itemPath>
+      <itemPath>include/sphere.hpp</itemPath>
+      <itemPath>triangle.hpp</itemPath>
       <itemPath>include/world.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
