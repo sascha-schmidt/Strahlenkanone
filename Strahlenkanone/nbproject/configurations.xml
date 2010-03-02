@@ -4,7 +4,6 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>include/cube.hpp</itemPath>
       <itemPath>include/cuboid.hpp</itemPath>
       <itemPath>include/glutwindow.hpp</itemPath>
       <itemPath>include/light.hpp</itemPath>
@@ -28,6 +27,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>src/cuboid.cpp</itemPath>
       <itemPath>src/glutwindow.cpp</itemPath>
       <itemPath>src/loader.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
@@ -73,10 +73,12 @@
           <output>${CND_DISTDIR}/strahlenkanone</output>
           <linkerAddLib>
             <pElem>../../../lib</pElem>
+            <pElem>../libmath</pElem>
           </linkerAddLib>
           <linkerLibItems>
             <linkerLibLibItem>boost_thread-mt</linkerLibLibItem>
             <linkerLibLibItem>glut</linkerLibLibItem>
+            <linkerLibFileItem>../libmath/dist/Debug/GNU-Linux-x86/liblibmath.a</linkerLibFileItem>
           </linkerLibItems>
         </linkerTool>
         <requiredProjects>

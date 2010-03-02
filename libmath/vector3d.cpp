@@ -6,10 +6,10 @@
 
 vector3d::vector3d ()
 {
-  data_[0] = 0;
-  data_[1] = 0;
-  data_[2] = 0;
-  data_[3] = 0;   //homog. Koordi. bei Vektor immer 0
+  data_[0] = 0.0;
+  data_[1] = 0.0;
+  data_[2] = 0.0;
+  data_[3] = 0.0;   //homog. Koordi. bei Vektor immer 0
 }
 
 vector3d::vector3d (double x, double y, double z)
@@ -17,7 +17,7 @@ vector3d::vector3d (double x, double y, double z)
   data_[0] = x;
   data_[1] = y;
   data_[2] = z;
-  data_[3] = 0;   //homog. Koordi. bei Vektor immer 0
+  data_[3] = 0.0;   //homog. Koordi. bei Vektor immer 0
 }
 
 vector3d::vector3d (point3d const& eins, point3d const& zwei)
@@ -25,7 +25,7 @@ vector3d::vector3d (point3d const& eins, point3d const& zwei)
   data_[0] = (zwei[0] - eins[0]);
   data_[1] = (zwei[1] - eins[1]);
   data_[2] = (zwei[2] - eins[2]);
-  data_[3] = 0;   //homog. Koordi. bei Vektor immer 0
+  data_[3] = 0.0;   //homog. Koordi. bei Vektor immer 0
 }
 
 vector3d::~vector3d ()

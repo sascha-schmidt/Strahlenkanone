@@ -4,10 +4,10 @@
 
 point3d::point3d ()
 {
-  data_[0] = 0;
-  data_[1] = 0;
-  data_[2] = 0;
-  data_[3] = 1;   //homog. Koordi. bei Punkt immer 1
+  data_[0] = 0.0;
+  data_[1] = 0.0;
+  data_[2] = 0.0;
+  data_[3] = 1.0;   //homog. Koordi. bei Punkt immer 1
 }
 
 point3d::point3d (double x, double y, double z)
@@ -15,7 +15,7 @@ point3d::point3d (double x, double y, double z)
   data_[0] = x;
   data_[1] = y;
   data_[2] = z;
-  data_[3] = 1;   //homog. Koordi. bei Punkt immer 1
+  data_[3] = 1.0;   //homog. Koordi. bei Punkt immer 1
 }
 
 point3d::~point3d ()

@@ -8,9 +8,11 @@
 #ifndef _SHADE_HPP
 #define	_SHADE_HPP
 
-#include "world.hpp"
+//#include "world.hpp"
 #include <material.hpp>
 #include <vector3d.hpp>
+
+class world;
 
 //Struktur zum Speichern der beim intersect gewonnen Informationen
 struct shade
@@ -20,7 +22,7 @@ public:
   //Pointer aufs Material:
   material& material_ref;
   //Referenz zur Welt, ermöglicht Zugriff auf ihre Member
-  //world& world_ref;
+  world* world_ptr;
   point3d hitpoint;
   //Normalvektor auf Schnittpunkt:
   vector3d n;

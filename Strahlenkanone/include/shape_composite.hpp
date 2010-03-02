@@ -8,12 +8,14 @@
 #ifndef _SHAPE_COMPOSITE_HPP
 #define	_SHAPE_COMPOSITE_HPP
 
+
 #include <vector>
 #include <ray.hpp>
-#include "shape.hpp"
-#include "shade.hpp"
+#include <shade.hpp>
+#include <shape.hpp>
 
-class shape_composite //: public shape
+
+class shape_composite : public shape
 {
 public:
   shape_composite();
@@ -23,5 +25,5 @@ private:
   std::vector<shape*> data_;
 };
 
-#endif	/* _SHAPE_COMPOSITE_HPP */
+#endif	/* _SCOMPOSITE_HPP */
 

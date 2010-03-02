@@ -11,16 +11,18 @@
 #include <shape.hpp>
 #include <ray.hpp>
 #include <shade.hpp>
+#include "point3d.hpp"
 
 //Axis Aligned Box = achsenparalleler Quader
 class cuboid : public shape
 {
 public:
+  cuboid(point3d a, point3d b);
   bool intersect(ray& r, shade& rec);
 
 private:
-  point3d fll_;
-  point3d bur_;
+  point3d fll_; // front lower left
+  point3d bur_; // back upper right
 };
 
 #endif	/* _CUBOID_HPP */
