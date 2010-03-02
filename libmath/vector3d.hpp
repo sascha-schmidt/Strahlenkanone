@@ -42,9 +42,14 @@ private:
 };
 
 double dot(vector3d const& lhs, vector3d const& rhs);
+double dot(point3d const& lhs, vector3d const& rhs);
+double dot(vector3d const& lhs, point3d const& rhs);
 
 //kreuz
 vector3d cross(vector3d const& lhs, vector3d const& rhs);
+//Pseudo eigentliche Berechnung zw. Vektor Ursprung->Punkt und dem anderen Vektor:
+vector3d cross(point3d const& lhs, vector3d const& rhs);
+vector3d cross(point3d const& lhs, point3d const& rhs);
 
 //externe Operatoren
 vector3d operator+(vector3d const& lhs, vector3d const& rhs);

@@ -71,8 +71,42 @@ double dot(vector3d const& lhs, vector3d const& rhs)
   //da 4rte Koordinate 0 muss sie nicht berücksichtig werden
 }
 
+double dot(point3d const& lhs, vector3d const& rhs)
+{
+  return ((lhs[0] * rhs[0]) + (lhs[1] * rhs[1]) + (lhs[2] * rhs[2]));
+  //da 4rte Koordinate 0 muss sie nicht berücksichtig werden
+}
+
+double dot(vector3d const& lhs, point3d const& rhs)
+{
+  return ((lhs[0] * rhs[0]) + (lhs[1] * rhs[1]) + (lhs[2] * rhs[2]));
+  //da 4rte Koordinate 0 muss sie nicht berücksichtig werden
+}
+
 vector3d
 cross(vector3d const& lhs, vector3d const& rhs)
+{
+  //
+  double a = (lhs[1] * rhs[2]) - (lhs[2] * rhs[1]);
+  double b = (lhs[2] * rhs[0]) - (lhs[0] * rhs[2]);
+  double c = (lhs[0] * rhs[1]) - (lhs[1] * rhs[0]);
+  return vector3d(a, b, c);
+  //da 4rte Koordinate 0 muss sie nicht berücksichtig werden
+}
+
+vector3d
+cross(point3d const& lhs, vector3d const& rhs)
+{
+  //
+  double a = (lhs[1] * rhs[2]) - (lhs[2] * rhs[1]);
+  double b = (lhs[2] * rhs[0]) - (lhs[0] * rhs[2]);
+  double c = (lhs[0] * rhs[1]) - (lhs[1] * rhs[0]);
+  return vector3d(a, b, c);
+  //da 4rte Koordinate 0 muss sie nicht berücksichtig werden
+}
+
+vector3d
+cross(vector3d const& lhs, point3d const& rhs)
 {
   //
   double a = (lhs[1] * rhs[2]) - (lhs[2] * rhs[1]);

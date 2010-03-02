@@ -8,19 +8,19 @@
 #ifndef _SHAPE_COMPOSITE_HPP
 #define	_SHAPE_COMPOSITE_HPP
 
-#include <shape.hpp>
 #include <vector>
+#include <ray.hpp>
+#include "shape.hpp"
+#include "shade.hpp"
 
-using namespace std;
-
-class shape_composite : public shape
+class shape_composite //: public shape
 {
 public:
   shape_composite();
   ~shape_composite();
-  bool intersect(ray& r, shade& rec);
+  bool intersect(ray& r, shade &rec);
 private:
-  vector<shape*> data_;
+  std::vector<shape*> data_;
 };
 
 #endif	/* _SHAPE_COMPOSITE_HPP */

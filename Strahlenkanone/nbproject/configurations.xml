@@ -18,7 +18,7 @@
       <itemPath>include/shape.hpp</itemPath>
       <itemPath>include/shape_composite.hpp</itemPath>
       <itemPath>include/sphere.hpp</itemPath>
-      <itemPath>triangle.hpp</itemPath>
+      <itemPath>include/triangle.hpp</itemPath>
       <itemPath>include/world.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -34,6 +34,8 @@
       <itemPath>src/pixel.cpp</itemPath>
       <itemPath>src/ppmwriter.cpp</itemPath>
       <itemPath>src/rgb.cpp</itemPath>
+      <itemPath>src/sphere.cpp</itemPath>
+      <itemPath>src/triangle.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -64,6 +66,7 @@
             <pElem>/usr/include/boost</pElem>
             <pElem>../../../include</pElem>
             <pElem>../libmath</pElem>
+            <pElem>src</pElem>
           </incDir>
         </ccTool>
         <linkerTool>

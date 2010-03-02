@@ -8,7 +8,7 @@
 #ifndef _SHADE_HPP
 #define	_SHADE_HPP
 
-#include <world.hpp>
+#include "world.hpp"
 #include <material.hpp>
 #include <vector3d.hpp>
 
@@ -18,9 +18,9 @@ struct shade
 public:
   bool didhit; //Haben wir überhaupt getroffen
   //Pointer aufs Material:
-  material* material_ptr;
+  material& material_ref;
   //Referenz zur Welt, ermöglicht Zugriff auf ihre Member
-  world& world_ref;
+  //world& world_ref;
   point3d hitpoint;
   //Normalvektor auf Schnittpunkt:
   vector3d n;

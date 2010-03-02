@@ -35,7 +35,9 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/glutwindow.o \
 	${OBJECTDIR}/src/loader.o \
 	${OBJECTDIR}/main.o \
+	${OBJECTDIR}/src/sphere.o \
 	${OBJECTDIR}/src/rgb.o \
+	${OBJECTDIR}/src/triangle.o \
 	${OBJECTDIR}/src/ppmwriter.o
 
 # C Compiler Flags
@@ -82,10 +84,20 @@ ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
 
+${OBJECTDIR}/src/sphere.o: nbproject/Makefile-${CND_CONF}.mk src/sphere.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/sphere.o src/sphere.cpp
+
 ${OBJECTDIR}/src/rgb.o: nbproject/Makefile-${CND_CONF}.mk src/rgb.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rgb.o src/rgb.cpp
+
+${OBJECTDIR}/src/triangle.o: nbproject/Makefile-${CND_CONF}.mk src/triangle.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/triangle.o src/triangle.cpp
 
 ${OBJECTDIR}/src/ppmwriter.o: nbproject/Makefile-${CND_CONF}.mk src/ppmwriter.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src

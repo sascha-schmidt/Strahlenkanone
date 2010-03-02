@@ -13,19 +13,18 @@
 #include <shape_composite.hpp>
 #include <vector>
 
-using namespace std;
-
 class world
 {
 public:
+  world();
   //initialisierung für loader
-  bool init(double c, shape_composite sc, vector<light> l, rgb b);
+  bool init(double c, shape_composite sc, std::vector<light> l, rgb b);
   //Bildberechnung. Vorläufig später Auslagerung in raytracer.hpp/cpp
   bool render();
 
 private:
   //Vector mit allen Lichtern
-  vector<light> lights_;
+  std::vector<light> lights_;
   //Composite mit allen Objekten
   shape_composite master_;
   //Kameraöffnungswinkel

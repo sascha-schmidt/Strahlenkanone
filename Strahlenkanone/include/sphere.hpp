@@ -12,10 +12,14 @@
 #include <ray.hpp>
 #include <shade.hpp>
 
-class cube : public shape
+class sphere : public shape
 {
 public:
   bool intersect(ray& r, shade& rec);
+
+private:
+  point3d center_;
+  double radius_;
 };
 
 #endif	/* _SPHERE_HPP */

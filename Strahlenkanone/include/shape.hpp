@@ -14,16 +14,17 @@
 #include <point3d.hpp>
 #include <utility>
 
-using namespace std;
-
 //abstrakte Oberklasse für geometrische Objekte
 class shape
 {
 public:
   virtual bool intersect(ray& r, shade& rec)=0;
+
+  material getmater(){return mater_;};
+
 private:
   //Bounding Box
-  pair<point3d, point3d> bbox_;
+  std::pair<point3d, point3d> bbox_;
   //Transformationsmatrix
   matrix tform_;
   material mater_;
