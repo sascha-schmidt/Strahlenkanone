@@ -20,7 +20,16 @@ public:
   //spekularer Koeffizient
   rgb ks;
   //Spiegelungsexponent
-  float m;
+  double m;
+
+  material(rgb a, rgb b, rgb c, double d)
+  : ka(a), kd(b), ks(c), m(d)
+  {
+  }
+  material()
+  : ka(), kd(), ks(), m()
+  {
+  }
 };
 
 #endif	/* _MATERIAL_HPP */

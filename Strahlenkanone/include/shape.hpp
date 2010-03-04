@@ -18,9 +18,19 @@
 class shape
 {
 public:
+  shape():bbox_(), tform_(), mater_(){};
+  shape(material m): bbox_(), tform_(), mater_(m){};
+  ~shape(){}
+
   virtual bool intersect(ray& r, shade& rec)=0;
 
   material getmater(){return mater_;};
+
+  virtual bool translate(double x, double y, double z)=0;
+  virtual bool scale(double x, double y, double z)=0;
+  virtual bool rotatex(double angle)=0;
+  virtual bool rotatey(double angle)=0;
+  virtual bool rotatez(double angle)=0;
 
 private:
   //Bounding Box

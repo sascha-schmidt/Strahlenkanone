@@ -32,11 +32,13 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/pixel.o \
+	${OBJECTDIR}/src/world.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/src/rgb.o \
 	${OBJECTDIR}/src/triangle.o \
 	${OBJECTDIR}/src/ppmwriter.o \
 	${OBJECTDIR}/src/cuboid.o \
+	${OBJECTDIR}/src/shape_composite.o \
 	${OBJECTDIR}/src/glutwindow.o \
 	${OBJECTDIR}/src/loader.o \
 	${OBJECTDIR}/src/sphere.o
@@ -70,6 +72,11 @@ ${OBJECTDIR}/src/pixel.o: nbproject/Makefile-${CND_CONF}.mk src/pixel.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/pixel.o src/pixel.cpp
 
+${OBJECTDIR}/src/world.o: nbproject/Makefile-${CND_CONF}.mk src/world.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/world.o src/world.cpp
+
 ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
@@ -94,6 +101,11 @@ ${OBJECTDIR}/src/cuboid.o: nbproject/Makefile-${CND_CONF}.mk src/cuboid.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/cuboid.o src/cuboid.cpp
+
+${OBJECTDIR}/src/shape_composite.o: nbproject/Makefile-${CND_CONF}.mk src/shape_composite.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/shape_composite.o src/shape_composite.cpp
 
 ${OBJECTDIR}/src/glutwindow.o: nbproject/Makefile-${CND_CONF}.mk src/glutwindow.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src

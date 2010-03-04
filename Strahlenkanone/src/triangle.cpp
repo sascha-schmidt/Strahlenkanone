@@ -2,6 +2,18 @@
 #include <math.h>
 #include <vector3d.hpp>
 
+triangle::triangle(point3d q, point3d w, point3d e, material m)
+: a_(q), b_(w), c_(e), shape(m)
+{
+}
+
+triangle::triangle(double x1, double x2, double x3, double y1, double y2,
+                   double y3, double z1, double z2, double z3, material m)
+: a_(point3d(x1,y1,z1)), b_(point3d(x1,y1,z1)), c_(point3d(x1,y1,z1)), shape(m)
+{
+}
+
+
 bool
 triangle::intersect(ray& r, shade& rec)
 {
@@ -60,5 +72,63 @@ triangle::intersect(ray& r, shade& rec)
     rec.material_ref = getmater();
     rec.hitpoint = p;
     rec.n = normal;
+    return (true);
   }
+  return (false);
+}
+
+
+bool
+triangle::translate(double x, double y, double z)
+{
+  matrix temp;
+  temp = make_translation(x,y,z);
+  a_ = temp * a_;
+  b_ = temp * b_;
+  c_ = temp * c_;
+  return (true);
+}
+
+bool
+triangle::scale(double x, double y, double z)
+{
+  matrix temp;
+  temp = make_scale(x,y,z);
+  a_ = temp * a_;
+  b_ = temp * b_;
+  c_ = temp * c_;
+  return (true);
+}
+
+bool
+triangle::rotatex(double angle)
+{
+  matrix temp;
+  temp = make_rotation_x(angle);
+  a_ = temp * a_;
+  b_ = temp * b_;
+  c_ = temp * c_;
+  return (true);
+}
+
+bool
+triangle::rotatey(double angle)
+{
+  matrix temp;
+  temp = make_rotation_y(angle);
+  a_ = temp * a_;
+  b_ = temp * b_;
+  c_ = temp * c_;
+  return (true);
+}
+
+bool
+triangle::rotatez(double angle)
+{
+  matrix temp;
+  temp = make_rotation_z(angle);
+  a_ = temp * a_;
+  b_ = temp * b_;
+  c_ = temp * c_;
+  return (true);
 }

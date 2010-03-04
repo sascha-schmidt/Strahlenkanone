@@ -18,6 +18,16 @@ public:
   point3d pos;
   //diffuse Leuchtstärke, farbspezifisch
   rgb ld;
+
+  light(point3d p, rgb l)
+  : pos(p), ld(l)
+  {
+  }
+  
+  light(double x, double y, double z, rgb l)
+  : pos(point3d(x,y,z)), ld(l)
+  {
+  }
 };
 
 

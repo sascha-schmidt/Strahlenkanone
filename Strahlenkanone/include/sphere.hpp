@@ -15,7 +15,16 @@
 class sphere : public shape
 {
 public:
+  sphere(point3d c, double r, material m);
+  sphere(double x, double y, double z, double r, material m);
+  ~sphere();
   bool intersect(ray& r, shade& rec);
+
+  bool translate(double x, double y, double z);
+  bool scale(double x, double y, double z);
+  bool rotatex(double angle);
+  bool rotatey(double angle);
+  bool rotatez(double angle);
 
 private:
   point3d center_;

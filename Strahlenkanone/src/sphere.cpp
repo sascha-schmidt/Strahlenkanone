@@ -2,6 +2,16 @@
 #include "material.hpp"
 #include <math.h>
 
+sphere::sphere(point3d c, double r, material m)
+: center_(c), radius_(r), shape(m)
+{
+}
+
+sphere::sphere(double x, double y, double z, double r, material m)
+: center_(point3d(x,y,z)), radius_(r), shape(m)
+{
+}
+
 bool
 sphere::intersect(ray& r, shade& rec)
 { //Nach http://www.cs.princeton.edu/courses/archive/fall00/cs426/lectures/raycast/sld013.htm
@@ -41,6 +51,46 @@ sphere::intersect(ray& r, shade& rec)
     vector3d normal(center_, Pmin);
     normal.normalize();
     rec.n = normal;
+    return (true);
   }
+  return (false);
+}
+
+bool
+sphere::translate(double x, double y, double z)
+{
+  matrix temp;
+  temp = make_translation(x,y,z);
+  center_ = temp * center_;
   return (true);
+}
+
+bool
+sphere::scale(double x, double y, double z)
+{
+
+  double m = x + y + z / 3;
+  radius_ *=  m;
+  matrix temp;
+  temp = make_scale(x,y,z);
+  center_ = temp * center_;
+  return (true);
+}
+
+bool
+sphere::rotatex(double angle)
+{
+  //hier nix
+}
+
+bool
+sphere::rotatey(double angle)
+{
+  //da nix
+}
+
+bool
+sphere::rotatez(double angle)
+{
+  //hier erst recht nicht
 }

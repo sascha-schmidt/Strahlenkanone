@@ -20,7 +20,19 @@ class shape_composite : public shape
 public:
   shape_composite();
   ~shape_composite();
+
+  //operator= Standardzuweisungsoperator reicht
+
   bool intersect(ray& r, shade &rec);
+
+  void add(shape* s);
+
+  bool translate(double x, double y, double z);
+  bool scale(double x, double y, double z);
+  bool rotatex(double angle);
+  bool rotatey(double angle);
+  bool rotatez(double angle);
+
 private:
   std::vector<shape*> data_;
 };
