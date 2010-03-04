@@ -16,7 +16,8 @@ sphere::sphere(double x, double y, double z, double r, material m)
 
 bool
 sphere::intersect(ray& r, shade& rec)
-{ //Nach http://www.cs.princeton.edu/courses/archive/fall00/cs426/lectures/raycast/sld013.htm
+{ //if(bboxintersect(r)) nicht nötig, weil so genauso schnell
+  //Nach http://www.cs.princeton.edu/courses/archive/fall00/cs426/lectures/raycast/sld013.htm
   //Vector vom Strahlenursprung zum Mittelpunkt
   vector3d abstand(r.ori, center_);
   //Faktor der der Länge des Abstandes auf dem Strahl entspricht

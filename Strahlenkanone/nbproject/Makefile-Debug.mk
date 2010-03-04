@@ -35,6 +35,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/world.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/src/rgb.o \
+	${OBJECTDIR}/src/shape.o \
 	${OBJECTDIR}/src/triangle.o \
 	${OBJECTDIR}/src/ppmwriter.o \
 	${OBJECTDIR}/src/cuboid.o \
@@ -88,6 +89,11 @@ ${OBJECTDIR}/src/rgb.o: nbproject/Makefile-${CND_CONF}.mk src/rgb.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../include -I../libmath -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rgb.o src/rgb.cpp
+
+${OBJECTDIR}/src/shape.o: nbproject/Makefile-${CND_CONF}.mk src/shape.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../../include -I../libmath -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/shape.o src/shape.cpp
 
 ${OBJECTDIR}/src/triangle.o: nbproject/Makefile-${CND_CONF}.mk src/triangle.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
