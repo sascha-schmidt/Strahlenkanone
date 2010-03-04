@@ -23,6 +23,8 @@ public:
 
   //operator= Standardzuweisungsoperator reicht
 
+  void bbox();
+
   bool intersect(ray& r, shade &rec);
 
   void add(shape* s);
