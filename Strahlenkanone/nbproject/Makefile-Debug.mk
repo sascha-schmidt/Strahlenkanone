@@ -57,7 +57,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L../../../lib -L../libmath -lboost_thread-mt -lglut ../libmath/dist/Debug/GNU-Linux-x86/liblibmath.a
+LDLIBSOPTIONS=-L../../lib -L../libmath -lboost_thread-mt -lglut ../libmath/dist/Debug/GNU-Linux-x86/liblibmath.a
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -72,57 +72,57 @@ dist/strahlenkanone: ${OBJECTFILES}
 ${OBJECTDIR}/src/pixel.o: nbproject/Makefile-${CND_CONF}.mk src/pixel.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../../include -I../libmath -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/pixel.o src/pixel.cpp
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../include -I../libmath -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/pixel.o src/pixel.cpp
 
 ${OBJECTDIR}/src/world.o: nbproject/Makefile-${CND_CONF}.mk src/world.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../../include -I../libmath -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/world.o src/world.cpp
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../include -I../libmath -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/world.o src/world.cpp
 
 ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../../include -I../libmath -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../include -I../libmath -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
 
 ${OBJECTDIR}/src/rgb.o: nbproject/Makefile-${CND_CONF}.mk src/rgb.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../../include -I../libmath -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rgb.o src/rgb.cpp
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../include -I../libmath -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rgb.o src/rgb.cpp
 
 ${OBJECTDIR}/src/triangle.o: nbproject/Makefile-${CND_CONF}.mk src/triangle.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../../include -I../libmath -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/triangle.o src/triangle.cpp
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../include -I../libmath -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/triangle.o src/triangle.cpp
 
 ${OBJECTDIR}/src/ppmwriter.o: nbproject/Makefile-${CND_CONF}.mk src/ppmwriter.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../../include -I../libmath -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ppmwriter.o src/ppmwriter.cpp
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../include -I../libmath -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ppmwriter.o src/ppmwriter.cpp
 
 ${OBJECTDIR}/src/cuboid.o: nbproject/Makefile-${CND_CONF}.mk src/cuboid.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../../include -I../libmath -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/cuboid.o src/cuboid.cpp
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../include -I../libmath -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/cuboid.o src/cuboid.cpp
 
 ${OBJECTDIR}/src/shape_composite.o: nbproject/Makefile-${CND_CONF}.mk src/shape_composite.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../../include -I../libmath -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/shape_composite.o src/shape_composite.cpp
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../include -I../libmath -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/shape_composite.o src/shape_composite.cpp
 
 ${OBJECTDIR}/src/glutwindow.o: nbproject/Makefile-${CND_CONF}.mk src/glutwindow.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../../include -I../libmath -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/glutwindow.o src/glutwindow.cpp
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../include -I../libmath -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/glutwindow.o src/glutwindow.cpp
 
 ${OBJECTDIR}/src/loader.o: nbproject/Makefile-${CND_CONF}.mk src/loader.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../../include -I../libmath -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/loader.o src/loader.cpp
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../include -I../libmath -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/loader.o src/loader.cpp
 
 ${OBJECTDIR}/src/sphere.o: nbproject/Makefile-${CND_CONF}.mk src/sphere.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../../include -I../libmath -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/sphere.o src/sphere.cpp
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../include -I../libmath -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/sphere.o src/sphere.cpp
 
 # Subprojects
 .build-subprojects:

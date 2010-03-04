@@ -67,7 +67,7 @@
           <incDir>
             <pElem>include</pElem>
             <pElem>/usr/include/boost</pElem>
-            <pElem>../../../include</pElem>
+            <pElem>../../include</pElem>
             <pElem>../libmath</pElem>
             <pElem>src</pElem>
           </incDir>
@@ -75,7 +75,7 @@
         <linkerTool>
           <output>${CND_DISTDIR}/strahlenkanone</output>
           <linkerAddLib>
-            <pElem>../../../lib</pElem>
+            <pElem>../../lib</pElem>
             <pElem>../libmath</pElem>
           </linkerAddLib>
           <linkerLibItems>
