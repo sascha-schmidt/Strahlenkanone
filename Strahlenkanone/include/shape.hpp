@@ -12,7 +12,9 @@
 #include <matrix.hpp>
 #include <shade.hpp>
 #include <point3d.hpp>
-#include <utility>
+#include <algorithm>
+
+typedef std::pair<point3d, point3d> ppp;
 
 //abstrakte Oberklasse für geometrische Objekte
 class shape
@@ -24,7 +26,11 @@ public:
 
   virtual bool intersect(ray& r, shade& rec)=0;
 
-  material getmater(){return mater_;};
+  material getmater() const{return mater_;};
+
+  virtual void bbox()=0;
+  ppp getbbox() const {return bbox_;};
+  void setbbox(ppp b){bbox_ = b;};
 
   virtual bool translate(double x, double y, double z)=0;
   virtual bool scale(double x, double y, double z)=0;
@@ -34,7 +40,7 @@ public:
 
 private:
   //Bounding Box
-  std::pair<point3d, point3d> bbox_;
+  ppp bbox_;
   //Transformationsmatrix
   matrix tform_;
   material mater_;

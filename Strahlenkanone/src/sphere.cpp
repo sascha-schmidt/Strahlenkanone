@@ -5,11 +5,13 @@
 sphere::sphere(point3d c, double r, material m)
 : center_(c), radius_(r), shape(m)
 {
+  bbox();
 }
 
 sphere::sphere(double x, double y, double z, double r, material m)
 : center_(point3d(x,y,z)), radius_(r), shape(m)
 {
+  bbox();
 }
 
 bool
@@ -62,6 +64,7 @@ sphere::translate(double x, double y, double z)
   matrix temp;
   temp = make_translation(x,y,z);
   center_ = temp * center_;
+  bbox();
   return (true);
 }
 
@@ -74,6 +77,7 @@ sphere::scale(double x, double y, double z)
   matrix temp;
   temp = make_scale(x,y,z);
   center_ = temp * center_;
+  bbox();
   return (true);
 }
 
@@ -93,4 +97,21 @@ bool
 sphere::rotatez(double angle)
 {
   //hier erst recht nicht
+}
+
+void
+sphere::bbox()
+{
+  point3d mini;
+  point3d maxi;
+  ppp temp;
+  mini[0] = center_[0] - radius_;
+  mini[1] = center_[1] - radius_;
+  mini[2] = center_[2] - radius_;
+  maxi[0] = center_[0] + radius_;
+  maxi[1] = center_[1] + radius_;
+  maxi[2] = center_[2] + radius_;
+  temp.first = mini;
+  temp.second = maxi;
+  setbbox(temp);
 }

@@ -22,6 +22,8 @@ public:
   ~triangle();
   bool intersect(ray& r, shade& rec);
 
+  void bbox();
+
   bool translate(double x, double y, double z);
   bool scale(double x, double y, double z);
   bool rotatex(double angle);

@@ -5,12 +5,14 @@
 triangle::triangle(point3d q, point3d w, point3d e, material m)
 : a_(q), b_(w), c_(e), shape(m)
 {
+  bbox();
 }
 
 triangle::triangle(double x1, double x2, double x3, double y1, double y2,
                    double y3, double z1, double z2, double z3, material m)
 : a_(point3d(x1,y1,z1)), b_(point3d(x1,y1,z1)), c_(point3d(x1,y1,z1)), shape(m)
 {
+  bbox();
 }
 
 
@@ -86,6 +88,7 @@ triangle::translate(double x, double y, double z)
   a_ = temp * a_;
   b_ = temp * b_;
   c_ = temp * c_;
+  bbox();
   return (true);
 }
 
@@ -97,6 +100,7 @@ triangle::scale(double x, double y, double z)
   a_ = temp * a_;
   b_ = temp * b_;
   c_ = temp * c_;
+  bbox();
   return (true);
 }
 
@@ -108,6 +112,7 @@ triangle::rotatex(double angle)
   a_ = temp * a_;
   b_ = temp * b_;
   c_ = temp * c_;
+  bbox();
   return (true);
 }
 
@@ -119,6 +124,7 @@ triangle::rotatey(double angle)
   a_ = temp * a_;
   b_ = temp * b_;
   c_ = temp * c_;
+  bbox();
   return (true);
 }
 
@@ -130,5 +136,23 @@ triangle::rotatez(double angle)
   a_ = temp * a_;
   b_ = temp * b_;
   c_ = temp * c_;
+  bbox();
   return (true);
+}
+
+void
+triangle::bbox()
+{
+  point3d mini;
+  point3d maxi;
+  ppp temp;
+  mini[0] = std::min(a_[0], std::min(b_[0], c_[0]));
+  mini[0] = std::min(a_[1], std::min(b_[1], c_[1]));
+  mini[0] = std::min(a_[2], std::min(b_[2], c_[2]));
+  maxi[0] = std::max(a_[0], std::max(b_[0], c_[0]));
+  maxi[0] = std::max(a_[1], std::max(b_[1], c_[1]));
+  maxi[0] = std::max(a_[2], std::max(b_[2], c_[2]));
+  temp.first = mini;
+  temp.second = maxi;
+  setbbox(temp);
 }

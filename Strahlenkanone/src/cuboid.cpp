@@ -11,6 +11,7 @@ cuboid::cuboid(point3d a, point3d b, material m)
   assert(a[0] < b[0]);
   assert(a[1] < b[1]);
   assert(a[2] < b[2]);
+  bbox();
 }
 
 cuboid::cuboid(double x1,double y1,double z1,double x2,double y2,double z2, material m)
@@ -19,6 +20,7 @@ cuboid::cuboid(double x1,double y1,double z1,double x2,double y2,double z2, mate
   assert(fll_[0] < bur_[0]);
   assert(fll_[1] < bur_[1]);
   assert(fll_[2] < bur_[2]);
+  bbox();
 }
 
 bool
@@ -132,6 +134,7 @@ cuboid::translate(double x, double y, double z)
   temp = make_translation(x,y,z);
   fll_ = temp * fll_;
   bur_ = temp * bur_;
+  bbox();
   return true;
 }
 
@@ -142,6 +145,7 @@ cuboid::scale(double x, double y, double z)
   temp = make_scale(x,y,z);
   fll_ = temp * fll_;
   bur_ = temp * bur_;
+  bbox();
   return true;
 }
 
@@ -152,6 +156,7 @@ cuboid::rotatex(double angle)
   temp = make_rotation_x(angle);
   fll_ = temp * fll_;
   bur_ = temp * bur_;
+  bbox();
   return true;
 }
 
@@ -162,6 +167,7 @@ cuboid::rotatey(double angle)
   temp = make_rotation_y(angle);
   fll_ = temp * fll_;
   bur_ = temp * bur_;
+  bbox();
   return true;
 }
 
@@ -172,5 +178,15 @@ cuboid::rotatez(double angle)
   temp = make_rotation_z(angle);
   fll_ = temp * fll_;
   bur_ = temp * bur_;
+  bbox();
   return true;
+}
+
+void
+cuboid::bbox()
+{
+  ppp temp;
+  temp.first = fll_;
+  temp.second = bur_;
+  setbbox(temp);
 }

@@ -93,5 +93,16 @@ shape_composite::translate(double x, double y, double z)
 void
 shape_composite::bbox()
 {
-  
+  ppp temp;
+  for(std::vector<shape*>::iterator i = data_.begin(); i != data_.end(); std::advance(i ,1))
+  {
+    ppp akt = (*i)->getbbox();
+    temp.first[0] = std::min(temp.first[0], akt.first[0]);
+    temp.first[1] = std::min(temp.first[1], akt.first[1]);
+    temp.first[2] = std::min(temp.first[2], akt.first[2]);
+    temp.second[0] = std::max(temp.second[0], akt.second[0]);
+    temp.second[1] = std::max(temp.second[1], akt.second[1]);
+    temp.second[2] = std::max(temp.second[2], akt.second[2]);
+  }
+  setbbox(temp);
 }
