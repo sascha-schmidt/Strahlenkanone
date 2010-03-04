@@ -570,3 +570,8 @@ make_rotation_z(double rot)
     0.0, 0.0, 0.0, 1.0};
   return temp;
 }
+
+matrix
+make_rotation(double a, double x, double y, double z)
+{
+}

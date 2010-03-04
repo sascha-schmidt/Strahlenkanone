@@ -87,6 +87,7 @@ matrix         make_scale       ( vector3d const& );
 matrix         make_rotation_x  ( double );
 matrix         make_rotation_y  ( double );
 matrix         make_rotation_z  ( double );
+matrix         make_rotation  ( double a, double x, double y, double z);
 
 double         determinant      ( matrix const& );
 matrix         inverse          ( matrix const& );

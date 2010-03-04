@@ -20,6 +20,7 @@ struct shade
 public:
   bool didhit; //Haben wir überhaupt getroffen
   //Pointer aufs Material:
+  material nothing;
   material& material_ref;
   //Referenz zur Welt, ermöglicht Zugriff auf ihre Member
   world* world_ptr;
@@ -28,6 +29,10 @@ public:
   vector3d n;
   //Abstand des Punktes zur Kamera um den sichtbaren Schnittpunkt zu ermitteln
   double distance;
+
+  shade()
+  :didhit(false), material_ref(nothing), world_ptr(0), hitpoint(), n(), distance()
+  {}
 };
 
 #endif	/* _SHADE_HPP */

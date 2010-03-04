@@ -27,10 +27,13 @@ shape_composite::add(shape* s)
 bool 
 shape_composite::intersect(ray& r, shade &rec)
 {
-  bool temp;
-  for(std::vector<shape*>::iterator i = data_.begin(); i != data_.end(); std::advance(i ,1))
+  bool temp = false;
+  if(bboxintersect(r))
   {
-    temp = temp || (*i)->intersect(r, rec);
+    for(std::vector<shape*>::iterator i = data_.begin(); i != data_.end(); std::advance(i ,1))
+    {
+      temp = temp || (*i)->intersect(r, rec);
+    }
   }
   return temp;
 }

@@ -26,11 +26,12 @@ public:
 
   virtual bool intersect(ray& r, shade& rec)=0;
 
-  material getmater() const{return mater_;};
+  material getmater() const; //getter für material
 
   virtual void bbox()=0;
-  ppp getbbox() const {return bbox_;};
-  void setbbox(ppp b){bbox_ = b;};
+  ppp getbbox() const;
+  void setbbox(ppp b);
+  bool bboxintersect(ray &r);
 
   virtual bool translate(double x, double y, double z)=0;
   virtual bool scale(double x, double y, double z)=0;

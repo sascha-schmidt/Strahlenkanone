@@ -35,6 +35,7 @@
       <itemPath>src/pixel.cpp</itemPath>
       <itemPath>src/ppmwriter.cpp</itemPath>
       <itemPath>src/rgb.cpp</itemPath>
+      <itemPath>src/shape.cpp</itemPath>
       <itemPath>src/shape_composite.cpp</itemPath>
       <itemPath>src/sphere.cpp</itemPath>
       <itemPath>src/triangle.cpp</itemPath>

@@ -26,6 +26,7 @@ cuboid::cuboid(double x1,double y1,double z1,double x2,double y2,double z2, mate
 bool
 cuboid::intersect(ray& r, shade& rec)
 {
+  //if(bboxintersect(r)) nicht nötig, weil so genauso schnell
   //Berechnung mittels slopes
   //Begrenzung des Richtungsvektors auf den Wertebereich des Cuboid durch
   //Einschränkung der Faktoren für jede Koordinate einzeln
