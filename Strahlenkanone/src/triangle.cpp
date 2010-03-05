@@ -108,6 +108,18 @@ triangle::scale(double x, double y, double z)
 }
 
 bool
+triangle::rotate(double a, double x, double y, double z)
+{
+  matrix temp;
+  temp = make_rotation(a, x ,y ,z);
+  a_ = temp * a_;
+  b_ = temp * b_;
+  c_ = temp * c_;
+  bbox();
+  return (true);
+}
+
+bool
 triangle::rotatex(double angle)
 {
   matrix temp;

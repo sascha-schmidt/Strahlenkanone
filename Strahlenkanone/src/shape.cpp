@@ -19,8 +19,13 @@ shape::setbbox(ppp b)
 }
 
 bool
-shape::bboxintersect(ray& r)
+shape::bboxintersect(ray r)
 {
+  if(tform_ != matrix()) //Wenn es sich nicht um die Einheitsmatrix handelt
+  {
+    r.ori = tform_ * r.ori;     //transformation auf den Ray anwenden
+    r.dir = tform_ * r.dir;
+  }
   //s. cuboid.cpp
   vector3d tmin(0.0, 0.0, 0.0);
   vector3d tmax(0.0, 0.0, 0.0);
@@ -80,4 +85,24 @@ shape::bboxintersect(ray& r)
     return (true);
   }
   return (false);
+}
+
+matrix const&
+shape::gettform() const
+{
+  return tform_;
+}
+
+matrix const&
+shape::gettformi() const
+{
+  return tformi_;
+}
+
+void
+shape::settform(matrix m)
+{
+  tform_ = m;
+  m.invert();
+  tformi_ = m;
 }

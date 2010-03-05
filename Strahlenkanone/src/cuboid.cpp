@@ -151,6 +151,17 @@ cuboid::scale(double x, double y, double z)
 }
 
 bool
+cuboid::rotate(double a, double x, double y, double z)
+{
+  matrix temp;
+  temp = make_rotation(a, x, y, z);
+  fll_ = temp * fll_;
+  bur_ = temp * bur_;
+  bbox();
+  return true;
+}
+
+bool
 cuboid::rotatex(double angle)
 {
   matrix temp;

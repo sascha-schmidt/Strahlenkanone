@@ -31,10 +31,15 @@ public:
   virtual void bbox()=0;
   ppp getbbox() const;
   void setbbox(ppp b);
-  bool bboxintersect(ray &r);
+  bool bboxintersect(ray r); //ray per Kopie für transform
+
+  matrix const& gettform() const;
+  matrix const& gettformi()  const;
+  void settform(matrix m);
 
   virtual bool translate(double x, double y, double z)=0;
   virtual bool scale(double x, double y, double z)=0;
+  virtual bool rotate (double a, double x, double y, double z)=0;
   virtual bool rotatex(double angle)=0;
   virtual bool rotatey(double angle)=0;
   virtual bool rotatez(double angle)=0;
@@ -44,6 +49,7 @@ private:
   ppp bbox_;
   //Transformationsmatrix
   matrix tform_;
+  matrix tformi_;
   material mater_;
 };
 
