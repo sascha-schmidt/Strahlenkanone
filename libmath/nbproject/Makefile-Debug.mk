@@ -80,7 +80,7 @@ ${OBJECTDIR}/vector3d.o: nbproject/Makefile-${CND_CONF}.mk vector3d.cpp
 .build-subprojects:
 
 # Clean Targets
-.clean-conf:
+.clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r build/Debug
 	${RM} dist/Debug/GNU-Linux-x86/liblibmath.a
 

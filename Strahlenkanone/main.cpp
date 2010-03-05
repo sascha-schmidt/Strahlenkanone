@@ -6,6 +6,8 @@
 #include <boost/thread/thread.hpp>
 #include <boost/bind.hpp>
 
+#include "loader.hpp"
+
 #ifdef __APPLE__
 #include <GLUT/glut.h>
 #else
@@ -18,7 +20,16 @@ class rt_application
 {
 public:
 
-  //
+  bool loadsdf(char file[]) const
+  {
+    loader l;
+    world w;
+
+    bool result = l.load(file, w);
+
+    return result;
+  }
+
 
   void raytrace() const
   {
@@ -78,6 +89,11 @@ int main(int argc, char* argv[])
 
   // create a ray tracing application
   rt_application app;
+
+  // load sdf file
+  bool result = app.loadsdf(argv[1]);
+  if (!result) std::exit(1);
+  
 
   // start computation in thread
   boost::thread thr(boost::bind(&rt_application::raytrace, &app));
