@@ -36,6 +36,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/src/rgb.o \
 	${OBJECTDIR}/src/shape.o \
+	${OBJECTDIR}/src/factory.o \
 	${OBJECTDIR}/src/triangle.o \
 	${OBJECTDIR}/src/ppmwriter.o \
 	${OBJECTDIR}/src/cuboid.o \
@@ -93,7 +94,12 @@ ${OBJECTDIR}/src/rgb.o: nbproject/Makefile-${CND_CONF}.mk src/rgb.cpp
 ${OBJECTDIR}/src/shape.o: nbproject/Makefile-${CND_CONF}.mk src/shape.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../../include -I../libmath -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/shape.o src/shape.cpp
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../include -I../libmath -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/shape.o src/shape.cpp
+
+${OBJECTDIR}/src/factory.o: nbproject/Makefile-${CND_CONF}.mk src/factory.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/boost -I../../include -I../libmath -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/factory.o src/factory.cpp
 
 ${OBJECTDIR}/src/triangle.o: nbproject/Makefile-${CND_CONF}.mk src/triangle.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src

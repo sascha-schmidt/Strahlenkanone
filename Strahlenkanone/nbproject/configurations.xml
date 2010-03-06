@@ -46,6 +46,8 @@
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>src/factory.cpp</itemPath>
+    <itemPath>include/factory.hpp</itemPath>
   </logicalFolder>
   <sourceRootList>
     <Elem>.</Elem>

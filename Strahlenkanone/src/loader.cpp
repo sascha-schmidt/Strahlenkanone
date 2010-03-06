@@ -66,7 +66,7 @@ loader::load(char file[], world& w)
 
   rgb la=rgb(0.0, 0.0, 0.0);
 
-  double fov_x;
+  double fov_x = 45.0;
 
 
   int i=0;
@@ -316,12 +316,15 @@ loader::load(char file[], world& w)
 
       */
 
+      /*
       if (string == "camera")
       {
         std::string cam_name;
         f >> cam_name >> fov_x;
         std::cout << "camera->" << cam_name << "->" << fov_x << std::endl;
       }
+       *
+       */
 
       if (string == "render")
       {
@@ -335,6 +338,13 @@ loader::load(char file[], world& w)
         std::cout << "render->" << cam_name << "->" << filename << std::endl;
 
       }
+
+      else
+      {
+          std::string empty;
+          std::getline(f, empty);
+      }
+
 
 
     }
