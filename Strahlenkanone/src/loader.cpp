@@ -30,15 +30,44 @@ loader::~loader()
 {
 }
 
+void
+loader::tokenize(const std::string str, std::vector<std::string>& tokens, const std::string& delimiters = " ")
+{
+   // Skip delimiters at beginning.
+   std::string::size_type lastPos = str.find_first_not_of(delimiters, 0);
+   // Find first "non-delimiter".
+   std::string::size_type pos     = str.find_first_of(delimiters, lastPos);
+   
+   while (std::string::npos != pos || std::string::npos != lastPos)
+   {
+      // Found a token, add it to the vector.
+     tokens.push_back(str.substr(lastPos, pos - lastPos));
+     // Skip delimiters.  Note the "not_of"
+     lastPos = str.find_first_not_of(delimiters, pos);
+     // Find next "non-delimiter"
+     pos = str.find_first_of(delimiters, lastPos);
+    
+   }
+}
+
 bool
 loader::load(char file[], world& w)
 {
 
   std::map<std::string, shape*> shapes;
   std::map<std::string, shape*>::iterator it_shape;
-  std::map<std::string, light> lights;
   std::map<std::string, material> materials;
   std::map<std::string, material>::iterator it_mat;
+
+  shape_composite sc;
+
+  std::vector<light> lights;
+
+  rgb background = rgb(0.0, 0.0, 0.0);
+  
+  rgb la = rgb(0.0,0.0,0.0);
+
+  double fov_x;
 
 
   int i = 0;
@@ -93,15 +122,15 @@ loader::load(char file[], world& w)
         if (string == "camera")
         {
           std::string cam_name;
-          double fov_x;
-          f >> cam_name; fov_x;
-          std::cout << "camera->" << cam_name << std::endl;
+          f >> cam_name >> fov_x;
+          std::cout << "camera->" << cam_name << "->" << fov_x << std::endl;
 
         }
 
         if (string == "light")
         {
           f >> string;
+          std::cout << "light->";
 
           /*
            * R G B
@@ -109,27 +138,33 @@ loader::load(char file[], world& w)
            */
           if (string == "diffuse")
           {
+
             std::string light_name;
             point3d light_pos;
-            double la_r, la_g, la_b;
             double ld_r, ld_g, ld_b;
 
             f >> light_name >>
-                    light_pos[0] >> light_pos[1] >> light_pos[2] >> la_r >> la_g >> la_b >> ld_r >> ld_g >> ld_b;
+                    light_pos[0] >> light_pos[1] >> light_pos[2] >> ld_r >> ld_g >> ld_b;
 
-            rgb la = rgb(la_r, la_g, la_b);
+            
             rgb ld = rgb(ld_r, ld_g, ld_b);
+
+            light l = light(light_pos, ld);
+            lights.push_back(l);
+
+            std::cout << "diffuse->" << light_name << std::endl;
           }
+
           if (string == "ambient")
           {
             std::string light_name;
             double la_r, la_g, la_b;
-            double ld_r, ld_g, ld_b;
 
-            f >> light_name >> la_r >> la_g >> la_b >> ld_r >> ld_g >> ld_b;
+            f >> light_name >> la_r >> la_g >> la_b;
+            la += rgb(la_r, la_g, la_b);
 
-            rgb la = rgb(la_r, la_g, la_b);
-            rgb ld = rgb(ld_r, ld_g, ld_b);
+            std::cout << "ambient->" << light_name << std::endl;
+            
           }
         }
 
@@ -156,10 +191,9 @@ loader::load(char file[], world& w)
             shapes.insert(std::pair<std::string, shape*>(name, c));
 
             std::cout << "box->" << name << std::endl;
-
-
       
           }
+
 
           if (string == "sphere")
           {
@@ -209,51 +243,52 @@ loader::load(char file[], world& w)
 
             f >> name;
 
+            std::cout << "composite->" << name;
+
+            
             std::string line;
-            while (std::getline(f, line))
-            {
-              std::cout << "boo" << std::endl;
-              f >> child;
-              children.push_back(child);
-            }
+            std::getline(f, line);
 
-            shape_composite *sc = new shape_composite;
+           tokenize(line, children, " ");
 
-            std::cout << "composite->" << name << "->";
+          
+                 
 
             for(std::vector<std::string>::iterator i = children.begin(); i != children.end(); std::advance(i ,1))
             {
-              it_shape = shapes.find(*i);
 
-              std::cout << (*it_shape).first;
+             std::cout  << "->" << (*i);
+             it_shape = shapes.find(*i);
+             sc.add((*it_shape).second);
+           }
 
-              sc->add((*it_shape).second);
-            }
+           // TODO mehrere composites
+           
+           //shapes.insert(std::pair<std::string, shape*>(name, sc));
 
-            shapes.insert(std::pair<std::string, shape*>(name, sc));
-
-            std::cout << std::endl;
-
-
+           std::cout << std::endl;
 
           }
+
         }
+
+        /*
         if (string == "transform")
         {
          
-         f >> string;
+          f >> string;
 
-         if (string == "translate")
-         {
-            vector3d offset;
-            f >> offset[0] >> offset[1] >> offset[2];
+          if (string == "translate")
+          {
+              vector3d offset;
+              f >> offset[0] >> offset[1] >> offset[2];
           }
 
-         if (string == "rotate")
-         {
-           double angle;
-           vector3d v;
-           f >> angle >> v[0] >> v[1] >> v[2];
+          if (string == "rotate")
+          {
+              double angle;
+              vector3d v;
+              f >> angle >> v[0] >> v[1] >> v[2];
 
          }
          if (string == "scale")
@@ -262,27 +297,30 @@ loader::load(char file[], world& w)
            f >> value;
          }
 
-      }
+        }
+        */
 
       if (string == "render")
       {
-         std::cout << "render" << std::endl;
+         
          std::string cam_name;
          std::string filename;
          int x_res;
          int y_res;
 
          f >> cam_name >> filename >> x_res >> y_res;
+         std::cout << "render->"<< cam_name <<"->" << filename << std::endl;
 
       }
     }
 
    }
-    
-    return 1;
+
   }
+  bool result =  w.init(fov_x, sc, lights, background, la);
+  return result;
   // Wenn die Datei nicht geoeffnet werden konnte,
-  std::cerr << "Datei konnte nicht geoeffnet werden" << std::endl;
-  return 0;
+  //std::cerr << "Datei konnte nicht geoeffnet werden" << std::endl;
+  //return 0;
 
 }

@@ -10,10 +10,10 @@ shape_composite::shape_composite()
 
 shape_composite::~shape_composite()
 {
-  for(std::vector<shape*>::iterator i = data_.begin(); i != data_.end(); std::advance(i ,1))
-  {
-    delete (*i);
-  }
+  //for(std::vector<shape*>::iterator i = data_.begin(); i != data_.end(); std::advance(i ,1))
+  //{
+  //  delete (*i);
+  //}
   //composite selber liegt im Stack und ist damit weg
 }
 

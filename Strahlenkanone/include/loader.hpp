@@ -20,6 +20,7 @@ public:
     ~loader();
   //Lädt die in file übergebene Datei und initialisiert damit die world
   bool load(char file[], world& w);
+  void tokenize(const std::string, std::vector<std::string>&, const std::string&);
 };
 
 #endif	/* _ESDF_LOADER_HPP */
