@@ -1,6 +1,7 @@
 #include "triangle.hpp"
 #include <math.h>
 #include <vector3d.hpp>
+#include <iostream>
 
 triangle::triangle(point3d q, point3d w, point3d e, material const& m)
 : a_(q), b_(w), c_(e), shape(m)
@@ -15,12 +16,16 @@ triangle::triangle(double x1, double x2, double x3, double y1, double y2,
   bbox();
 }
 
+triangle::~triangle()
+{
+}
 
 bool
 triangle::intersect(ray& r, shade& rec)
 {
-  if(bboxintersect(r))
-  {
+
+//  if(bboxintersect(r))
+//  {
     //Als erstes brauchen wir den normalen Vektor
     vector3d eineseite(a_, b_);
     vector3d andereseite(a_, c_);
@@ -78,7 +83,7 @@ triangle::intersect(ray& r, shade& rec)
       rec.n = normal;
       return (true);
     }
-  }
+//  }
   return (false);
 }
 

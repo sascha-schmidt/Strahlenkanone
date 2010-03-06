@@ -31,7 +31,6 @@ bool
 cuboid::intersect(ray& r, shade& rec)
 {
   //if(bboxintersect(r)) nicht nötig, weil so genauso schnell
-  //Berechnung mittels slopes
   //Begrenzung des Richtungsvektors auf den Wertebereich des Cuboid durch
   //Einschränkung der Faktoren für jede Koordinate einzeln
   //Speicherung des max. und min. Faktors für jede Koordinate in Vektor
@@ -118,15 +117,15 @@ cuboid::intersect(ray& r, shade& rec)
       if(tmin[2] == tminmax && z_inv >= 0.0){normal[2] = 1;}  //    +z
       if(tmin[2] == tminmax && z_inv < 0.0){normal[2] = -1;}    //  -z
     }
-  }
-  //das heißt noch lange nicht, das es der naheliegendste Schnittpunkt ist
-  if(!rec.didhit || distance(r.ori, p) < rec.distance)
-  {
-    rec.didhit = true; //Juchu getroffen
-    rec.material_ref = getmater();
-    rec.hitpoint = p;
-    rec.n = normal;
-    return (true);
+    //das heißt noch lange nicht, das es der naheliegendste Schnittpunkt ist
+    if(!rec.didhit || distance(r.ori, p) < rec.distance)
+    {
+      rec.didhit = true; //Juchu getroffen
+      rec.material_ref = getmater();
+      rec.hitpoint = p;
+      rec.n = normal;
+      return (true);
+    }
   }
  return (false);
 }

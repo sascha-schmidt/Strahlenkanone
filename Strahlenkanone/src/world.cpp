@@ -36,11 +36,12 @@ world::init(double const c, shape_composite const sc, std::vector<light> const l
 bool world::render()
 {
   material m;
-  sphere s(point3d(5.0, 5.0, -5), 10, m);
-  cuboid c(point3d(-100.0, -100.0, -10.0), point3d(100.0, 100.0, -5.0), m);
+  sphere s(point3d(0.0, 0.0, 99), 35, m);
+  cuboid c(point3d(-10.0, -10.0, 50.0), point3d(10.0, 10.0, 51.0), m);
+  c.rotatey(0.5);
+  triangle t(point3d(-100.0, -100.0, 80.0), point3d(100.0, 100.0, 90.0), point3d(85.0, 150.0, 90.0)  ,m);
   ray r;
   r.dir = vector3d(0.0, 0.0, -1.0);
-  shade sh;
   glutwindow& gw=glutwindow::instance();
   for (std::size_t y=0; y < gw.height(); ++y)
   {
@@ -50,16 +51,16 @@ bool world::render()
       double ux = ( y - (0.5 * (400 - 1)));
       double uy = ( x - (0.5 * (400 - 1)));
       r.ori = point3d(ux, uy, 100.0);
+      shade sh;
       if(c.intersect(r, sh))
       {
-        std::cout << "intersect" << std::endl;
+        std::cout << "intersect bei" << x << ":" << y << std::endl;
         p.color = rgb(255,0,255);
       }
       else
       {
         p.color = rgb(0,0,0);
       }
-      std::cout << "bb" << std::endl;
       gw.write(p);
     }
   }
