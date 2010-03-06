@@ -13,13 +13,15 @@
 #include "triangle.hpp"
 #include <iostream>
 
+#include <iostream>
+
 world::world()
 : lights_(), master_(), camera_fov_(), bg_(), x_(640), y_(480), ambient_()
 {
 }
 
 bool
-world::init(double c, shape_composite sc, std::vector<light> l, rgb b, rgb a)
+world::init(double const c, shape_composite const sc, std::vector<light> const l, rgb const a, rgb const b)
 {
   assert(c > 0);
   camera_fov_ = c;
