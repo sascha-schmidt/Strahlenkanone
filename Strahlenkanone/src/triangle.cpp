@@ -2,14 +2,14 @@
 #include <math.h>
 #include <vector3d.hpp>
 
-triangle::triangle(point3d q, point3d w, point3d e, material m)
+triangle::triangle(point3d q, point3d w, point3d e, material const& m)
 : a_(q), b_(w), c_(e), shape(m)
 {
   bbox();
 }
 
 triangle::triangle(double x1, double x2, double x3, double y1, double y2,
-                   double y3, double z1, double z2, double z3, material m)
+                   double y3, double z1, double z2, double z3, material const& m)
 : a_(point3d(x1,y1,z1)), b_(point3d(x1,y1,z1)), c_(point3d(x1,y1,z1)), shape(m)
 {
   bbox();

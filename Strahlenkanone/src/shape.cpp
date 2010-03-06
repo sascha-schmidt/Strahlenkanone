@@ -1,5 +1,16 @@
 #include "shape.hpp"
 
+shape::shape()
+:bbox_(), tform_(), mater_()
+{}
+
+shape::shape(material const& m)
+: bbox_(), tform_(), mater_(m){}
+
+shape::~shape()
+{}
+
+
 material
 shape::getmater() const
 {

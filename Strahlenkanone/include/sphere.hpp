@@ -15,8 +15,9 @@
 class sphere : public shape
 {
 public:
-  sphere(point3d c, double r, material m);
-  sphere(double x, double y, double z, double r, material m);
+
+  sphere(point3d c, double r, material const& m);
+  sphere(double x, double y, double z, double r, material const& m);
   ~sphere();
   bool intersect(ray& r, shade& rec);
 

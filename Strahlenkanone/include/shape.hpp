@@ -20,9 +20,9 @@ typedef std::pair<point3d, point3d> ppp;
 class shape
 {
 public:
-  shape():bbox_(), tform_(), mater_(){};
-  shape(material m): bbox_(), tform_(), mater_(m){};
-  ~shape(){}
+  shape();
+  shape(material const& m);
+  ~shape();
 
   virtual bool intersect(ray& r, shade& rec)=0;
 
