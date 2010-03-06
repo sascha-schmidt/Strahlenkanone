@@ -62,7 +62,7 @@ loader::load(char file[], world& w)
       // std::cerr << string << std::endl;
       if (string == "define")
       {
-        std::cout << "define" << std::endl;
+        std::cout << "define->";
         f >> string;
 
         if (string == "material")
@@ -86,6 +86,7 @@ loader::load(char file[], world& w)
           material mat = material(ka, kd, ks, m);
           
           materials.insert(std::pair<std::string, material>(mat_name, mat));
+          std::cout << "material->" << mat_name << std::endl;
 
         }
 
@@ -94,6 +95,7 @@ loader::load(char file[], world& w)
           std::string cam_name;
           double fov_x;
           f >> cam_name; fov_x;
+          std::cout << "camera->" << cam_name << std::endl;
 
         }
 
@@ -134,7 +136,7 @@ loader::load(char file[], world& w)
         if (string == "shape")
         {
 
-          std::cout << "shape" << std::endl;
+          std::cout << "shape->";
           f >> string;
 
           if (string == "box")
@@ -152,6 +154,8 @@ loader::load(char file[], world& w)
             cuboid *c = new cuboid(p1, p2, (*it_mat).second);
 
             shapes.insert(std::pair<std::string, shape*>(name, c));
+
+            std::cout << "box->" << name << std::endl;
 
 
       
@@ -173,6 +177,7 @@ loader::load(char file[], world& w)
 
             shapes.insert(std::pair<std::string, shape*>(name, s));
 
+            std::cout << "sphere->" << name << std::endl;
 
           }
 
@@ -192,6 +197,8 @@ loader::load(char file[], world& w)
 
             shapes.insert(std::pair<std::string, shape*>(name, t));
 
+            std::cout << "triangle->" << name << std::endl;
+
           }
 
           if (string == "composite")
@@ -202,37 +209,38 @@ loader::load(char file[], world& w)
 
             f >> name;
 
-            while (f >> child )
+            std::string line;
+            while (std::getline(f, line))
             {
+              std::cout << "boo" << std::endl;
               f >> child;
               children.push_back(child);
             }
 
             shape_composite *sc = new shape_composite;
 
+            std::cout << "composite->" << name << "->";
 
             for(std::vector<std::string>::iterator i = children.begin(); i != children.end(); std::advance(i ,1))
             {
               it_shape = shapes.find(*i);
+
+              std::cout << (*it_shape).first;
 
               sc->add((*it_shape).second);
             }
 
             shapes.insert(std::pair<std::string, shape*>(name, sc));
 
+            std::cout << std::endl;
+
 
 
           }
         }
-
-      }
-
-     if (string == "transform")
-     {
-         std::cout << "transform" << std::endl;
-         std::string name;
-         f >> name;
-
+        if (string == "transform")
+        {
+         
          f >> string;
 
          if (string == "translate")
@@ -248,7 +256,6 @@ loader::load(char file[], world& w)
            f >> angle >> v[0] >> v[1] >> v[2];
 
          }
-
          if (string == "scale")
          {
            double value;
@@ -268,10 +275,9 @@ loader::load(char file[], world& w)
          f >> cam_name >> filename >> x_res >> y_res;
 
       }
-      else { std::cout << "unwichtige zeile" << std::endl; }
-      std::cout << "zeile: " << i << std::endl;
-      i = i+1;
     }
+
+   }
     
     return 1;
   }
