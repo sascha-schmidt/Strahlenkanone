@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <matrix.hpp>
 
-cuboid::cuboid(point3d a, point3d b, material m)
+cuboid::cuboid(point3d a, point3d b, material const& m)
 : fll_(a), bur_(b), shape(m)
 {
   assert(a[0] < b[0]);
@@ -14,13 +14,17 @@ cuboid::cuboid(point3d a, point3d b, material m)
   bbox();
 }
 
-cuboid::cuboid(double x1,double y1,double z1,double x2,double y2,double z2, material m)
+cuboid::cuboid(double x1,double y1,double z1,double x2,double y2,double z2, material const& m)
 : fll_(point3d(x1,y1,z1)), bur_(point3d(x2,y2,z2)), shape(m)
 {
   assert(fll_[0] < bur_[0]);
   assert(fll_[1] < bur_[1]);
   assert(fll_[2] < bur_[2]);
   bbox();
+}
+
+cuboid::~cuboid()
+{
 }
 
 bool

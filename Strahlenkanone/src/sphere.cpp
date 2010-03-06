@@ -3,16 +3,20 @@
 #include <math.h>
 #include <iostream>
 
-sphere::sphere(point3d c, double r, material m)
+sphere::sphere(point3d c, double r, material const& m)
 : center_(c), radius_(r), shape(m)
 {
   bbox();
 }
 
-sphere::sphere(double x, double y, double z, double r, material m)
+sphere::sphere(double x, double y, double z, double r, material const& m)
 : center_(point3d(x,y,z)), radius_(r), shape(m)
 {
   bbox();
+}
+
+sphere::~sphere()
+{
 }
 
 bool
