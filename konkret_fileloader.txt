@@ -1,0 +1,21 @@
+-fileloader wird von der main aufgerufen und kriegt das argv, das hoffentlich der Name einer Datei ist, übergeben
+-lädt die Datei
+-parsed die Informationen zeilenweise und:
+  speicher materials in einer map mit name->material
+  
+  berechnet aus den Koordinaten die Inversmatritzen für die shapes
+  speichert shapes in einer map mit name->shape
+  
+  führt die shapes in composites zusammen
+  
+  wendet transformationsmatritzen auf shapes/shape_composites an
+  
+  speichert das ambiente Licht und die diffusen
+  
+  berechnet aus den kameraeigenschaften eine inversmatrix für die gesamte Szene
+  
+  wendet transformationsmatritzen für die Kamera an(invers auf die Welt)
+  
+  speichert Auflösung und Dateiname
+  
+-Übergibt die geparsten Informationen an die world::init() und return 0 wenn Fehler aufgetreten sind
