@@ -5,7 +5,7 @@
 #include <iostream>
 #include <boost/thread/thread.hpp>
 #include <boost/bind.hpp>
-
+#include "world.hpp"
 #include "loader.hpp"
 
 #ifdef __APPLE__
@@ -91,18 +91,19 @@ int main(int argc, char* argv[])
   rt_application app;
 
   // load sdf file
-  bool result = app.loadsdf(argv[1]);
-  if (!result) std::exit(1);
+//  bool result = app.loadsdf(argv[1]);
+//  if (!result) std::exit(1);
   
 
   // start computation in thread
-  boost::thread thr(boost::bind(&rt_application::raytrace, &app));
-
+  //boost::thread thr(boost::bind(&rt_application::raytrace, &app));
+  world one;
+  one.render();
   // start output on glutwindow
   glutwindow::instance().run();
 
   // wait on thread
-  thr.join();
+  //thr.join();
 
   return 0;
 }

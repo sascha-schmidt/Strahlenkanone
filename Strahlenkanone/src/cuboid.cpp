@@ -23,6 +23,10 @@ cuboid::cuboid(double x1,double y1,double z1,double x2,double y2,double z2, mate
   bbox();
 }
 
+cuboid::~cuboid()
+{
+}
+
 bool
 cuboid::intersect(ray& r, shade& rec)
 {

@@ -15,6 +15,10 @@ sphere::sphere(double x, double y, double z, double r, material const& m)
   bbox();
 }
 
+sphere::~sphere()
+{
+}
+
 bool
 sphere::intersect(ray& r, shade& rec)
 {   //if(bboxintersect(r)) nicht nötig, weil so genauso schnell

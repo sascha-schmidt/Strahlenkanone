@@ -18,7 +18,7 @@ class world
 public:
   world();
   //initialisierung für loader
-  bool init(double c, shape_composite sc, std::vector<light> l, rgb b);
+  bool init(double c, shape_composite sc, std::vector<light> l, rgb b, rgb a);
   //Bildberechnung. Vorläufig später Auslagerung in raytracer.hpp/cpp
   bool render();
 
@@ -31,6 +31,9 @@ private:
   double camera_fov_;
   //Hintergrundfarbe:
   rgb bg_;
+  rgb ambient_;
+  unsigned x_; //Abmessung der Ausgabe
+  unsigned y_;
 };
 
 #endif	/* _WORLD_HPP */
