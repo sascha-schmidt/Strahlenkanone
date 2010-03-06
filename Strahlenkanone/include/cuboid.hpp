@@ -26,6 +26,7 @@ public:
 
   bool translate(double x, double y, double z);
   bool scale(double x, double y, double z);
+  bool rotate (double a, double x, double y, double z);
   bool rotatex(double angle);
   bool rotatey(double angle);
   bool rotatez(double angle);

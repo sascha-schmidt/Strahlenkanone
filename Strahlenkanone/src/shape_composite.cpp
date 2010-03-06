@@ -39,6 +39,17 @@ shape_composite::intersect(ray& r, shade &rec)
 }
 
 bool
+shape_composite::rotate(double a, double x, double y, double z)
+{
+  bool temp;
+  for(std::vector<shape*>::iterator i = data_.begin(); i != data_.end(); std::advance(i ,1))
+  {
+    temp = temp && (*i)->rotate(a, x, y, z);
+  }
+  return temp;
+}
+
+bool
 shape_composite::rotatex(double angle)
 {
   bool temp;

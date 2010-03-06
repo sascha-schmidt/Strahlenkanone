@@ -1,0 +1,6 @@
+# we don't need build files or binaries 
+libmath/build/* 
+libmath/dist/*
+
+Strahlenkanone/dist/*
+Strahlenkanone/build/*
