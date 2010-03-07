@@ -33,6 +33,11 @@ public:
   shade()
   :didhit(false), material_ref(nothing), world_ptr(0), hitpoint(), n(), distance()
   {}
+
+  rgb color()
+  {
+    
+  }
 };
 
 #endif	/* _SHADE_HPP */

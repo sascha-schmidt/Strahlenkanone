@@ -24,6 +24,9 @@ public:
   //Bildberechnung. Vorläufig später Auslagerung in raytracer.hpp/cpp
   bool render();
 
+  unsigned getwidth();
+  unsigned getheigth();
+
 private:
   //Vector mit allen Lichtern
   std::vector<light> lights_;
@@ -34,8 +37,8 @@ private:
   //Hintergrundfarbe:
   rgb bg_;
   rgb ambient_;
-  unsigned x_; //Abmessung der Ausgabe
-  unsigned y_;
+  unsigned width_; //Abmessung der Ausgabe
+  unsigned heigth_;
 };
 
 #endif	/* _WORLD_HPP */

@@ -73,18 +73,11 @@ private: // attributes
 
 int main(int argc, char* argv[])
 {
-  // set resolution and checkersize
-  const std::size_t width=400;
-  const std::size_t height=400;
-
-  // create output window
-  glutwindow::init(width, height, 100, 100, "CheckerBoard", argc, argv);
-
   // create a ray tracing application
-  rt_application app;
+  //rt_application app;
+
 
   // load sdf file
-
   loader l;
   world one;
   
@@ -92,20 +85,16 @@ int main(int argc, char* argv[])
   if (!result) std::exit(1);
 
 
-  // start computation in thread
-  //boost::thread thr(boost::bind(&rt_application::raytrace, &app));
-  //world one;
   rgb full(255,255,255);
-  material red;
-  material green;
-  material blue;
+  rgb empty(0,0,0);
+  material red (full, empty, empty, 1);
+  material green (empty, full, empty, 1);
+  material blue (empty, empty, full, 1);
 
-  shape*  s = new sphere(point3d(0.0, 0.0, 99), 35, green);
-  shape*  c = new cuboid(point3d(-10.0, -10.0, 50.0), point3d(10.0, 10.0, 51.0), red);
-  shape*  t = new triangle(point3d(-170.0, -100.0, 90.0)
-          , point3d(100.0, -180.0, 90.0), point3d(180.0, 0.0, 90.0), blue);
-
-  c->rotatey(0.5);
+  shape*  s = new sphere(point3d(0.0, 0.0, -99), 35, green);
+  shape*  c = new cuboid(point3d(220.0, 100.0, -50.0), point3d(-210.0, 10.0, -51.0), red);
+  shape*  t = new triangle(point3d(-60.0, -240.0, -90.0)
+          , point3d(100.0, -240.0, -90.0), point3d(140.0, 240.0, -90.0), blue);
   
   shape_composite sc;
   sc.add(s);
@@ -116,7 +105,13 @@ int main(int argc, char* argv[])
   std::vector<light> vl;
   vl.push_back(li);
 
-  one.init(1.0, sc, vl, rgb(100.0,100.0,100.0), rgb(0.0,0.0,0.0));
+  // create output window
+  glutwindow::init(one.getwidth(), one.getheigth(), 100, 100, "CheckerBoard", argc, argv);
+
+
+  // start computation in thread
+  //boost::thread thr(boost::bind(&rt_application::raytrace, &app));
+  one.init(1.0, sc, vl, rgb(100,100,100), rgb(0,0,0));
   one.render();
   // start output on glutwindow
   glutwindow::instance().run();

@@ -32,7 +32,6 @@ shape_composite::intersect(ray& r, shade &rec)
   bool temp = false;
   if(bboxintersect(r))
   {
-    std::cout << "ping" << std::endl;
     for(std::vector<shape*>::iterator i = data_.begin(); i != data_.end(); std::advance(i ,1))
     {
       temp = temp || (*i)->intersect(r, rec);
