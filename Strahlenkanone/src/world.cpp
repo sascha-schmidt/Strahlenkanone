@@ -12,6 +12,7 @@
 #include "cuboid.hpp"
 #include "triangle.hpp"
 #include <iostream>
+#include "phong.hpp"
 
 #include <iostream>
 
@@ -44,6 +45,17 @@ world::getheigth()
   return heigth_;
 }
 
+rgb
+world::getambient()
+{
+  return ambient_;
+}
+
+rgb
+world::getbg()
+{
+  return bg_;
+}
 
 bool world::render()
 {
@@ -52,7 +64,9 @@ bool world::render()
 
   ray r;
   r.dir = vector3d(0.0, 0.0, -1.0);
-  
+
+  phong ph;
+
   for (std::size_t y=0; y < heigth_; ++y)
   {
     for (std::size_t x=0; x < width_; ++x)
@@ -63,10 +77,11 @@ bool world::render()
       double uy = ( x - (0.5 * (width_ - 1)));
       r.ori = point3d(ux, uy, 0.0);
       shade sh;
+      sh.world_ptr = this;
       if(master_.intersect(r, sh))
       {
         std::cout << "intersect bei" << x << ":" << y << std::endl;
-        p.color = rgb(255,0,255);
+        p.color = ph.color(sh);
       }
       else
       {

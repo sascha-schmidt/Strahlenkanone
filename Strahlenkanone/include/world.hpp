@@ -26,6 +26,8 @@ public:
 
   unsigned getwidth();
   unsigned getheigth();
+  rgb getambient();
+  rgb getbg();
 
 private:
   //Vector mit allen Lichtern

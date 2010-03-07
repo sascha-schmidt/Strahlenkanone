@@ -10,6 +10,7 @@
       <itemPath>include/light.hpp</itemPath>
       <itemPath>include/loader.hpp</itemPath>
       <itemPath>include/material.hpp</itemPath>
+      <itemPath>include/phong.hpp</itemPath>
       <itemPath>include/pixel.hpp</itemPath>
       <itemPath>include/ppmwriter.hpp</itemPath>
       <itemPath>include/ray.hpp</itemPath>
@@ -34,6 +35,7 @@
       <itemPath>src/glutwindow.cpp</itemPath>
       <itemPath>src/loader.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
+      <itemPath>src/phong.cpp</itemPath>
       <itemPath>src/pixel.cpp</itemPath>
       <itemPath>src/ppmwriter.cpp</itemPath>
       <itemPath>src/rgb.cpp</itemPath>

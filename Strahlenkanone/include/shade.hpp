@@ -11,6 +11,7 @@
 //#include "world.hpp"
 #include <material.hpp>
 #include <vector3d.hpp>
+#include "point3d.hpp"
 
 class world;
 
@@ -34,10 +35,6 @@ public:
   :didhit(false), material_ref(nothing), world_ptr(0), hitpoint(), n(), distance()
   {}
 
-  rgb color()
-  {
-    
-  }
 };
 
 #endif	/* _SHADE_HPP */

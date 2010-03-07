@@ -85,11 +85,9 @@ int main(int argc, char* argv[])
   if (!result) std::exit(1);
 
 
-  rgb full(255,255,255);
-  rgb empty(0,0,0);
-  material red (full, empty, empty, 1);
-  material green (empty, full, empty, 1);
-  material blue (empty, empty, full, 1);
+  material red   (rgb (1,0,0), rgb (1,0,0), rgb (1,0,0), 1);
+  material green (rgb (0,1,0), rgb (0,1,0), rgb (0,1,0), 1);
+  material blue  (rgb (0,0,1), rgb (0,0,1), rgb (0,0,1), 1);
 
   shape*  s = new sphere(point3d(0.0, 0.0, -99), 35, green);
   shape*  c = new cuboid(point3d(220.0, 100.0, -50.0), point3d(-210.0, 10.0, -51.0), red);
@@ -101,7 +99,7 @@ int main(int argc, char* argv[])
   sc.add(c);
   sc.add(t);
 
-  light li (point3d(100.0,0.0,0.0), rgb(255,255,255));
+  light li (point3d(100.0,0.0,0.0), rgb(1,1,1));
   std::vector<light> vl;
   vl.push_back(li);
 
@@ -111,7 +109,7 @@ int main(int argc, char* argv[])
 
   // start computation in thread
   //boost::thread thr(boost::bind(&rt_application::raytrace, &app));
-  one.init(1.0, sc, vl, rgb(100,100,100), rgb(0,0,0));
+  one.init(1.0, sc, vl, rgb(0.7,0.7,0.7), rgb(0,0,0));
   one.render();
   // start output on glutwindow
   glutwindow::instance().run();
