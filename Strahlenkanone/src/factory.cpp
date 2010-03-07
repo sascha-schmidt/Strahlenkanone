@@ -7,12 +7,3 @@
 
 #include "factory.hpp"
 
-factory::factory() {
-}
-
-factory::factory(const factory& orig) {
-}
-
-factory::~factory() {
-}
-

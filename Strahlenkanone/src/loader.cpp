@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <sstream> 
 #include <map>
 
 #include <loader.hpp>
@@ -82,16 +83,19 @@ loader::load(char file[], world& w)
     f.seekg(0L, std::ios::beg);
 
     // in einen string speichern
-    std::string string;
-
-    while (!f.eof())
+    while (f)
     {
-      f >> string;
+        std::string string;
+      std::string line;
+      std::getline(f, line);
+      std::istringstream iss(line);
+      
+      iss >> string;
       // std::cerr << string << std::endl;
       if (string == "define")
       {
         std::cout << "define->";
-        f >> string;
+        iss >> string;
 
         if (string == "material")
         {
@@ -101,7 +105,7 @@ loader::load(char file[], world& w)
           double ks_r, ks_g, ks_b;
           double m;
 
-          f >> mat_name >>
+          iss >> mat_name >>
                   ka_r >> ka_g >> ka_b >>
                   kd_r >> kd_g >> kd_b >>
                   kd_r >> ks_g >> ks_b >>
@@ -122,7 +126,7 @@ loader::load(char file[], world& w)
 
         if (string == "light")
         {
-          f >> string;
+          iss >> string;
           std::cout << "light->";
 
           /*
@@ -136,7 +140,7 @@ loader::load(char file[], world& w)
             point3d light_pos;
             double ld_r, ld_g, ld_b;
 
-            f >> light_name >>
+            iss >> light_name >>
                     light_pos[0] >> light_pos[1] >> light_pos[2] >> ld_r >> ld_g >> ld_b;
 
 
@@ -153,7 +157,7 @@ loader::load(char file[], world& w)
             std::string light_name;
             double la_r, la_g, la_b;
 
-            f >> light_name >> la_r >> la_g >> la_b;
+            iss >> light_name >> la_r >> la_g >> la_b;
             la+=rgb(la_r, la_g, la_b);
 
             std::cout << "ambient->" << light_name << std::endl;
@@ -165,7 +169,7 @@ loader::load(char file[], world& w)
         {
 
           std::cout << "shape->";
-          f >> string;
+          iss >> string;
 
           if (string == "box")
           {
@@ -174,7 +178,7 @@ loader::load(char file[], world& w)
             point3d p2;
             std::string mat_name;
 
-            f >> name >> p1[0] >> p1[1] >> p1[2] >> mat_name;
+            iss >> name >> p1[0] >> p1[1] >> p1[2] >> mat_name;
 
             it_mat=materials.find(mat_name);
 
@@ -195,7 +199,7 @@ loader::load(char file[], world& w)
             double radius;
             std::string mat_name;
 
-            f >> name >> center[0] >> center[1] >> center[2] >> radius >> mat_name;
+            iss >> name >> center[0] >> center[1] >> center[2] >> radius >> mat_name;
 
             it_mat=materials.find(mat_name);
 
@@ -216,7 +220,7 @@ loader::load(char file[], world& w)
             point3d p3;
             std::string mat_name;
 
-            f >> name >> p1[0] >> p1[1] >> p1[2] >> p2[0] >> p2[1] >> p2[2] >> p3[0] >> p3[1] >> p3[2] >> mat_name;
+            iss >> name >> p1[0] >> p1[1] >> p1[2] >> p2[0] >> p2[1] >> p2[2] >> p3[0] >> p3[1] >> p3[2] >> mat_name;
 
             it_mat=materials.find(mat_name);
 
@@ -234,15 +238,15 @@ loader::load(char file[], world& w)
             std::string child;
             std::vector<std::string> children;
 
-            f >> name;
+            iss >> name;
 
             std::cout << "composite->" << name;
 
 
-            std::string line;
-            std::getline(f, line);
+            std::string compline;
+            std::getline(f, compline);
 
-            tokenize(line, children, " ");
+            tokenize(compline, children, " ");
 
 
 
@@ -268,22 +272,22 @@ loader::load(char file[], world& w)
       }
 
 
-     /* if (string == "transform")
+      /*
+      if (string == "transform")
       {
 
         std::cout << "transform->";
         std::string name;
-        f >> name;
+        iss >> name;
 
         std::cout << name << "->";
         it_shape=shapes.find(name);
 
-        f >> string;
-
+        iss >> string;
         if (string == "translate")
         {
           vector3d offset;
-          f >> offset[0] >> offset[1] >> offset[2];
+          iss >> offset[0] >> offset[1] >> offset[2];
 
           it_shape->second->translate(offset[0], offset[1], offset[2]);
           std::cout << "translate" << std::endl;
@@ -293,7 +297,7 @@ loader::load(char file[], world& w)
         {
           double angle;
           vector3d v;
-          f >> angle >> v[0] >> v[1] >> v[2];
+          iss >> angle >> v[0] >> v[1] >> v[2];
 
           it_shape->second->rotate(angle, v[0], v[1], v[2]);
 
@@ -305,7 +309,7 @@ loader::load(char file[], world& w)
           double y;
           double z;
 
-          f >> x >> y >> z;
+          iss >> x >> y >> z;
 
           it_shape->second->scale(x, y, z);
 
@@ -313,18 +317,18 @@ loader::load(char file[], world& w)
         }
 
       }
-
       */
 
-      /*
+      
+
+      
       if (string == "camera")
       {
         std::string cam_name;
-        f >> cam_name >> fov_x;
+        iss >> cam_name >> fov_x;
         std::cout << "camera->" << cam_name << "->" << fov_x << std::endl;
       }
-       *
-       */
+      
 
       if (string == "render")
       {
@@ -334,18 +338,10 @@ loader::load(char file[], world& w)
         int x_res;
         int y_res;
 
-        f >> cam_name >> filename >> x_res >> y_res;
+        iss >> cam_name >> filename >> x_res >> y_res;
         std::cout << "render->" << cam_name << "->" << filename << std::endl;
 
       }
-
-      else
-      {
-          std::string empty;
-          std::getline(f, empty);
-      }
-
-
 
     }
 
