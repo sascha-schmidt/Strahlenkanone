@@ -5,6 +5,7 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>include/cuboid.hpp</itemPath>
+      <itemPath>include/factory.hpp</itemPath>
       <itemPath>include/glutwindow.hpp</itemPath>
       <itemPath>include/light.hpp</itemPath>
       <itemPath>include/loader.hpp</itemPath>
@@ -29,6 +30,7 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>src/cuboid.cpp</itemPath>
+      <itemPath>src/factory.cpp</itemPath>
       <itemPath>src/glutwindow.cpp</itemPath>
       <itemPath>src/loader.cpp</itemPath>
       <itemPath>main.cpp</itemPath>

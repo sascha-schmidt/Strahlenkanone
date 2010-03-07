@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <sstream> 
 #include <map>
 
 #include <loader.hpp>
@@ -21,7 +22,6 @@
 #include <sphere.hpp>
 #include <triangle.hpp>
 
-
 loader::loader()
 {
 }
@@ -31,23 +31,23 @@ loader::~loader()
 }
 
 void
-loader::tokenize(const std::string str, std::vector<std::string>& tokens, const std::string& delimiters = " ")
+loader::tokenize(const std::string str, std::vector<std::string>& tokens, const std::string& delimiters=" ")
 {
-   // Skip delimiters at beginning.
-   std::string::size_type lastPos = str.find_first_not_of(delimiters, 0);
-   // Find first "non-delimiter".
-   std::string::size_type pos     = str.find_first_of(delimiters, lastPos);
-   
-   while (std::string::npos != pos || std::string::npos != lastPos)
-   {
-      // Found a token, add it to the vector.
-     tokens.push_back(str.substr(lastPos, pos - lastPos));
-     // Skip delimiters.  Note the "not_of"
-     lastPos = str.find_first_not_of(delimiters, pos);
-     // Find next "non-delimiter"
-     pos = str.find_first_of(delimiters, lastPos);
-    
-   }
+  // Skip delimiters at beginning.
+  std::string::size_type lastPos=str.find_first_not_of(delimiters, 0);
+  // Find first "non-delimiter".
+  std::string::size_type pos=str.find_first_of(delimiters, lastPos);
+
+  while (std::string::npos != pos || std::string::npos != lastPos)
+  {
+    // Found a token, add it to the vector.
+    tokens.push_back(str.substr(lastPos, pos - lastPos));
+    // Skip delimiters.  Note the "not_of"
+    lastPos=str.find_first_not_of(delimiters, pos);
+    // Find next "non-delimiter"
+    pos=str.find_first_of(delimiters, lastPos);
+
+  }
 }
 
 bool
@@ -63,14 +63,14 @@ loader::load(char file[], world& w)
 
   std::vector<light> lights;
 
-  rgb background = rgb(0.0, 0.0, 0.0);
-  
-  rgb la = rgb(0.0,0.0,0.0);
+  rgb background=rgb(0.0, 0.0, 0.0);
 
-  double fov_x;
+  rgb la=rgb(0.0, 0.0, 0.0);
+
+  double fov_x = 45.0;
 
 
-  int i = 0;
+  int i=0;
   std::ifstream f;
   f.open(file, std::ios::in);
 
@@ -83,16 +83,19 @@ loader::load(char file[], world& w)
     f.seekg(0L, std::ios::beg);
 
     // in einen string speichern
-    std::string string;
-
-    while (!f.eof())
+    while (f)
     {
-      f >> string;
+        std::string string;
+      std::string line;
+      std::getline(f, line);
+      std::istringstream iss(line);
+      
+      iss >> string;
       // std::cerr << string << std::endl;
       if (string == "define")
       {
         std::cout << "define->";
-        f >> string;
+        iss >> string;
 
         if (string == "material")
         {
@@ -102,34 +105,28 @@ loader::load(char file[], world& w)
           double ks_r, ks_g, ks_b;
           double m;
 
-          f >> mat_name >> 
+          iss >> mat_name >>
                   ka_r >> ka_g >> ka_b >>
                   kd_r >> kd_g >> kd_b >>
                   kd_r >> ks_g >> ks_b >>
                   m;
 
-          rgb ka = rgb(ka_r, ka_g, ka_b);
-          rgb kd = rgb(kd_r, kd_g, kd_b);
-          rgb ks = rgb(ks_r, ks_g, ks_b);
+          rgb ka=rgb(ka_r, ka_g, ka_b);
+          rgb kd=rgb(kd_r, kd_g, kd_b);
+          rgb ks=rgb(ks_r, ks_g, ks_b);
 
-          material mat = material(ka, kd, ks, m);
-          
-          materials.insert(std::pair<std::string, material>(mat_name, mat));
+          material mat=material(ka, kd, ks, m);
+
+          materials.insert(std::pair<std::string, material > (mat_name, mat));
           std::cout << "material->" << mat_name << std::endl;
 
         }
 
-        if (string == "camera")
-        {
-          std::string cam_name;
-          f >> cam_name >> fov_x;
-          std::cout << "camera->" << cam_name << "->" << fov_x << std::endl;
 
-        }
 
         if (string == "light")
         {
-          f >> string;
+          iss >> string;
           std::cout << "light->";
 
           /*
@@ -143,13 +140,13 @@ loader::load(char file[], world& w)
             point3d light_pos;
             double ld_r, ld_g, ld_b;
 
-            f >> light_name >>
+            iss >> light_name >>
                     light_pos[0] >> light_pos[1] >> light_pos[2] >> ld_r >> ld_g >> ld_b;
 
-            
-            rgb ld = rgb(ld_r, ld_g, ld_b);
 
-            light l = light(light_pos, ld);
+            rgb ld=rgb(ld_r, ld_g, ld_b);
+
+            light l=light(light_pos, ld);
             lights.push_back(l);
 
             std::cout << "diffuse->" << light_name << std::endl;
@@ -160,11 +157,11 @@ loader::load(char file[], world& w)
             std::string light_name;
             double la_r, la_g, la_b;
 
-            f >> light_name >> la_r >> la_g >> la_b;
-            la += rgb(la_r, la_g, la_b);
+            iss >> light_name >> la_r >> la_g >> la_b;
+            la+=rgb(la_r, la_g, la_b);
 
             std::cout << "ambient->" << light_name << std::endl;
-            
+
           }
         }
 
@@ -172,7 +169,7 @@ loader::load(char file[], world& w)
         {
 
           std::cout << "shape->";
-          f >> string;
+          iss >> string;
 
           if (string == "box")
           {
@@ -181,17 +178,17 @@ loader::load(char file[], world& w)
             point3d p2;
             std::string mat_name;
 
-            f >> name >> p1[0] >> p1[1] >> p1[2] >> mat_name;
+            iss >> name >> p1[0] >> p1[1] >> p1[2] >> mat_name;
 
-            it_mat = materials.find(mat_name);
+            it_mat=materials.find(mat_name);
 
-                  
-            cuboid *c = new cuboid(p1, p2, (*it_mat).second);
+
+            cuboid *c=new cuboid(p1, p2, (*it_mat).second);
 
             shapes.insert(std::pair<std::string, shape*>(name, c));
 
             std::cout << "box->" << name << std::endl;
-      
+
           }
 
 
@@ -202,12 +199,12 @@ loader::load(char file[], world& w)
             double radius;
             std::string mat_name;
 
-            f >> name >> center[0] >> center[1] >> center[2] >> radius >> mat_name;
+            iss >> name >> center[0] >> center[1] >> center[2] >> radius >> mat_name;
 
-            it_mat = materials.find(mat_name);
+            it_mat=materials.find(mat_name);
 
 
-            sphere *s = new sphere(center, radius, (*it_mat).second);
+            sphere *s=new sphere(center, radius, (*it_mat).second);
 
             shapes.insert(std::pair<std::string, shape*>(name, s));
 
@@ -223,11 +220,11 @@ loader::load(char file[], world& w)
             point3d p3;
             std::string mat_name;
 
-            f >> name >> p1[0] >> p1[1] >> p1[2] >> p2[0] >> p2[1] >> p2[2] >> p3[0] >> p3[1] >> p3[2] >> mat_name;
+            iss >> name >> p1[0] >> p1[1] >> p1[2] >> p2[0] >> p2[1] >> p2[2] >> p3[0] >> p3[1] >> p3[2] >> mat_name;
 
-            it_mat = materials.find(mat_name);
+            it_mat=materials.find(mat_name);
 
-            triangle *t = new triangle(p1, p2, p3, (*it_mat).second);
+            triangle *t=new triangle(p1, p2, p3, (*it_mat).second);
 
             shapes.insert(std::pair<std::string, shape*>(name, t));
 
@@ -241,83 +238,115 @@ loader::load(char file[], world& w)
             std::string child;
             std::vector<std::string> children;
 
-            f >> name;
+            iss >> name;
 
             std::cout << "composite->" << name;
 
-            
-            std::string line;
-            std::getline(f, line);
 
-           tokenize(line, children, " ");
+            std::string compline;
+            std::getline(f, compline);
 
-          
-                 
+            tokenize(compline, children, " ");
 
-            for(std::vector<std::string>::iterator i = children.begin(); i != children.end(); std::advance(i ,1))
+
+
+
+            for (std::vector<std::string>::iterator i=children.begin(); i != children.end(); std::advance(i, 1))
             {
 
-             std::cout  << "->" << (*i);
-             it_shape = shapes.find(*i);
-             sc.add((*it_shape).second);
-           }
+              std::cout << "->" << (*i);
+              it_shape=shapes.find(*i);
+              sc.add((*it_shape).second);
+            }
 
-           // TODO mehrere composites
-           
-           //shapes.insert(std::pair<std::string, shape*>(name, sc));
+            // TODO mehrere composites
 
-           std::cout << std::endl;
+            //shapes.insert(std::pair<std::string, shape*>(name, sc));
+
+            std::cout << std::endl;
 
           }
 
         }
 
-        /*
-        if (string == "transform")
+      }
+
+
+      /*
+      if (string == "transform")
+      {
+
+        std::cout << "transform->";
+        std::string name;
+        iss >> name;
+
+        std::cout << name << "->";
+        it_shape=shapes.find(name);
+
+        iss >> string;
+        if (string == "translate")
         {
-         
-          f >> string;
+          vector3d offset;
+          iss >> offset[0] >> offset[1] >> offset[2];
 
-          if (string == "translate")
-          {
-              vector3d offset;
-              f >> offset[0] >> offset[1] >> offset[2];
-          }
-
-          if (string == "rotate")
-          {
-              double angle;
-              vector3d v;
-              f >> angle >> v[0] >> v[1] >> v[2];
-
-         }
-         if (string == "scale")
-         {
-           double value;
-           f >> value;
-         }
-
+          it_shape->second->translate(offset[0], offset[1], offset[2]);
+          std::cout << "translate" << std::endl;
         }
-        */
+
+        if (string == "rotate")
+        {
+          double angle;
+          vector3d v;
+          iss >> angle >> v[0] >> v[1] >> v[2];
+
+          it_shape->second->rotate(angle, v[0], v[1], v[2]);
+
+          std::cout << "rotate" << std::endl;
+        }
+        if (string == "scale")
+        {
+          double x;
+          double y;
+          double z;
+
+          iss >> x >> y >> z;
+
+          it_shape->second->scale(x, y, z);
+
+          std::cout << "scale" << std::endl;
+        }
+
+      }
+      */
+
+      
+
+      
+      if (string == "camera")
+      {
+        std::string cam_name;
+        iss >> cam_name >> fov_x;
+        std::cout << "camera->" << cam_name << "->" << fov_x << std::endl;
+      }
+      
 
       if (string == "render")
       {
-         
-         std::string cam_name;
-         std::string filename;
-         int x_res;
-         int y_res;
 
-         f >> cam_name >> filename >> x_res >> y_res;
-         std::cout << "render->"<< cam_name <<"->" << filename << std::endl;
+        std::string cam_name;
+        std::string filename;
+        int x_res;
+        int y_res;
+
+        iss >> cam_name >> filename >> x_res >> y_res;
+        std::cout << "render->" << cam_name << "->" << filename << std::endl;
 
       }
+
     }
 
-   }
-
   }
-  bool result =  w.init(fov_x, sc, lights, background, la);
+  bool result=w.init(fov_x, sc, lights, background, la);
   return result;
   // Wenn die Datei nicht geoeffnet werden konnte,
   //std::cerr << "Datei konnte nicht geoeffnet werden" << std::endl;
