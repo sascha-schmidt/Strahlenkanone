@@ -6,20 +6,26 @@
 #include <matrix.hpp>
 
 cuboid::cuboid(point3d a, point3d b, material const& m)
-: fll_(a), bur_(b), shape(m)
+: fll_(), bur_(), shape(m)
 {
-  assert(a[0] < b[0]);
-  assert(a[1] < b[1]);
-  assert(a[2] < b[2]);
+  fll_[0] = std::min(a[0], b[0]);
+  fll_[1] = std::min(a[1], b[1]);
+  fll_[2] = std::min(a[2], b[2]);
+  bur_[0] = std::max(a[0], b[0]);
+  bur_[1] = std::max(a[1], b[1]);
+  bur_[2] = std::max(a[2], b[2]);
   bbox();
 }
 
 cuboid::cuboid(double x1,double y1,double z1,double x2,double y2,double z2, material const& m)
 : fll_(point3d(x1,y1,z1)), bur_(point3d(x2,y2,z2)), shape(m)
 {
-  assert(fll_[0] < bur_[0]);
-  assert(fll_[1] < bur_[1]);
-  assert(fll_[2] < bur_[2]);
+  fll_[0] = std::min(x1, x2);
+  fll_[1] = std::min(y1, y2);
+  fll_[2] = std::min(z1, z2);
+  bur_[0] = std::max(x1, x2);
+  bur_[1] = std::max(y1, y2);
+  bur_[2] = std::max(z1, z2);
   bbox();
 }
 

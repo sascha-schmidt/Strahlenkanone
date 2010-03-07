@@ -7,6 +7,10 @@
 #include <boost/bind.hpp>
 #include "world.hpp"
 #include "loader.hpp"
+#include <shape.hpp>
+#include "sphere.hpp"
+#include "cuboid.hpp"
+#include "triangle.hpp"
 
 #ifdef __APPLE__
 #include <GLUT/glut.h>
@@ -81,16 +85,38 @@ int main(int argc, char* argv[])
 
   // load sdf file
 
-    loader l;
-    world one;
-
-    bool result = l.load(argv[1], one);
-    if (!result) std::exit(1);
+  loader l;
+  world one;
+  
+  bool result=l.load(argv[1], one);
+  if (!result) std::exit(1);
 
 
   // start computation in thread
   //boost::thread thr(boost::bind(&rt_application::raytrace, &app));
   //world one;
+  rgb full(255,255,255);
+  material red;
+  material green;
+  material blue;
+
+  shape*  s = new sphere(point3d(0.0, 0.0, 99), 35, green);
+  shape*  c = new cuboid(point3d(-10.0, -10.0, 50.0), point3d(10.0, 10.0, 51.0), red);
+  shape*  t = new triangle(point3d(-170.0, -100.0, 90.0)
+          , point3d(100.0, -180.0, 90.0), point3d(180.0, 0.0, 90.0), blue);
+
+  c->rotatey(0.5);
+  
+  shape_composite sc;
+  sc.add(s);
+  sc.add(c);
+  sc.add(t);
+
+  light li (point3d(100.0,0.0,0.0), rgb(255,255,255));
+  std::vector<light> vl;
+  vl.push_back(li);
+
+  one.init(1.0, sc, vl, rgb(100.0,100.0,100.0), rgb(0.0,0.0,0.0));
   one.render();
   // start output on glutwindow
   glutwindow::instance().run();
