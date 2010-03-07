@@ -1,4 +1,5 @@
 #include "shape.hpp"
+#include <iostream>
 
 shape::shape()
 :bbox_(), tform_(), mater_()

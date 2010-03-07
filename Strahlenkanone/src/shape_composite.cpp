@@ -2,6 +2,7 @@
 #include <cassert>
 #include <vector>
 #include <utility>
+#include <iostream>
 
 shape_composite::shape_composite()
 : data_(), shape()
@@ -22,6 +23,7 @@ shape_composite::add(shape* s)
 {
   assert(s != 0);
   data_.push_back(s);
+  bbox();
 }
 
 bool 
@@ -30,6 +32,7 @@ shape_composite::intersect(ray& r, shade &rec)
   bool temp = false;
   if(bboxintersect(r))
   {
+    std::cout << "ping" << std::endl;
     for(std::vector<shape*>::iterator i = data_.begin(); i != data_.end(); std::advance(i ,1))
     {
       temp = temp || (*i)->intersect(r, rec);
