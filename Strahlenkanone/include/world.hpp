@@ -12,6 +12,7 @@
 #include <rgb.hpp>
 #include <shape_composite.hpp>
 #include <vector>
+#include <phong.hpp>
 
 class world
 {
@@ -29,18 +30,18 @@ public:
   rgb getambient();
   rgb getbg();
 
+
+   
 private:
-  //Vector mit allen Lichtern
-  std::vector<light> lights_;
   //Composite mit allen Objekten
   shape_composite master_;
   //Kameraöffnungswinkel
   double camera_fov_;
   //Hintergrundfarbe:
   rgb bg_;
-  rgb ambient_;
   unsigned width_; //Abmessung der Ausgabe
   unsigned heigth_;
+  phong beleucht_;
 };
 
 #endif	/* _WORLD_HPP */

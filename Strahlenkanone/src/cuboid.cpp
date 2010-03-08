@@ -4,6 +4,7 @@
 #include <cassert>
 #include <algorithm>
 #include <matrix.hpp>
+#include <iostream>
 
 cuboid::cuboid(point3d a, point3d b, material const& m)
 : fll_(), bur_(), shape(m)
@@ -130,6 +131,7 @@ cuboid::intersect(ray& r, shade& rec)
       rec.material_ref = getmater();
       rec.hitpoint = p;
       rec.n = normal;
+      rec.distance = distance(r.ori, p);
       return (true);
     }
   }

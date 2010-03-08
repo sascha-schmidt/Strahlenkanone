@@ -72,6 +72,7 @@ sphere::intersect(ray& r, shade& rec)
     }
     normal.normalize();
     rec.n = normal;
+    rec.distance = distance(strahl.ori, Pmin);
     return (true);
   }
   return (false);

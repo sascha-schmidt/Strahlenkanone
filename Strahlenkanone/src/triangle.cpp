@@ -75,10 +75,12 @@ triangle::intersect(ray& r, shade& rec)
   //Nur wenn das der erste oder der vorderste Treffer ist
   if(!rec.didhit || distance(r.ori, p) < rec.distance)
   {
+    std::cout << distance(r.ori, p) << std::endl;
     rec.didhit = true; //Juchu getroffen
     rec.material_ref = getmater();
     rec.hitpoint = p;
     rec.n = normal;
+    rec.distance = distance(r.ori, p);
     return (true);
   }
   return (false);

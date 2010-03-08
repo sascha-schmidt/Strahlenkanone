@@ -43,7 +43,7 @@ shape_composite::intersect(ray& r, shade &rec)
 bool
 shape_composite::rotate(double a, double x, double y, double z)
 {
-  bool temp;
+  bool temp = true;
   for(std::vector<shape*>::iterator i = data_.begin(); i != data_.end(); std::advance(i ,1))
   {
     temp = temp && (*i)->rotate(a, x, y, z);
@@ -54,7 +54,7 @@ shape_composite::rotate(double a, double x, double y, double z)
 bool
 shape_composite::rotatex(double angle)
 {
-  bool temp;
+  bool temp = true;
   for(std::vector<shape*>::iterator i = data_.begin(); i != data_.end(); std::advance(i ,1))
   {
     temp = temp && (*i)->rotatex(angle);
@@ -65,7 +65,7 @@ shape_composite::rotatex(double angle)
 bool
 shape_composite::rotatey(double angle)
 {
-  bool temp;
+  bool temp = true;
   for(std::vector<shape*>::iterator i = data_.begin(); i != data_.end(); std::advance(i ,1))
   {
     temp = temp && (*i)->rotatey(angle);
@@ -76,7 +76,7 @@ shape_composite::rotatey(double angle)
 bool
 shape_composite::rotatez(double angle)
 {
-  bool temp;
+  bool temp = true;
   for(std::vector<shape*>::iterator i = data_.begin(); i != data_.end(); std::advance(i ,1))
   {
     temp = temp && (*i)->rotatez(angle);
@@ -87,7 +87,7 @@ shape_composite::rotatez(double angle)
 bool
 shape_composite::scale(double x, double y, double z)
 {
-  bool temp;
+  bool temp = true;
   for(std::vector<shape*>::iterator i = data_.begin(); i != data_.end(); std::advance(i ,1))
   {
     temp = temp && (*i)->scale(x,y,z);
@@ -98,7 +98,7 @@ shape_composite::scale(double x, double y, double z)
 bool
 shape_composite::translate(double x, double y, double z)
 {
-  bool temp;
+  bool temp = true;
   for(std::vector<shape*>::iterator i = data_.begin(); i != data_.end(); std::advance(i ,1))
   {
     temp = temp && (*i)->translate(x,y,z);
@@ -121,4 +121,10 @@ shape_composite::bbox()
     temp.second[2] = std::max(temp.second[2], akt.second[2]);
   }
   setbbox(temp);
+}
+
+unsigned
+shape_composite::size() const
+{
+  return data_.size();
 }

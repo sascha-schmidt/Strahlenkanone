@@ -29,6 +29,8 @@ public:
 
   void add(shape* s);
 
+  unsigned size() const;
+
   bool translate(double x, double y, double z);
   bool scale(double x, double y, double z);
   bool rotate(double a, double x, double y, double z);

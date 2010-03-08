@@ -95,11 +95,11 @@ int main(int argc, char* argv[])
           , point3d(100.0, -240.0, -90.0), point3d(140.0, 240.0, -90.0), blue);
   
   shape_composite sc;
-  sc.add(s);
-  sc.add(c);
   sc.add(t);
+  sc.add(c);
+  sc.add(s);
 
-  light li (point3d(100.0,0.0,0.0), rgb(1,1,1));
+  light li (point3d(300.0,0.0,0.0), rgb(1,1,1));
   std::vector<light> vl;
   vl.push_back(li);
 

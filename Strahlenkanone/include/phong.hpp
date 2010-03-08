@@ -10,11 +10,20 @@
 
 #include "rgb.hpp"
 #include "shade.hpp"
+#include <vector>
+#include "light.hpp"
 
 class phong
 {
 public:
+  //phong( bla bla);
   rgb color(shade const& s);
+
+private:
+  //Vector mit allen Lichtern
+  std::vector<light> lights_;
+  rgb ambient_;
+  rgb bg_;
 };
 
 

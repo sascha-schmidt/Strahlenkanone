@@ -17,7 +17,7 @@
 #include <iostream>
 
 world::world()
-: lights_(), master_(), camera_fov_(), bg_(), width_(500), heigth_(500), ambient_()
+: master_(), camera_fov_(), bg_(), width_(500), heigth_(500), beleucht_()
 {
 }
 
@@ -27,9 +27,8 @@ world::init(double const c, shape_composite const sc, std::vector<light> const l
   assert(c > 0);
   camera_fov_ = c;
   master_ = sc;
-  lights_ = l;
+  //phong(sc, l, b, a);
   bg_ = b;
-  ambient_ = a;
   return (true);
 }
 
@@ -48,7 +47,7 @@ world::getheigth()
 rgb
 world::getambient()
 {
-  return ambient_;
+  //return ambient_;
 }
 
 rgb
@@ -80,7 +79,7 @@ bool world::render()
       sh.world_ptr = this;
       if(master_.intersect(r, sh))
       {
-        std::cout << "intersect bei" << x << ":" << y << std::endl;
+        //std::cout << "intersect bei" << x << ":" << y << std::endl;
         p.color = ph.color(sh);
       }
       else
