@@ -69,19 +69,20 @@ triangle::intersect(ray& r, shade& rec)
   //u und v positiv also p zwischen den beiden Seiten/Vektoren
   //u + v, also die Entfernung, kleiner als Länger der Vektoren(1)
   bool is_inside =(u > 0) && (v > 0) && ((u + v) <= 1);
-  if(!is_inside){return (false);}
 
   //Speichern der gewonnen Informationen
   //Nur wenn das der erste oder der vorderste Treffer ist
-  if(!rec.didhit || distance(r.ori, p) < rec.distance)
+  if(is_inside)
   {
-    std::cout << distance(r.ori, p) << std::endl;
-    rec.didhit = true; //Juchu getroffen
-    rec.material_ref = getmater();
-    rec.hitpoint = p;
-    rec.n = normal;
-    rec.distance = distance(r.ori, p);
-    return (true);
+    if(/*(!rec.didhit) ||*/ (distance(r.ori, p) < rec.distance))
+    {
+      rec.didhit = true; //Juchu getroffen
+      rec.material_ref = getmater();
+      rec.hitpoint = p + 0.1 * normal;
+      rec.n = normal;
+      rec.distance = distance(r.ori, p);
+      return (true);
+    }
   }
   return (false);
 }

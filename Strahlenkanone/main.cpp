@@ -81,27 +81,38 @@ int main(int argc, char* argv[])
   loader l;
   world one;
   
-  bool result=l.load(argv[1], one);
-  if (!result) std::exit(1);
+//  bool result=l.load(argv[1], one);
+//  if (!result) std::exit(1);
 
 
   material red   (rgb (1,0,0), rgb (1,0,0), rgb (1,0,0), 1);
-  material green (rgb (0,1,0), rgb (0,1,0), rgb (0,1,0), 1);
-  material blue  (rgb (0,0,1), rgb (0,0,1), rgb (0,0,1), 1);
+  material white (rgb (1,1,1), rgb (1,1,1), rgb (1,1,1), 1);
+  material blue  (rgb (0,0,1), rgb (0,0,1), rgb (0,0,0.5), 2);
+  material stuff (rgb (0.5,0.5,0.5), rgb (0.5,0.5,0.5), rgb (0.5,0.5,0.5), 2);
 
-  shape*  s = new sphere(point3d(0.0, 0.0, -99), 35, green);
-  shape*  c = new cuboid(point3d(220.0, 100.0, -50.0), point3d(-210.0, 10.0, -51.0), red);
-  shape*  t = new triangle(point3d(-60.0, -240.0, -90.0)
-          , point3d(100.0, -240.0, -90.0), point3d(140.0, 240.0, -90.0), blue);
+  shape*  c = new cuboid(point3d(220.0, 100.0, -180.0), point3d(-210.0, 10.0, -181.0), blue);
+  shape*  s = new sphere(point3d(20.0, 40.0, -190), 90, stuff);
+  shape*  s1 = new sphere(point3d(20.0, 120.0, -190), 40, stuff);
+  shape*  s2 = new sphere(point3d(20.0, -72.0, -190), 40, stuff);
+  shape*  s3 = new sphere(point3d(20.0, 40.0, -100), 60, stuff);
+  shape*  t = new triangle(point3d(-60.0, -240.0, -340.0)
+          , point3d(100.0, -240.0, -40.0), point3d(140.0, 240.0, -4.0), white);
   
   shape_composite sc;
   sc.add(t);
-  sc.add(c);
   sc.add(s);
+  sc.add(c);
+  sc.add(s1);
+  sc.add(s2);
+  sc.add(s3);
 
-  light li (point3d(300.0,0.0,0.0), rgb(1,1,1));
+  light li  (point3d(0.0, 200.0, 50.0), rgb(0.6,0.6,0.6));
+  light li2 (point3d(100.0,-200.0, 10.0), rgb(0.4,0.4,0.4));
+  light li3 (point3d(-100.0,-200.0, 10.0), rgb(0.9,0.9,0.9));
   std::vector<light> vl;
   vl.push_back(li);
+  vl.push_back(li2);
+  vl.push_back(li3);
 
   // create output window
   glutwindow::init(one.getwidth(), one.getheigth(), 100, 100, "CheckerBoard", argc, argv);
@@ -109,7 +120,7 @@ int main(int argc, char* argv[])
 
   // start computation in thread
   //boost::thread thr(boost::bind(&rt_application::raytrace, &app));
-  one.init(1.0, sc, vl, rgb(0.7,0.7,0.7), rgb(0,0,0));
+  one.init(1.0, sc, vl, rgb(0.1,0.1,0.1), rgb(0,0,0));
   one.render();
   // start output on glutwindow
   glutwindow::instance().run();

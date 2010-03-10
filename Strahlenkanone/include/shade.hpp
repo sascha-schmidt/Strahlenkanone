@@ -12,6 +12,7 @@
 #include <material.hpp>
 #include <vector3d.hpp>
 #include "point3d.hpp"
+#include <limits>
 
 class world;
 
@@ -32,7 +33,7 @@ public:
   double distance;
 
   shade()
-  :didhit(false), material_ref(nothing), world_ptr(0), hitpoint(), n(), distance()
+  :didhit(false), material_ref(nothing), world_ptr(0), hitpoint(), n(), distance(std::numeric_limits<double>::max())
   {}
 
 };

@@ -98,9 +98,9 @@ cuboid::intersect(ray& r, shade& rec)
 
   point3d p(0,0,0);
   vector3d normal(0,0,0);
-  if(tmaxmin > 0 && tminmax < tmaxmin) //Überlappen sich die slopes?
+  if(tmaxmin > 0.01 && tminmax < tmaxmin) //Überlappen sich die slopes?
   {                                    //= Strahl schneidet Box
-    if(tminmax > 0) //Strahl kommt von außerhalb
+    if(tminmax > 0.001) //Strahl kommt von außerhalb
     {
       p = r.ori + (tminmax * r.dir);
       //Bestimmung des Normalenvektors:
@@ -125,11 +125,11 @@ cuboid::intersect(ray& r, shade& rec)
       if(tmin[2] == tminmax && z_inv < 0.0){normal[2] = -1;}    //  -z
     }
     //das heißt noch lange nicht, das es der naheliegendste Schnittpunkt ist
-    if(!rec.didhit || distance(r.ori, p) < rec.distance)
+    if(!rec.didhit || (distance(r.ori, p) < rec.distance))
     {
       rec.didhit = true; //Juchu getroffen
       rec.material_ref = getmater();
-      rec.hitpoint = p;
+      rec.hitpoint = p + 0.01 * normal;
       rec.n = normal;
       rec.distance = distance(r.ori, p);
       return (true);
