@@ -272,7 +272,7 @@ loader::load(char file[], world& w)
       }
 
 
-      /*
+  
       if (string == "transform")
       {
 
@@ -311,17 +311,14 @@ loader::load(char file[], world& w)
 
           iss >> x >> y >> z;
 
-          it_shape->second->scale(x, y, z);
+          (*it_shape).second->scale(x, y, z);
 
           std::cout << "scale" << std::endl;
         }
 
       }
-      */
-
-      
-
-      
+       
+    
       if (string == "camera")
       {
         std::string cam_name;
