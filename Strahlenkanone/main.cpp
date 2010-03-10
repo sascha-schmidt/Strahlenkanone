@@ -81,10 +81,10 @@ int main(int argc, char* argv[])
   loader l;
   world one;
   
-//  bool result=l.load(argv[1], one);
-//  if (!result) std::exit(1);
+  bool result=l.load(argv[1], one);
+  if (!result) std::exit(1);
 
-
+/*
   material red   (rgb (1,0,0), rgb (1,0,0), rgb (1,0,0), 1);
   material white (rgb (1,1,1), rgb (1,1,1), rgb (1,1,1), 1);
   material blue  (rgb (0,0,1), rgb (0,0,1), rgb (0,0,0.5), 2);
@@ -113,14 +113,14 @@ int main(int argc, char* argv[])
   vl.push_back(li);
   vl.push_back(li2);
   vl.push_back(li3);
-
+*/
   // create output window
   glutwindow::init(one.getwidth(), one.getheigth(), 100, 100, "CheckerBoard", argc, argv);
 
 
   // start computation in thread
   //boost::thread thr(boost::bind(&rt_application::raytrace, &app));
-  one.init(1.0, sc, vl, rgb(0.1,0.1,0.1), rgb(0,0,0));
+//  one.init(1.0, sc, vl, rgb(0.1,0.1,0.1), rgb(0,0,0));
   one.render();
   // start output on glutwindow
   glutwindow::instance().run();
