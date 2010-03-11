@@ -22,12 +22,12 @@ world::world()
 }
 
 bool
-world::init(double const c, shape_composite const sc, std::vector<light> const l, rgb const a, rgb const b)
+world::init(double c, shape_composite sc, std::vector<light> l, rgb a, rgb b)
 {
   assert(c > 0);
   camera_fov_ = c;
   master_ = sc;
-  //phong(sc, l, b, a);
+  beleucht_.init(sc, l, a, b);
   bg_ = b;
   return (true);
 }
@@ -44,27 +44,14 @@ world::getheigth()
   return heigth_;
 }
 
-rgb
-world::getambient()
-{
-  //return ambient_;
-}
-
-rgb
-world::getbg()
-{
-  return bg_;
-}
 
 bool world::render()
 {
   glutwindow& gw=glutwindow::instance();
-  ppmwriter pw(gw.width(), gw.height(), "./checkerboard.ppm");
+  ppmwriter pw(width_, heigth_, "./last_image.ppm");
 
   ray r;
   r.dir = vector3d(0.0, 0.0, -1.0);
-
-  phong ph;
 
   for (std::size_t y=0; y < heigth_; ++y)
   {
@@ -77,10 +64,10 @@ bool world::render()
       r.ori = point3d(ux, uy, 0.0);
       shade sh;
       sh.world_ptr = this;
-      if(master_.intersect(r, sh))
+      master_.intersect(r, sh);
+      if(sh.didhit)
       {
-        //std::cout << "intersect bei" << x << ":" << y << std::endl;
-        p.color = ph.color(sh);
+        p.color = beleucht_.color(r, sh);
       }
       else
       {
@@ -93,5 +80,6 @@ bool world::render()
   }
   //Bild speichern
   pw.save();
+  std::cout << "end" << std::endl;
   return true;
 }

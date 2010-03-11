@@ -34,7 +34,7 @@ sphere::intersect(ray& r, shade& rec)
   vector3d abstand(strahl.ori, center_);
   //Faktor der der Länge des Abstandes auf dem Strahl entspricht
   double m = dot(abstand, strahl.dir);
-  if(m < 0){return (false);} //Sphere liegt hinter Strahlenursprung
+  if(m < 0.001){return (false);} //Sphere liegt hinter Strahlenursprung
   //Abstand Strahl<-> Mittelpunkt nach Phytagoras(hier zum Quadrat)
   double distquad = dot(abstand, abstand) - (m * m); //brauchen nur das Quadrat
   double radiusquad = radius_ * radius_; //besser als Wurzel ziehen
@@ -58,11 +58,10 @@ sphere::intersect(ray& r, shade& rec)
   
   //Speichern der gewonnen Informationen
   //Nur wenn das der erste oder der vorderste Treffer ist
-  if(!rec.didhit || distance(strahl.ori, Pmin) < rec.distance)
+  if(/*(!rec.didhit) ||*/ (distance(strahl.ori, Pmin) < rec.distance))
   {
     rec.didhit = true; //Juchu getroffen
     rec.material_ref = getmater();
-    rec.hitpoint = Pmin;
     vector3d normal(center_, Pmin);
     if(gettform() != matrix())
     {
@@ -71,6 +70,7 @@ sphere::intersect(ray& r, shade& rec)
       normal = back * normal;
     }
     normal.normalize();
+    rec.hitpoint = Pmin + 0.01 * normal;
     rec.n = normal;
     rec.distance = distance(strahl.ori, Pmin);
     return (true);

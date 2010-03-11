@@ -89,7 +89,7 @@ loader::load(char file[], world& w)
           iss >> mat_name >>
                   ka_r >> ka_g >> ka_b >>
                   kd_r >> kd_g >> kd_b >>
-                  kd_r >> ks_g >> ks_b >>
+                  ks_r >> ks_g >> ks_b >>
                   m;
 
           rgb ka=rgb(ka_r, ka_g, ka_b);
@@ -98,8 +98,9 @@ loader::load(char file[], world& w)
 
           material mat=material(ka, kd, ks, m);
 
-          materials.insert(std::pair<std::string, material > (mat_name, mat));
+          materials.insert(std::pair<std::string, material> (mat_name, mat));
           std::cout << "material->" << mat_name << std::endl;
+          std::cout << "material.size() :" << materials.size() << std::endl;
 
         }
 
@@ -154,13 +155,15 @@ loader::load(char file[], world& w)
             point3d p2;
             std::string mat_name;
 
-            iss >> name >> p1[0] >> p1[1] >> p1[2] >> mat_name;
+            iss >> name >> p1[0] >> p1[1] >> p1[2] >> p2[0] >> p2[1] >> p2[2] >> mat_name;
 
             it_mat=materials.find(mat_name);
 
 
             cuboid *c=new cuboid(p1, p2, (*it_mat).second);
 
+            //material stuff (rgb (0.5,0.5,0.5), rgb (0.5,0.5,0.5), rgb (0.5,0.5,0.5), 2);
+            //cuboid *c=new cuboid(p1, p2, );
             shapes.insert(std::pair<std::string, shape*>(name, c));
 
             std::cout << "box->" << name << std::endl;
@@ -199,11 +202,11 @@ loader::load(char file[], world& w)
 
             it_mat=materials.find(mat_name);
 
-            triangle *t=new triangle(p1, p2, p3, (*it_mat).second);
+            triangle *t = new triangle(p1, p2, p3, (*it_mat).second);
 
             shapes.insert(std::pair<std::string, shape*>(name, t));
 
-            std::cout << "triangle->" << name << std::endl;
+            std::cout << "triangle->" << name << " mat: " << mat_name << std::endl;
 
           }
 
@@ -263,10 +266,13 @@ loader::load(char file[], world& w)
       }
 
 <<<<<<< HEAD:Strahlenkanone/src/loader.cpp
+<<<<<<< HEAD:Strahlenkanone/src/loader.cpp
 
   
 =======
 >>>>>>> 043b363f925a2ee5af49dda7121a92e9fc98c599:Strahlenkanone/src/loader.cpp
+=======
+>>>>>>> 21318891c4d81286af9ca853a4fbbe79952c83fd:Strahlenkanone/src/loader.cpp
       if (string == "transform")
       {
 
@@ -313,23 +319,32 @@ loader::load(char file[], world& w)
           iss >> x >> y >> z;
 
 <<<<<<< HEAD:Strahlenkanone/src/loader.cpp
+<<<<<<< HEAD:Strahlenkanone/src/loader.cpp
           (*it_shape).second->scale(x, y, z);
 =======
+=======
+>>>>>>> 21318891c4d81286af9ca853a4fbbe79952c83fd:Strahlenkanone/src/loader.cpp
           if (it_shape != shapes.end())
           {
             it_shape->second->scale(x, y, z);
             std::cout << "scale" << std::endl;
           }
+<<<<<<< HEAD:Strahlenkanone/src/loader.cpp
 >>>>>>> 043b363f925a2ee5af49dda7121a92e9fc98c599:Strahlenkanone/src/loader.cpp
+=======
+>>>>>>> 21318891c4d81286af9ca853a4fbbe79952c83fd:Strahlenkanone/src/loader.cpp
 
           
         }
 
       }
 <<<<<<< HEAD:Strahlenkanone/src/loader.cpp
+<<<<<<< HEAD:Strahlenkanone/src/loader.cpp
        
     
 =======
+=======
+>>>>>>> 21318891c4d81286af9ca853a4fbbe79952c83fd:Strahlenkanone/src/loader.cpp
         
 
       
@@ -383,7 +398,11 @@ loader::load(char file[], world& w)
 
 
 
+<<<<<<< HEAD:Strahlenkanone/src/loader.cpp
   bool result=w.init(fov_x, *master, lights, background, la);
+=======
+  bool result=w.init(fov_x, *master, lights, la, background);
+>>>>>>> 21318891c4d81286af9ca853a4fbbe79952c83fd:Strahlenkanone/src/loader.cpp
   return result;
   // Wenn die Datei nicht geoeffnet werden konnte,
   //std::cerr << "Datei konnte nicht geoeffnet werden" << std::endl;

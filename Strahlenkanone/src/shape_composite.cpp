@@ -34,7 +34,8 @@ shape_composite::intersect(ray& r, shade &rec)
   {
     for(std::vector<shape*>::iterator i = data_.begin(); i != data_.end(); std::advance(i ,1))
     {
-      temp = temp || (*i)->intersect(r, rec);
+      bool akt = (*i)->intersect(r, rec);
+      temp = (temp || akt);
     }
   }
   return temp;
@@ -46,7 +47,8 @@ shape_composite::rotate(double a, double x, double y, double z)
   bool temp = true;
   for(std::vector<shape*>::iterator i = data_.begin(); i != data_.end(); std::advance(i ,1))
   {
-    temp = temp && (*i)->rotate(a, x, y, z);
+    bool akt = (*i)->rotate(a, x, y, z);
+    temp = temp && akt;
   }
   return temp;
 }
@@ -57,7 +59,8 @@ shape_composite::rotatex(double angle)
   bool temp = true;
   for(std::vector<shape*>::iterator i = data_.begin(); i != data_.end(); std::advance(i ,1))
   {
-    temp = temp && (*i)->rotatex(angle);
+    bool akt = (*i)->rotatex(angle);
+    temp = temp && akt;
   }
   return temp;
 }
@@ -68,7 +71,8 @@ shape_composite::rotatey(double angle)
   bool temp = true;
   for(std::vector<shape*>::iterator i = data_.begin(); i != data_.end(); std::advance(i ,1))
   {
-    temp = temp && (*i)->rotatey(angle);
+    bool akt = (*i)->rotatey(angle);
+    temp = temp && akt;
   }
   return temp;
 }
@@ -79,7 +83,8 @@ shape_composite::rotatez(double angle)
   bool temp = true;
   for(std::vector<shape*>::iterator i = data_.begin(); i != data_.end(); std::advance(i ,1))
   {
-    temp = temp && (*i)->rotatez(angle);
+    bool akt = (*i)->rotatez(angle);
+    temp = temp && akt;
   }
   return temp;
 }
@@ -90,7 +95,8 @@ shape_composite::scale(double x, double y, double z)
   bool temp = true;
   for(std::vector<shape*>::iterator i = data_.begin(); i != data_.end(); std::advance(i ,1))
   {
-    temp = temp && (*i)->scale(x,y,z);
+    bool akt = (*i)->scale(x,y,z);
+    temp = temp && akt;
   }
   return temp;
 }
@@ -101,7 +107,8 @@ shape_composite::translate(double x, double y, double z)
   bool temp = true;
   for(std::vector<shape*>::iterator i = data_.begin(); i != data_.end(); std::advance(i ,1))
   {
-    temp = temp && (*i)->translate(x,y,z);
+    bool akt = (*i)->translate(x,y,z);
+    temp = temp && akt;
   }
   return temp;
 }

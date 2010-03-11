@@ -20,16 +20,13 @@ public:
   world();
   //initialisierung für loader
 
-  bool init(double const c, shape_composite const sc, std::vector<light> const l, rgb const la, rgb const b);
+  bool init(double c, shape_composite sc, std::vector<light> l, rgb la, rgb b);
 
   //Bildberechnung. Vorläufig später Auslagerung in raytracer.hpp/cpp
   bool render();
 
   unsigned getwidth();
   unsigned getheigth();
-  rgb getambient();
-  rgb getbg();
-
 
    
 private:

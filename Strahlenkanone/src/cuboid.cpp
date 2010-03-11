@@ -6,7 +6,7 @@
 #include <matrix.hpp>
 #include <iostream>
 
-cuboid::cuboid(point3d a, point3d b, material const& m)
+cuboid::cuboid(point3d a, point3d b, material m)
 : fll_(), bur_(), shape(m)
 {
   fll_[0] = std::min(a[0], b[0]);
@@ -18,7 +18,7 @@ cuboid::cuboid(point3d a, point3d b, material const& m)
   bbox();
 }
 
-cuboid::cuboid(double x1,double y1,double z1,double x2,double y2,double z2, material const& m)
+cuboid::cuboid(double x1,double y1,double z1,double x2,double y2,double z2, material m)
 : fll_(point3d(x1,y1,z1)), bur_(point3d(x2,y2,z2)), shape(m)
 {
   fll_[0] = std::min(x1, x2);
@@ -98,9 +98,9 @@ cuboid::intersect(ray& r, shade& rec)
 
   point3d p(0,0,0);
   vector3d normal(0,0,0);
-  if(tmaxmin > 0 && tminmax < tmaxmin) //Überlappen sich die slopes?
+  if(tmaxmin > 0.01 && tminmax < tmaxmin) //Überlappen sich die slopes?
   {                                    //= Strahl schneidet Box
-    if(tminmax > 0) //Strahl kommt von außerhalb
+    if(tminmax > 0.001) //Strahl kommt von außerhalb
     {
       p = r.ori + (tminmax * r.dir);
       //Bestimmung des Normalenvektors:
@@ -125,11 +125,11 @@ cuboid::intersect(ray& r, shade& rec)
       if(tmin[2] == tminmax && z_inv < 0.0){normal[2] = -1;}    //  -z
     }
     //das heißt noch lange nicht, das es der naheliegendste Schnittpunkt ist
-    if(!rec.didhit || distance(r.ori, p) < rec.distance)
+    if(!rec.didhit || (distance(r.ori, p) < rec.distance))
     {
       rec.didhit = true; //Juchu getroffen
       rec.material_ref = getmater();
-      rec.hitpoint = p;
+      rec.hitpoint = p + 0.01 * normal;
       rec.n = normal;
       rec.distance = distance(r.ori, p);
       return (true);
