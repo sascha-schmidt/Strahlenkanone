@@ -30,38 +30,19 @@ loader::~loader()
 {
 }
 
-void
-loader::tokenize(const std::string str, std::vector<std::string>& tokens, const std::string& delimiters=" ")
-{
-  // Skip delimiters at beginning.
-  std::string::size_type lastPos=str.find_first_not_of(delimiters, 0);
-  // Find first "non-delimiter".
-  std::string::size_type pos=str.find_first_of(delimiters, lastPos);
-
-  while (std::string::npos != pos || std::string::npos != lastPos)
-  {
-    // Found a token, add it to the vector.
-    tokens.push_back(str.substr(lastPos, pos - lastPos));
-    // Skip delimiters.  Note the "not_of"
-    lastPos=str.find_first_not_of(delimiters, pos);
-    // Find next "non-delimiter"
-    pos=str.find_first_of(delimiters, lastPos);
-
-  }
-}
-
 bool
 loader::load(char file[], world& w)
 {
 
   std::map<std::string, shape*> shapes;
   std::map<std::string, shape*>::iterator it_shape;
+
   std::map<std::string, material> materials;
   std::map<std::string, material>::iterator it_mat;
 
-  shape_composite sc;
-
   std::vector<light> lights;
+
+  shape_composite *sc = new shape_composite;
 
   rgb background=rgb(0.0, 0.0, 0.0);
 
@@ -85,7 +66,7 @@ loader::load(char file[], world& w)
     // in einen string speichern
     while (f)
     {
-        std::string string;
+      std::string string;
       std::string line;
       std::getline(f, line);
       std::istringstream iss(line);
@@ -129,13 +110,8 @@ loader::load(char file[], world& w)
           iss >> string;
           std::cout << "light->";
 
-          /*
-           * R G B
-           *
-           */
           if (string == "diffuse")
           {
-
             std::string light_name;
             point3d light_pos;
             double ld_r, ld_g, ld_b;
@@ -203,7 +179,6 @@ loader::load(char file[], world& w)
 
             it_mat=materials.find(mat_name);
 
-
             sphere *s=new sphere(center, radius, (*it_mat).second);
 
             shapes.insert(std::pair<std::string, shape*>(name, s));
@@ -238,16 +213,16 @@ loader::load(char file[], world& w)
             std::string child;
             std::vector<std::string> children;
 
+            shape_composite *sc_tmp = new shape_composite;
+
+
             iss >> name;
 
             std::cout << "composite->" << name;
 
-
-            std::string compline;
-            std::getline(f, compline);
-
-            tokenize(compline, children, " ");
-
+             while (iss >> child) {
+              children.push_back(child);
+            }
 
 
 
@@ -256,12 +231,28 @@ loader::load(char file[], world& w)
 
               std::cout << "->" << (*i);
               it_shape=shapes.find(*i);
-              sc.add((*it_shape).second);
+
+              sc_tmp->add((*it_shape).second);
+
+              
             }
 
             // TODO mehrere composites
 
-            //shapes.insert(std::pair<std::string, shape*>(name, sc));
+            if (name == "root")
+            {
+              std::cout << "\n root composite detected: adding to shape" << std::endl;
+              sc = sc_tmp;
+              shapes.insert(std::pair<std::string, shape*>(name, sc));
+            }
+            else
+            {
+              if ( shapes.find("root") != shapes.end() )
+              {
+                std::cout << "\n non-root composite detected: adding to root-composite" << std::endl;
+                sc->add(sc_tmp);
+              }
+            }
 
             std::cout << std::endl;
 
@@ -271,8 +262,11 @@ loader::load(char file[], world& w)
 
       }
 
+<<<<<<< HEAD:Strahlenkanone/src/loader.cpp
 
   
+=======
+>>>>>>> 043b363f925a2ee5af49dda7121a92e9fc98c599:Strahlenkanone/src/loader.cpp
       if (string == "transform")
       {
 
@@ -289,8 +283,11 @@ loader::load(char file[], world& w)
           vector3d offset;
           iss >> offset[0] >> offset[1] >> offset[2];
 
-          it_shape->second->translate(offset[0], offset[1], offset[2]);
-          std::cout << "translate" << std::endl;
+          if (it_shape != shapes.end())
+          {
+            it_shape->second->translate(offset[0], offset[1], offset[2]);
+            std::cout << "translate" << std::endl;
+          }
         }
 
         if (string == "rotate")
@@ -299,9 +296,13 @@ loader::load(char file[], world& w)
           vector3d v;
           iss >> angle >> v[0] >> v[1] >> v[2];
 
-          it_shape->second->rotate(angle, v[0], v[1], v[2]);
+          if (it_shape != shapes.end())
+          {
+            it_shape->second->rotate(angle, v[0], v[1], v[2]);
+            std::cout << "rotate" << std::endl;
+          }
 
-          std::cout << "rotate" << std::endl;
+          
         }
         if (string == "scale")
         {
@@ -311,14 +312,28 @@ loader::load(char file[], world& w)
 
           iss >> x >> y >> z;
 
+<<<<<<< HEAD:Strahlenkanone/src/loader.cpp
           (*it_shape).second->scale(x, y, z);
+=======
+          if (it_shape != shapes.end())
+          {
+            it_shape->second->scale(x, y, z);
+            std::cout << "scale" << std::endl;
+          }
+>>>>>>> 043b363f925a2ee5af49dda7121a92e9fc98c599:Strahlenkanone/src/loader.cpp
 
-          std::cout << "scale" << std::endl;
+          
         }
 
       }
+<<<<<<< HEAD:Strahlenkanone/src/loader.cpp
        
     
+=======
+        
+
+      
+>>>>>>> 043b363f925a2ee5af49dda7121a92e9fc98c599:Strahlenkanone/src/loader.cpp
       if (string == "camera")
       {
         std::string cam_name;
@@ -343,7 +358,32 @@ loader::load(char file[], world& w)
     }
 
   }
-  bool result=w.init(fov_x, sc, lights, background, la);
+  
+
+  shape_composite *master = new shape_composite;
+
+  std::map<std::string, shape*>::iterator master_iter = shapes.find("root");
+
+  if ( master_iter != shapes.end() )
+  {
+    std::cout << "adding root composite" << std::endl;
+    master->add((*master_iter).second);
+    std::cout << "size of root-composite: " << sc->size() << std::endl;
+  }
+  else
+  {
+    std::cout << "no composite found - adding shapes to master composite" << std::endl;
+    for (std::map<std::string, shape*>::iterator i = shapes.begin(); i != shapes.end(); std::advance(i, 1))
+    {
+      master->add((*i).second);
+    }
+
+    
+  }
+
+
+
+  bool result=w.init(fov_x, *master, lights, background, la);
   return result;
   // Wenn die Datei nicht geoeffnet werden konnte,
   //std::cerr << "Datei konnte nicht geoeffnet werden" << std::endl;
