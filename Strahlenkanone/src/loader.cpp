@@ -265,14 +265,9 @@ loader::load(char file[], world& w)
 
       }
 
-<<<<<<< HEAD:Strahlenkanone/src/loader.cpp
-<<<<<<< HEAD:Strahlenkanone/src/loader.cpp
 
   
-=======
->>>>>>> 043b363f925a2ee5af49dda7121a92e9fc98c599:Strahlenkanone/src/loader.cpp
-=======
->>>>>>> 21318891c4d81286af9ca853a4fbbe79952c83fd:Strahlenkanone/src/loader.cpp
+
       if (string == "transform")
       {
 
@@ -318,37 +313,27 @@ loader::load(char file[], world& w)
 
           iss >> x >> y >> z;
 
-<<<<<<< HEAD:Strahlenkanone/src/loader.cpp
-<<<<<<< HEAD:Strahlenkanone/src/loader.cpp
+
           (*it_shape).second->scale(x, y, z);
-=======
-=======
->>>>>>> 21318891c4d81286af9ca853a4fbbe79952c83fd:Strahlenkanone/src/loader.cpp
+
           if (it_shape != shapes.end())
           {
             it_shape->second->scale(x, y, z);
             std::cout << "scale" << std::endl;
           }
-<<<<<<< HEAD:Strahlenkanone/src/loader.cpp
->>>>>>> 043b363f925a2ee5af49dda7121a92e9fc98c599:Strahlenkanone/src/loader.cpp
-=======
->>>>>>> 21318891c4d81286af9ca853a4fbbe79952c83fd:Strahlenkanone/src/loader.cpp
+
 
           
         }
 
       }
-<<<<<<< HEAD:Strahlenkanone/src/loader.cpp
-<<<<<<< HEAD:Strahlenkanone/src/loader.cpp
+
        
     
-=======
-=======
->>>>>>> 21318891c4d81286af9ca853a4fbbe79952c83fd:Strahlenkanone/src/loader.cpp
-        
+
 
       
->>>>>>> 043b363f925a2ee5af49dda7121a92e9fc98c599:Strahlenkanone/src/loader.cpp
+
       if (string == "camera")
       {
         std::string cam_name;
@@ -398,11 +383,9 @@ loader::load(char file[], world& w)
 
 
 
-<<<<<<< HEAD:Strahlenkanone/src/loader.cpp
+
   bool result=w.init(fov_x, *master, lights, background, la);
-=======
-  bool result=w.init(fov_x, *master, lights, la, background);
->>>>>>> 21318891c4d81286af9ca853a4fbbe79952c83fd:Strahlenkanone/src/loader.cpp
+
   return result;
   // Wenn die Datei nicht geoeffnet werden konnte,
   //std::cerr << "Datei konnte nicht geoeffnet werden" << std::endl;
