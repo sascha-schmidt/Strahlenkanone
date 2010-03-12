@@ -22,6 +22,6 @@ define light ambient amb 0.1 0.1 0.1
 #  light li  (point3d(0.0, 200.0, 50.0), rgb(0.6,0.6,0.6));
 define light diffuse li 0 200 50 0.2 0.3 0.4
 #  light li2 (point3d(100.0,-200.0, 10.0), rgb(0.4,0.4,0.4));
-define light diffuse li2 100 -200 10 0.6 0.1 0.9
+#define light diffuse li2 100 -200 10 0.6 0.1 0.9
 #  light li3 (point3d(-100.0,-200.0, 10.0), rgb(0.9,0.9,0.9));
 define light diffuse li3 -100 -200 10 0.8 0.2 0.1

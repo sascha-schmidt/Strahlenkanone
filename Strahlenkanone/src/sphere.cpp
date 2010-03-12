@@ -20,20 +20,19 @@ sphere::~sphere()
 }
 
 bool
-sphere::intersect(ray& r, shade& rec)
-{   //if(bboxintersect(r)) nicht nötig, weil so genauso schnell
-  ray strahl = r;
+sphere::intersect(ray r, shade& rec)
+{
   if(gettform() != matrix()) //Wenn es sich nicht um die Einheitsmatrix handelt
   {
-    strahl.ori = gettform() * r.ori;     //transformation auf den Ray anwenden
-    strahl.dir = gettform() * r.dir;
+    r.ori = gettformi() * r.ori;     //transformation auf den Ray anwenden
+    r.dir = gettformi() * r.dir;
     std::cout << "transf. matrix in sphere::intersect detected" << std::endl;
   }
   //Nach http://www.cs.princeton.edu/courses/archive/fall00/cs426/lectures/raycast/sld013.htm
   //Vector vom Strahlenursprung zum Mittelpunkt
-  vector3d abstand(strahl.ori, center_);
+  vector3d abstand(r.ori, center_);
   //Faktor der der Länge des Abstandes auf dem Strahl entspricht
-  double m = dot(abstand, strahl.dir);
+  double m = dot(abstand, r.dir);
   if(m < 0.001){return (false);} //Sphere liegt hinter Strahlenursprung
   //Abstand Strahl<-> Mittelpunkt nach Phytagoras(hier zum Quadrat)
   double distquad = dot(abstand, abstand) - (m * m); //brauchen nur das Quadrat
@@ -49,81 +48,38 @@ sphere::intersect(ray& r, shade& rec)
   double fak1 = m - n;
   double fak2 = m + n;
   //Schnittpunkte:
-  point3d P1 = strahl.ori + (fak1 * strahl.dir);
-  point3d P2 = strahl.ori + (fak2 * strahl.dir);
+  point3d P1 = r.ori + (fak1 * r.dir);
+  point3d P2 = r.ori + (fak2 * r.dir);
   //Der Schnittpunkt näher am Strahlenurpsrung ist, ist der Gesuchte
   point3d Pmin;
-  if(distance(strahl.ori, P1) < distance(strahl.ori, P2)){Pmin = P1;}
+  if(distance(r.ori, P1) < distance(r.ori, P2)){Pmin = P1;}
   else{Pmin = P2;}
   
   //Speichern der gewonnen Informationen
   //Nur wenn das der erste oder der vorderste Treffer ist
-  if(/*(!rec.didhit) ||*/ (distance(strahl.ori, Pmin) < rec.distance))
+  if(distance(r.ori, Pmin) < rec.distance)
   {
     rec.didhit = true; //Juchu getroffen
     rec.material_ref = getmater();
     vector3d normal(center_, Pmin);
+    rec.hitpoint = Pmin;
     if(gettform() != matrix())
     {
+      //Rückstranformation der Normalen
       matrix back = gettformi();
       back.transpose();
       normal = back * normal;
+      //Tranformation des Hitpoints
+      rec.hitpoint = gettform() * rec.hitpoint;
     }
     normal.normalize();
-    rec.hitpoint = Pmin + 0.01 * normal;
+    rec.hitpoint = rec.hitpoint + 0.01 * normal;//minimal Verschiebung verhindert Schnitt mit sich selbst
     rec.n = normal;
-    rec.distance = distance(strahl.ori, Pmin);
+    //TODO: Stimmt die Distance ?!?
+    rec.distance = distance(r.ori, Pmin);
     return (true);
   }
   return (false);
-}
-
-bool
-sphere::translate(double x, double y, double z)
-{
-  settform(make_translation(x,y,z));
-  //bbox(); nicht nötig tform_ wird bei bboxintersect berücksichtig
-  return (true);
-}
-
-bool
-sphere::scale(double x, double y, double z)
-{
-  settform(make_scale(x,y,z));
-  //bbox(); nicht nötig tform_ wird bei bboxintersect berücksichtig
-  return (true);
-}
-
-bool
-sphere::rotate(double a, double x, double y, double z)
-{
-  settform(make_rotation(a, x ,y ,z));
-  //bbox(); nicht nötig tform_ wird bei bboxintersect berücksichtig
-  return (true);
-}
-
-bool
-sphere::rotatex(double angle)
-{
-  settform(make_rotation_x(angle));
-  //bbox(); nicht nötig tform_ wird bei bboxintersect berücksichtig
-  return (true);
-}
-
-bool
-sphere::rotatey(double angle)
-{
-  settform(make_rotation_y(angle));
-  //bbox(); nicht nötig tform_ wird bei bboxintersect berücksichtig
-  return (true);
-}
-
-bool
-sphere::rotatez(double angle)
-{
-  settform(make_rotation_z(angle));
-  //bbox(); nicht nötig tform_ wird bei bboxintersect berücksichtig
-  return (true);
 }
 
 void
@@ -140,5 +96,7 @@ sphere::bbox()
   maxi[2] = center_[2] + radius_;
   temp.first = mini;
   temp.second = maxi;
+  temp.first = gettform() * temp.first;
+  temp.second = gettform() * temp.second;
   setbbox(temp);
 }
