@@ -14,9 +14,6 @@ define light ambient amb 0.1 0.1 0.1
 define light diffuse sun 500 800 0 1.0 1.0 1.0
 define light diffuse spot1 -500 800 0 0.8 0.8 0.8
 
-# transform
-transform root scale 10 10 10
-
 # camera
 camera eye 45.0
 
