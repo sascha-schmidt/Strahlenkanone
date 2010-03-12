@@ -17,6 +17,9 @@
 #include <iostream>
 #include <cmath>
 
+// Anti-Aliasing: Wurzel aus Sample-Größe z.b 4 = 16 Subsamples
+#define AA_RES 1
+
 world::world()
 : master_(), camera_fov_(), bg_(), width_(500), heigth_(500), beleucht_(), filename_("image.ppm")
 {
@@ -55,10 +58,6 @@ bool world::render()
   ppmwriter pw(width_, heigth_, filename_);
 
   ray r;
-
-  // Anti-Aliasing: Wurzel aus Sample-Größe z.b 4 = 16 Subsamples
-  int aa_res=4;
-
   
 
   // Aus dem Öffnungswinkel der Abstand der Kamera berechnet
@@ -79,15 +78,15 @@ bool world::render()
       // Pixel
       pixel p(x, y);
 
-      // Anti-Aliasing für jeden Pixel werden aa_res^2 Rays generiert und die Farben aufsummiert und durch aa_res geteilt
+      // Anti-Aliasing für jeden Pixel werden AA_RES^2 Rays generiert und die Farben aufsummiert und durch AA_RES geteilt
       rgb aa_color = bg_;
 
-      for (std::size_t pp=0; pp < aa_res; ++pp)
-        for (std::size_t qq=0; qq < aa_res; ++qq)
+      for (std::size_t pp=0; pp < AA_RES; ++pp)
+        for (std::size_t qq=0; qq < AA_RES; ++qq)
         {
           //Berechnung der Kamerafläche
-          double ux=(y - (0.5 * (heigth_ - 1)) + (pp + 0.5) / aa_res);
-          double uy=(x - (0.5 * (width_ - 1)) + (qq + 0.5) / aa_res);
+          double ux=(y - (0.5 * (heigth_ - 1)) + (pp + 0.5) / AA_RES);
+          double uy=(x - (0.5 * (width_ - 1)) + (qq + 0.5) / AA_RES);
 
           r.dir=vector3d(r.ori, point3d(ux, uy, -cam_abstand));
           r.dir.normalize();
@@ -105,7 +104,7 @@ bool world::render()
 
         }
         p.color = aa_color;
-        p.color /= aa_res*aa_res;
+        p.color /= AA_RES*AA_RES;
 
 
       //ausgeben und schreiben

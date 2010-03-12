@@ -587,11 +587,18 @@ make_rotation(double a, vector3d v)
   temp[0] = cosa + v[1] * v[1] * (1 - cosa);
   temp[1] = v[1] * v[2] * (1 - cosa) - v[3] * sina;
   temp[2] = v[1] * v[3] * (1 - cosa) + v[2] * sina;
+  temp[3] = 0;
   temp[4] = v[2] * v[1] * (1 - cosa) + v[3] * sina;
   temp[5] = cosa + v[2] * v[2] * (1 - cosa);
   temp[6] = v[2] * v[3] * (1 - cosa) - v[1] * sina;
+  temp[7] = 0;
   temp[8] = v[3] * v[1] * (1 - cosa) - v[2] * sina;
   temp[9] = v[3] * v[2] * (1 - cosa) + v[1] * sina;
   temp[10]= cosa + v[3] * v[3] * (1- cosa);
+  temp[11] = 0;
+  temp[12] = 0;
+  temp[13] = 0;
+  temp[14] = 0;
   temp[15] = 1;
+  return temp;
 }
