@@ -64,8 +64,8 @@ bool world::render()
 
   r.ori = point3d(0.0, 0.0, 0.0);
 
-  std::cout << " camera abstand:" << cam_abstand << std::endl;
-  std::cout << " breite:" << width_ << std::endl;
+  std::cout << "camera abstand: " << cam_abstand << std::endl;
+  std::cout << "breite: " << width_ << std::endl;
 
 
   r.ori = point3d(0.0, 0.0, 0.0);
