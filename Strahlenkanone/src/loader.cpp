@@ -61,11 +61,11 @@ loader::load(char file[], world& w)
   double fov_x = 45.0;
 
   // Der Dateiname unter dem das Bild gespeichert wird
-  std::string filename;
+  std::string filename = "image.ppm";
   
   // Auslösung
-  int x_res;
-  int y_res;
+  int x_res = 500;
+  int y_res = 500;
 
 
   // Wir legen einen File-Stream f auf die übergebene Datei f an
@@ -436,7 +436,7 @@ loader::load(char file[], world& w)
   }
 
 
-  bool result=w.init(fov_x, *master, lights, la, background);
+  bool result=w.init(fov_x, filename, x_res, y_res, *master, lights, la, background);
 
   return result;
   }

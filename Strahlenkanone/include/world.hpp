@@ -12,6 +12,7 @@
 #include <rgb.hpp>
 #include <shape_composite.hpp>
 #include <vector>
+#include <string>
 #include <phong.hpp>
 
 class world
@@ -20,7 +21,7 @@ public:
   world();
   //initialisierung für loader
 
-  bool init(double c, shape_composite sc, std::vector<light> l, rgb la, rgb b);
+  bool init(double c, std::string filename, int width, int heigth, shape_composite sc, std::vector<light> l, rgb la, rgb b);
 
   //Bildberechnung. Vorläufig später Auslagerung in raytracer.hpp/cpp
   bool render();
@@ -39,6 +40,8 @@ private:
   unsigned width_; //Abmessung der Ausgabe
   unsigned heigth_;
   phong beleucht_;
+  //
+  std::string filename_;
 };
 
 #endif	/* _WORLD_HPP */
