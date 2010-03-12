@@ -34,45 +34,68 @@ bool
 loader::load(char file[], world& w)
 {
 
+  // Globals
+
+  // Der Loader lädt alle Shapes in diese Map und generiert daraus ein Master-Shape Composite
   std::map<std::string, shape*> shapes;
   std::map<std::string, shape*>::iterator it_shape;
 
+  // In der Material-Map werde alle Materials gespeichert um diese per map.find() einem Shape zuordnen zu können
   std::map<std::string, material> materials;
   std::map<std::string, material>::iterator it_mat;
 
+  // Ein std::vector für Lichter - keine Pointer
   std::vector<light> lights;
 
+  // Das Master-Shape Composite was im Loader gefüllt wird.
   shape_composite *sc = new shape_composite;
 
+  // Die Hintergrundfarbe
   rgb background=rgb(0.0, 0.0, 0.0);
 
+  // Der Ambiente Beleuchtungskoeffzient
+  // Wird aus der Summe der Ambienten Lichtquellen berechnet
   rgb la=rgb(0.0, 0.0, 0.0);
 
+  // Camera-Öffnungswinkel - Standardmässig 45°
   double fov_x = 45.0;
 
+  // Der Dateiname unter dem das Bild gespeichert wird
+  std::string filename;
+  
+  // Auslösung
+  int x_res;
+  int y_res;
 
-  int i=0;
+
+  // Wir legen einen File-Stream f auf die übergebene Datei f an
   std::ifstream f;
   f.open(file, std::ios::in);
 
   if (f.good() == 1)
   {
     // Wenn die Datei geoeffnet werden konnte...
-
-
     // An den Anfang der Datei springen
     f.seekg(0L, std::ios::beg);
 
-    // in einen string speichern
+    // Wird false wenn Datei zu Ende ist oder andere Probleme auftreten
     while (f)
     {
       std::string string;
       std::string line;
+
+      // Die Datei wird zeilenweise Eingelesen.
+      // Es wird ein inputstream (iss) auf die Zeile gelegt.
+
       std::getline(f, line);
       std::istringstream iss(line);
-      
+
+
+      // Hier beginnt der eigentliche Loader
       iss >> string;
-      // std::cerr << string << std::endl;
+
+      // Shapes, Material, Licht werden hier geladen.
+
       if (string == "define")
       {
         std::cout << "define->";
@@ -98,14 +121,16 @@ loader::load(char file[], world& w)
 
           material mat=material(ka, kd, ks, m);
 
+          // Jedes Material kommt in den Temporären Material-Container
+
           materials.insert(std::pair<std::string, material> (mat_name, mat));
           std::cout << "material->" << mat_name << std::endl;
-          std::cout << "material.size() :" << materials.size() << std::endl;
+          // std::cout << "material.size() :" << materials.size() << std::endl;
 
         }
 
 
-
+        // Nur diffuse Lichter kommen in den Licht-Vektor
         if (string == "light")
         {
           iss >> string;
@@ -122,6 +147,7 @@ loader::load(char file[], world& w)
 
 
             rgb ld=rgb(ld_r, ld_g, ld_b);
+
 
             light l=light(light_pos, ld);
             lights.push_back(l);
@@ -159,15 +185,14 @@ loader::load(char file[], world& w)
 
             it_mat=materials.find(mat_name);
 
-
-            cuboid *c=new cuboid(p1, p2, (*it_mat).second);
-
-            //material stuff (rgb (0.5,0.5,0.5), rgb (0.5,0.5,0.5), rgb (0.5,0.5,0.5), 2);
-            //cuboid *c=new cuboid(p1, p2, );
-            shapes.insert(std::pair<std::string, shape*>(name, c));
-
-            std::cout << "box->" << name << std::endl;
-
+            // Wir prüfen ob es das material gibt
+            if (it_mat != materials.end())
+            { 
+              cuboid *c=new cuboid(p1, p2, (*it_mat).second);
+              shapes.insert(std::pair<std::string, shape*>(name, c));
+              std::cout << "box->" << name << std::endl;
+            }
+            
           }
 
 
@@ -181,12 +206,15 @@ loader::load(char file[], world& w)
             iss >> name >> center[0] >> center[1] >> center[2] >> radius >> mat_name;
 
             it_mat=materials.find(mat_name);
-
-            sphere *s=new sphere(center, radius, (*it_mat).second);
-
-            shapes.insert(std::pair<std::string, shape*>(name, s));
-
-            std::cout << "sphere->" << name << std::endl;
+            
+            if (it_mat != materials.end())
+            {
+              
+              sphere *s=new sphere(center, radius, (*it_mat).second);
+              shapes.insert(std::pair<std::string, shape*>(name, s));
+              std::cout << "sphere->" << name << std::endl;
+            }
+            else std::cerr << "Material für Sphere (" << name << " nicht gefunden. Fehler in SDF-Datei" << std::endl;
 
           }
 
@@ -202,13 +230,16 @@ loader::load(char file[], world& w)
 
             it_mat=materials.find(mat_name);
 
-            triangle *t = new triangle(p1, p2, p3, (*it_mat).second);
-
-            shapes.insert(std::pair<std::string, shape*>(name, t));
-
-            std::cout << "triangle->" << name << " mat: " << mat_name << std::endl;
+            if (it_mat != materials.end())
+            {
+               triangle *t = new triangle(p1, p2, p3, (*it_mat).second);
+               shapes.insert(std::pair<std::string, shape*>(name, t));
+               std::cout << "triangle->" << name << " mat: " << mat_name << std::endl;
+            }
+            else std::cerr << "Material für Triangle (" << name << " nicht gefunden. Fehler in SDF-Datei" << std::endl;
 
           }
+
 
           if (string == "composite")
           {
@@ -216,6 +247,7 @@ loader::load(char file[], world& w)
             std::string child;
             std::vector<std::string> children;
 
+            // Wir legen uns ein Temporäres Composite an
             shape_composite *sc_tmp = new shape_composite;
 
 
@@ -223,33 +255,44 @@ loader::load(char file[], world& w)
 
             std::cout << "composite->" << name;
 
+            // Alle Blätter des jeweiligen Composites werden im vector childen gespeichert
              while (iss >> child) {
               children.push_back(child);
             }
 
 
 
+            // In der Shape-Map wird nach dem Namen des Blattes gesucht und dieses ggf. in den Shape-Container eingefügt.
             for (std::vector<std::string>::iterator i=children.begin(); i != children.end(); std::advance(i, 1))
             {
 
               std::cout << "->" << (*i);
               it_shape=shapes.find(*i);
 
-              sc_tmp->add((*it_shape).second);
+              if (it_shape != shapes.end() )
+              {
+                sc_tmp->add((*it_shape).second);
+              }
+              else std::cerr << "Composite" << name << ": Shape " << (*i) << " konnte nicht im Shape-Container gefunden werden" << std::endl;
 
               
             }
 
-            // TODO mehrere composites
+            // Mehrere Composites
 
+            // heißt das Composite "root" wird es dem Shape-Container hinzugefügt
             if (name == "root")
             {
               std::cout << "\n root composite detected: adding to shape" << std::endl;
+              // Der Temporäre Shape-Container der mit den Children des Composites gefüllt ist..
+              // ersetzt den Normalen Shape Container. d.h. ist in einer SDF-Datei ein composite
+              // vorhanden und shapes die nicht darin vorkommen so werden diese Verworfen
               sc = sc_tmp;
               shapes.insert(std::pair<std::string, shape*>(name, sc));
             }
             else
             {
+              // Für den Fall das es mehrere Composites gibt werden diese einfach an das Root-Composite angehangen
               if ( shapes.find("root") != shapes.end() )
               {
                 std::cout << "\n non-root composite detected: adding to root-composite" << std::endl;
@@ -266,7 +309,7 @@ loader::load(char file[], world& w)
       }
 
 
-  
+      // Transformation
 
       if (string == "transform")
       {
@@ -276,9 +319,11 @@ loader::load(char file[], world& w)
         iss >> name;
 
         std::cout << name << "->";
+
         it_shape=shapes.find(name);
 
         iss >> string;
+        
         if (string == "translate")
         {
           vector3d offset;
@@ -332,7 +377,10 @@ loader::load(char file[], world& w)
     
 
 
-      
+
+      // Camera
+
+
 
       if (string == "camera")
       {
@@ -342,13 +390,19 @@ loader::load(char file[], world& w)
       }
       
 
+      // Render
+
+      // we gracefully ignore cam_name because we only have 1 camera
+
       if (string == "render")
       {
 
         std::string cam_name;
-        std::string filename;
-        int x_res;
-        int y_res;
+
+        // Folgende Variablen sind am Beginn der Datei deklariert worden:
+        //std::string filename;
+        //int x_res;
+        //int y_res;
 
         iss >> cam_name >> filename >> x_res >> y_res;
         std::cout << "render->" << cam_name << "->" << filename << std::endl;
@@ -357,18 +411,21 @@ loader::load(char file[], world& w)
 
     }
 
-     shape_composite *master = new shape_composite;
+    // Nachdem die Datei fertig eingelesen wurde...
+    // bauen wir uns unser Master-Composite, das der render()-Funktion der world-Klasse übergeben wird
+    shape_composite *master = new shape_composite;
 
-  std::map<std::string, shape*>::iterator master_iter = shapes.find("root");
-
-  if ( master_iter != shapes.end() )
-  {
-    std::cout << "adding root composite" << std::endl;
-    master->add((*master_iter).second);
-    std::cout << "size of root-composite: " << sc->size() << std::endl;
-  }
-  else
-  {
+    // Gibt es ein composite mit namen "root" Fügen wir nur das Composite Hinzu
+    // Gibt es KEIN composite werden alle Shapes im Container hinzugefügt
+    std::map<std::string, shape*>::iterator master_iter = shapes.find("root");
+    if ( master_iter != shapes.end() )
+    {
+      std::cout << "adding root composite" << std::endl;
+      master->add((*master_iter).second);
+      std::cout << "size of root-composite: " << sc->size() << std::endl;
+   }
+   else
+   {
     std::cout << "no composite found - adding shapes to master composite" << std::endl;
     for (std::map<std::string, shape*>::iterator i = shapes.begin(); i != shapes.end(); std::advance(i, 1))
     {
@@ -377,6 +434,7 @@ loader::load(char file[], world& w)
 
 
   }
+
 
   bool result=w.init(fov_x, *master, lights, la, background);
 
