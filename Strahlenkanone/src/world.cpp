@@ -52,11 +52,16 @@ bool world::render()
   ppmwriter pw(width_, heigth_, "./last_image.ppm");
 
   ray r;
+
   double cam_abstand = std::tan(((90.0-camera_fov_)/2)*(M_PI/180))*width_*0.5;
   r.ori = point3d(0.0, 0.0, 100.0);
 
   std::cout << " camera abstand:" << cam_abstand << std::endl;
   std::cout << " breite:" << width_ << std::endl;
+
+
+  r.ori = point3d(0.0, 0.0, 0.0);
+
 
   for (std::size_t y=0; y < heigth_; ++y)
   {
@@ -66,7 +71,10 @@ bool world::render()
       //Berechnung der Kamerafläche
       double ux = ( y - (0.5 * (heigth_ - 1)));
       double uy = ( x - (0.5 * (width_ - 1)));
-      r.dir = vector3d(r.ori, point3d(ux, uy, 100 - cam_abstand));
+
+      r.dir = vector3d(r.ori, point3d(ux, uy, -cam_abstand));
+      r.dir.normalize();
+
       
       shade sh;
       sh.world_ptr = this;

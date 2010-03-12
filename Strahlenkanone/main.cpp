@@ -115,7 +115,7 @@ int main(int argc, char* argv[])
   vl.push_back(li3);
 */
   // create output window
-  glutwindow::init(one.getwidth(), one.getheigth(), 100, 100, "CheckerBoard", argc, argv);
+  glutwindow::init(one.getwidth(), one.getheigth(), 500, 500, "CheckerBoard", argc, argv);
 
 
   // start computation in thread
