@@ -1,11 +1,23 @@
-sash:
-volle eSDF unterstützung
+sash:->hierachisch abbilden
+tranfsormationen mit matritzen
 
-cube assertion
+Inverse mal Strahl
+SchnittPunkt mal tform
+bbox mal tform
+normal wie gehabt
 
-bboxintersect kann nicht mit Objekten umgehen bei dennen eine Koordinate gleich ist also Dicke von 0. 
+
+tform_ von in composite liegenden objekten bei der bbox beachten
+
+hit points zurück transformieren
+
+bbox transformieren
+
+schatten nochmal testen wenn perspektive wieder da -> cornell box?!?
+
+Notes:
+
+bboxintersect kann nicht mit Objekten umgehen bei dennen eine Koordinate gleich ist also Dicke von 0.
 Problematisch bei Dreieck also machen wir das nicht
 
-Jo fragen ob das mit den Punkten überhaupt richtig ist
-
-triangle und sphere geben falsche distance an. Näher untersuchen !!;
+shape_composite hat keinen Destructor

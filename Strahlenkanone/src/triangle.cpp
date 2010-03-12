@@ -2,6 +2,7 @@
 #include <math.h>
 #include <vector3d.hpp>
 #include <iostream>
+#include <cassert>
 
 triangle::triangle(point3d q, point3d w, point3d e, material const& m)
 : a_(q), b_(w), c_(e), shape(m)
@@ -21,13 +22,20 @@ triangle::~triangle()
 }
 
 bool
-triangle::intersect(ray& r, shade& rec)
-{ //if bboxintersect nicht soviel schneller, also kommts hier nicht zum Einsatz
+triangle::intersect(ray r, shade& rec)
+{
+  if(gettform() != matrix()) //Wenn es sich nicht um die Einheitsmatrix handelt
+  {
+    r.ori = gettformi() * r.ori;     //transformation auf den Ray anwenden
+    r.dir = gettformi() * r.dir;
+    std::cout << "transf. matrix in triangle::intersect detected" << std::endl;
 
+  }
   //Als erstes brauchen wir den normalen Vektor
   vector3d eineseite(a_, b_);
   vector3d andereseite(a_, c_);
   vector3d /*un*/normal = cross(eineseite, andereseite);
+  assert(normal.length() != 0);
   normal.normalize();
 
   //Schnittpunkt des Strahl mit der imaginären Ebene in der das 3eck liegt
@@ -74,11 +82,20 @@ triangle::intersect(ray& r, shade& rec)
   //Nur wenn das der erste oder der vorderste Treffer ist
   if(is_inside)
   {
-    if(/*(!rec.didhit) ||*/ (distance(r.ori, p) < rec.distance))
+    if(distance(r.ori, p) < rec.distance)
     {
       rec.didhit = true; //Juchu getroffen
       rec.material_ref = getmater();
-      rec.hitpoint = p + 0.1 * normal;
+      rec.hitpoint = p;
+      if(gettform() != matrix())
+      {
+        matrix back = gettformi();
+        back.transpose();
+        normal = back * normal;
+        //Tranformation des Hitpoints
+        rec.hitpoint = gettform() * rec.hitpoint;
+      }
+      rec.hitpoint = rec.hitpoint + 0.1 * normal; //minimal Verschiebung verhindert Schnitt mit sich selbst
       rec.n = normal;
       rec.distance = distance(r.ori, p);
       return (true);
@@ -87,78 +104,6 @@ triangle::intersect(ray& r, shade& rec)
   return (false);
 }
 
-
-bool
-triangle::translate(double x, double y, double z)
-{
-  matrix temp;
-  temp = make_translation(x,y,z);
-  a_ = temp * a_;
-  b_ = temp * b_;
-  c_ = temp * c_;
-  bbox();
-  return (true);
-}
-
-bool
-triangle::scale(double x, double y, double z)
-{
-  matrix temp;
-  temp = make_scale(x,y,z);
-  a_ = temp * a_;
-  b_ = temp * b_;
-  c_ = temp * c_;
-  bbox();
-  return (true);
-}
-
-bool
-triangle::rotate(double a, double x, double y, double z)
-{
-  matrix temp;
-  temp = make_rotation(a, x ,y ,z);
-  a_ = temp * a_;
-  b_ = temp * b_;
-  c_ = temp * c_;
-  bbox();
-  return (true);
-}
-
-bool
-triangle::rotatex(double angle)
-{
-  matrix temp;
-  temp = make_rotation_x(angle);
-  a_ = temp * a_;
-  b_ = temp * b_;
-  c_ = temp * c_;
-  bbox();
-  return (true);
-}
-
-bool
-triangle::rotatey(double angle)
-{
-  matrix temp;
-  temp = make_rotation_y(angle);
-  a_ = temp * a_;
-  b_ = temp * b_;
-  c_ = temp * c_;
-  bbox();
-  return (true);
-}
-
-bool
-triangle::rotatez(double angle)
-{
-  matrix temp;
-  temp = make_rotation_z(angle);
-  a_ = temp * a_;
-  b_ = temp * b_;
-  c_ = temp * c_;
-  bbox();
-  return (true);
-}
 
 void
 triangle::bbox()
@@ -174,5 +119,7 @@ triangle::bbox()
   maxi[2] = std::max(a_[2], std::max(b_[2], c_[2]));
   temp.first = mini;
   temp.second = maxi;
+  temp.first = gettform() * temp.first;
+  temp.second = gettform() * temp.second;
   setbbox(temp);
 }

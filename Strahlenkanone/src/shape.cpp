@@ -118,3 +118,60 @@ shape::settform(matrix m)
   m.invert();
   tformi_ = m;
 }
+
+bool
+shape::translate(double x, double y, double z)
+{
+  matrix temp = make_translation(x,y,z);
+  //TODO: ist die Mulitplikation richtug rum ?
+  tform_ = tform_ * temp;
+  //bbox(); nicht nötig tform_ wird bei bboxintersect berücksichtig
+  return (true);
+}
+
+bool
+shape::scale(double x, double y, double z)
+{
+   matrix temp = make_scale(x,y,z);
+   //TODO: ist die Mulitplikation richtug rum ?
+   tform_ = tform_ * temp;
+   //bbox(); nicht nötig tform_ wird bei bboxintersect berücksichtig
+   return (true);
+}
+
+bool
+shape::rotate(double a, double x, double y, double z)
+{
+  matrix temp = make_rotation(a, x ,y ,z);
+  tform_ = tform_ * temp;
+  //bbox(); nicht nötig tform_ wird bei bboxintersect berücksichtig
+  return (true);
+}
+
+bool
+shape::rotatex(double angle)
+{
+  matrix temp = make_rotation_x(angle);
+  tform_ = tform_ * temp;
+  //bbox(); nicht nötig tform_ wird bei bboxintersect berücksichtig
+  return (true);
+}
+
+bool
+shape::rotatey(double angle)
+{
+  matrix temp = make_rotation_y(angle);
+  tform_ = tform_ * temp;
+  //bbox(); nicht nötig tform_ wird bei bboxintersect berücksichtig
+  return (true);
+}
+
+bool
+shape::rotatez(double angle)
+{
+
+  matrix temp = make_rotation_z(angle);
+  tform_ = tform_ * temp;
+  //bbox(); nicht nötig tform_ wird bei bboxintersect berücksichtig
+  return (true);
+}

@@ -24,7 +24,7 @@ public:
   shape(material const& m);
   ~shape();
 
-  virtual bool intersect(ray& r, shade& rec)=0;
+  virtual bool intersect(ray r, shade& rec)=0;
 
   material getmater() const; //getter für material
 
@@ -37,12 +37,12 @@ public:
   matrix const& gettformi()  const;
   void settform(matrix m);
 
-  virtual bool translate(double x, double y, double z)=0;
-  virtual bool scale(double x, double y, double z)=0;
-  virtual bool rotate (double a, double x, double y, double z)=0;
-  virtual bool rotatex(double angle)=0;
-  virtual bool rotatey(double angle)=0;
-  virtual bool rotatez(double angle)=0;
+  bool translate(double x, double y, double z);
+  bool scale(double x, double y, double z);
+  bool rotate (double a, double x, double y, double z);
+  bool rotatex(double angle);
+  bool rotatey(double angle);
+  bool rotatez(double angle);
 
 private:
   //Bounding Box

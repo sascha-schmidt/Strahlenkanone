@@ -41,8 +41,11 @@ phong::color(ray view, shade const& s)
       //Ausgansstrahl:  r = 2 * (l·N) * N - l
       vector3d r =  (2 * dot(l.dir, s.n) * s.n) - l.dir;
       r.normalize();
-      shade ignoreme; //wird nur für intersect benötigt
-      if(!sc_.intersect(l, ignoreme))
+      shade shadow; //wird nur für intersect benötigt
+      sc_.intersect(l, shadow);
+      double lichtabstand = vector3d(s.hitpoint, (*i).pos).length();
+      //Beleuchtung nur, wenn kein Objekt zw. Licht und Punkt liegt
+      if(!shadow.didhit || shadow.distance > lichtabstand)
       {
         float cosrv = dot(r, v);
         float cosln = dot(s.n, l.dir);

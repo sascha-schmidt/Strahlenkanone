@@ -35,9 +35,14 @@ cuboid::~cuboid()
 }
 
 bool
-cuboid::intersect(ray& r, shade& rec)
+cuboid::intersect(ray r, shade& rec)
 {
-  //if(bboxintersect(r)) nicht nötig, weil so genauso schnell
+  if(gettform() != matrix()) //Wenn es sich nicht um die Einheitsmatrix handelt
+  {
+    r.ori = gettformi() * r.ori;     //transformation auf den Ray anwenden
+    r.dir = gettformi() * r.dir;
+    std::cout << "transf. matrix in cuboid::intersect detected" << std::endl;
+  }
   //Begrenzung des Richtungsvektors auf den Wertebereich des Cuboid durch
   //Einschränkung der Faktoren für jede Koordinate einzeln
   //Speicherung des max. und min. Faktors für jede Koordinate in Vektor
@@ -125,11 +130,20 @@ cuboid::intersect(ray& r, shade& rec)
       if(tmin[2] == tminmax && z_inv < 0.0){normal[2] = -1;}    //  -z
     }
     //das heißt noch lange nicht, das es der naheliegendste Schnittpunkt ist
-    if(!rec.didhit || (distance(r.ori, p) < rec.distance))
+    if(distance(r.ori, p) < rec.distance)
     {
       rec.didhit = true; //Juchu getroffen
       rec.material_ref = getmater();
-      rec.hitpoint = p + 0.01 * normal;
+      rec.hitpoint = p;
+      if(gettform() != matrix())
+      {
+        matrix back = gettformi();
+        back.transpose();
+        normal = back * normal;
+        //Tranformation des Hitpoints
+        rec.hitpoint = gettform() * rec.hitpoint;
+      }
+      rec.hitpoint = rec.hitpoint + 0.01 * normal; //minimal Verschiebung verhindert Schnitt mit sich selbst
       rec.n = normal;
       rec.distance = distance(r.ori, p);
       return (true);
@@ -138,78 +152,13 @@ cuboid::intersect(ray& r, shade& rec)
  return (false);
 }
 
-
-bool
-cuboid::translate(double x, double y, double z)
-{
-  matrix temp;
-  temp = make_translation(x,y,z);
-  fll_ = temp * fll_;
-  bur_ = temp * bur_;
-  bbox();
-  return true;
-}
-
-bool
-cuboid::scale(double x, double y, double z)
-{
-  matrix temp;
-  temp = make_scale(x,y,z);
-  fll_ = temp * fll_;
-  bur_ = temp * bur_;
-  bbox();
-  return true;
-}
-
-bool
-cuboid::rotate(double a, double x, double y, double z)
-{
-  matrix temp;
-  temp = make_rotation(a, x, y, z);
-  fll_ = temp * fll_;
-  bur_ = temp * bur_;
-  bbox();
-  return true;
-}
-
-bool
-cuboid::rotatex(double angle)
-{
-  matrix temp;
-  temp = make_rotation_x(angle);
-  fll_ = temp * fll_;
-  bur_ = temp * bur_;
-  bbox();
-  return true;
-}
-
-bool
-cuboid::rotatey(double angle)
-{
-  matrix temp;
-  temp = make_rotation_y(angle);
-  fll_ = temp * fll_;
-  bur_ = temp * bur_;
-  bbox();
-  return true;
-}
-
-bool
-cuboid::rotatez(double angle)
-{
-  matrix temp;
-  temp = make_rotation_z(angle);
-  fll_ = temp * fll_;
-  bur_ = temp * bur_;
-  bbox();
-  return true;
-}
-
 void
 cuboid::bbox()
 {
   ppp temp;
   temp.first = fll_;
   temp.second = bur_;
+  temp.first = gettform() * temp.first;
+  temp.second = gettform() * temp.second;
   setbbox(temp);
 }
