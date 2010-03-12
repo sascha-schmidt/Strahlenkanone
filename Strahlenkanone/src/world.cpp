@@ -51,7 +51,8 @@ bool world::render()
   ppmwriter pw(width_, heigth_, "./last_image.ppm");
 
   ray r;
-  r.dir = vector3d(0.0, 0.0, -1.0);
+
+  r.ori = point3d(0.0, 0.0, 0.0);
 
   for (std::size_t y=0; y < heigth_; ++y)
   {
@@ -61,7 +62,9 @@ bool world::render()
       //Berechnung der Kamerafläche
       double ux = ( y - (0.5 * (heigth_ - 1)));
       double uy = ( x - (0.5 * (width_ - 1)));
-      r.ori = point3d(ux, uy, 0.0);
+      r.dir = vector3d(ux, uy, -200.0);
+      r.dir.normalize();
+      
       shade sh;
       sh.world_ptr = this;
       master_.intersect(r, sh);

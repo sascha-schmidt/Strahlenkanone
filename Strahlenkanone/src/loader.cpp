@@ -357,10 +357,7 @@ loader::load(char file[], world& w)
 
     }
 
-  }
-  
-
-  shape_composite *master = new shape_composite;
+     shape_composite *master = new shape_composite;
 
   std::map<std::string, shape*>::iterator master_iter = shapes.find("root");
 
@@ -378,17 +375,20 @@ loader::load(char file[], world& w)
       master->add((*i).second);
     }
 
-    
+
   }
-
-
-
 
   bool result=w.init(fov_x, *master, lights, background, la);
 
   return result;
+  }
+
   // Wenn die Datei nicht geoeffnet werden konnte,
-  //std::cerr << "Datei konnte nicht geoeffnet werden" << std::endl;
-  //return 0;
+  std::cerr << "Datei konnte nicht geoeffnet werden" << std::endl;
+  return 0;
+  
+
+ 
+
 
 }
