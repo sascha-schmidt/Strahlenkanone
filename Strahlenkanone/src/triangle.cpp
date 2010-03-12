@@ -26,8 +26,8 @@ triangle::intersect(ray r, shade& rec)
 {
   if(gettform() != matrix()) //Wenn es sich nicht um die Einheitsmatrix handelt
   {
-    r.ori = gettformi() * r.ori;     //transformation auf den Ray anwenden
-    r.dir = gettformi() * r.dir;
+    r.ori = gettform() * r.ori;     //transformation auf den Ray anwenden
+    r.dir = gettform() * r.dir;
     std::cout << "transf. matrix in triangle::intersect detected" << std::endl;
 
   }
@@ -93,7 +93,7 @@ triangle::intersect(ray r, shade& rec)
         back.transpose();
         normal = back * normal;
         //Tranformation des Hitpoints
-        rec.hitpoint = gettform() * rec.hitpoint;
+        rec.hitpoint = gettformi() * rec.hitpoint;
       }
       rec.hitpoint = rec.hitpoint + 0.1 * normal; //minimal Verschiebung verhindert Schnitt mit sich selbst
       rec.n = normal;

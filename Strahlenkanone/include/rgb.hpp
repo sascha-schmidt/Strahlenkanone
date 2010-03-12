@@ -26,6 +26,7 @@ public : // methods
 
   rgb& operator= (const rgb&);
   void operator+=(const rgb&);
+  void operator/=(const double&);
 
 
 private: // members

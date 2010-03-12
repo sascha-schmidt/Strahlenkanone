@@ -24,8 +24,8 @@ sphere::intersect(ray r, shade& rec)
 {
   if(gettform() != matrix()) //Wenn es sich nicht um die Einheitsmatrix handelt
   {
-    r.ori = gettformi() * r.ori;     //transformation auf den Ray anwenden
-    r.dir = gettformi() * r.dir;
+    r.ori = gettform() * r.ori;     //transformation auf den Ray anwenden
+    r.dir = gettform() * r.dir;
     std::cout << "transf. matrix in sphere::intersect detected" << std::endl;
   }
   //Nach http://www.cs.princeton.edu/courses/archive/fall00/cs426/lectures/raycast/sld013.htm
@@ -70,7 +70,7 @@ sphere::intersect(ray r, shade& rec)
       back.transpose();
       normal = back * normal;
       //Tranformation des Hitpoints
-      rec.hitpoint = gettform() * rec.hitpoint;
+      rec.hitpoint = gettformi() * rec.hitpoint;
     }
     normal.normalize();
     rec.hitpoint = rec.hitpoint + 0.01 * normal;//minimal Verschiebung verhindert Schnitt mit sich selbst
