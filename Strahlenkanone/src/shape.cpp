@@ -18,6 +18,7 @@ shape::getmater() const
   return mater_;
 }
 
+//Todo Überflüßig ?!?
 ppp
 shape::getbbox() const
 {
@@ -33,11 +34,7 @@ shape::setbbox(ppp b)
 bool
 shape::bboxintersect(ray r)
 {
-  if(tform_ != matrix()) //Wenn es sich nicht um die Einheitsmatrix handelt
-  {
-    r.ori = tform_ * r.ori;     //transformation auf den Ray anwenden
-    r.dir = tform_ * r.dir;
-  }
+  //Tranformationsmatrix muss nicht beachtet werden, da die composites keine haben
   //s. cuboid.cpp
   vector3d tmin(0.0, 0.0, 0.0);
   vector3d tmax(0.0, 0.0, 0.0);
@@ -125,7 +122,7 @@ shape::translate(double x, double y, double z)
   matrix temp = make_translation(x,y,z);
   //TODO: ist die Mulitplikation richtug rum ?
   tform_ = tform_ * temp;
-  //bbox(); nicht nötig tform_ wird bei bboxintersect berücksichtig
+  bbox();
   return (true);
 }
 
@@ -135,7 +132,7 @@ shape::scale(double x, double y, double z)
    matrix temp = make_scale(x,y,z);
    //TODO: ist die Mulitplikation richtug rum ?
    tform_ = tform_ * temp;
-   //bbox(); nicht nötig tform_ wird bei bboxintersect berücksichtig
+   bbox();
    return (true);
 }
 
@@ -144,7 +141,7 @@ shape::rotate(double a, double x, double y, double z)
 {
   matrix temp = make_rotation(a, x ,y ,z);
   tform_ = tform_ * temp;
-  //bbox(); nicht nötig tform_ wird bei bboxintersect berücksichtig
+  bbox();
   return (true);
 }
 
@@ -153,7 +150,7 @@ shape::rotatex(double angle)
 {
   matrix temp = make_rotation_x(angle);
   tform_ = tform_ * temp;
-  //bbox(); nicht nötig tform_ wird bei bboxintersect berücksichtig
+  bbox();
   return (true);
 }
 
@@ -162,7 +159,7 @@ shape::rotatey(double angle)
 {
   matrix temp = make_rotation_y(angle);
   tform_ = tform_ * temp;
-  //bbox(); nicht nötig tform_ wird bei bboxintersect berücksichtig
+  bbox();
   return (true);
 }
 
@@ -172,6 +169,6 @@ shape::rotatez(double angle)
 
   matrix temp = make_rotation_z(angle);
   tform_ = tform_ * temp;
-  //bbox(); nicht nötig tform_ wird bei bboxintersect berücksichtig
+  bbox();
   return (true);
 }

@@ -1,31 +1,27 @@
-#  material white (rgb (1,1,1), rgb (1,1,1), rgb (1,1,1), 1);
 define material white 1 1 1 1 1 1 1 1 1 1
-#  material blue  (rgb (0,0,1), rgb (0,0,1), rgb (0,0,0.5), 2);
 define material blue 0 0 1 0 0 1 0 0 1 2
-#  material stuff (rgb (0.5,0.5,0.5), rgb (0.5,0.5,0.5), rgb (0.5,0.5,0.5), 2);
 define material stuff 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 2
 
-#  shape*  c = new cuboid(point3d(220.0, 100.0, -180.0), point3d(-210.0, 10.0, -181.0), blue);
-define shape box c 220 100 -180 -210 10 -181 blue
-#  shape*  s = new sphere(point3d(20.0, 40.0, -190), 90, stuff);
-define shape sphere s 20 40 -190 90 stuff
-#  shape*  s1 = new sphere(point3d(20.0, 120.0, -190), 40, stuff);
-define shape sphere s1 20 120 -190 40 stuff
-#  shape*  s2 = new sphere(point3d(20.0, -72.0, -190), 40, stuff);
-define shape sphere s2 20 -72 -190 40 stuff
-#  shape*  s3 = new sphere(point3d(20.0, 40.0, -100), 60, stuff);
-define shape sphere s3 20 40 -100 60 stuff
-#  shape*  t = new triangle(point3d(-60.0, -240.0, -340.0), point3d(100.0, -240.0, -40.0), point3d(140.0, 240.0, -4.0), white);
-define shape triangle t -60 -240 -340 100 -240 -40 140 240 -4 white
+#cornell box
+define shape box left -400 -400 -500 -395 400 0 white
+define shape box right 395 -400 -500 400 400 0 white
+define shape box down -400 -400 -500 400 -395 0 white
+define shape box up -400 395 -500 400 400 0 white
+define shape box back -400 -400 -501 400 400 -500 stuff
+
+#objekte
+define shape box obj1 -10 20 -20 30 30 -30 blue
+define shape sphere obj2 0 0 -30 10 blue
+
+transform obj1 translate 100 2 3
 
 define light ambient amb 0.1 0.1 0.1
-#  light li  (point3d(0.0, 200.0, 50.0), rgb(0.6,0.6,0.6));
-define light diffuse li 0 200 50 0.2 0.3 0.4
-#  light li2 (point3d(100.0,-200.0, 10.0), rgb(0.4,0.4,0.4));
-#define light diffuse li2 100 -200 10 0.6 0.1 0.9
-#  light li3 (point3d(-100.0,-200.0, 10.0), rgb(0.9,0.9,0.9));
-define light diffuse li3 -100 -200 10 0.8 0.2 0.1
+#define light diffuse li 0 50 0 0.5 0.1 0.1
+define light diffuse li2 100 0 10 0.8 0.8 0.8
+#define light diffuse li3 -10 -20 -10 0.1 0.5 0.1
 
-camera eye 10.0
+#define light diffuse light1 0 200 -200
 
-render eye test.ppm 1000 1000
+camera eye 45
+
+render eye test.ppm 600 600
