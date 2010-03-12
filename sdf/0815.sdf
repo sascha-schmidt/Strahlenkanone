@@ -28,4 +28,4 @@ define light diffuse li3 -100 -200 10 0.8 0.2 0.1
 
 camera eye 10.0
 
-render eye test.ppm 1000 1000
+render eye test.ppm 500 500 
