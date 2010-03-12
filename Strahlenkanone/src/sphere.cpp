@@ -26,7 +26,7 @@ sphere::intersect(ray r, shade& rec)
   {
     r.ori = gettform() * r.ori;     //transformation auf den Ray anwenden
     r.dir = gettform() * r.dir;
-    std::cout << "transf. matrix in sphere::intersect detected" << std::endl;
+    //std::cout << "transf. matrix in sphere::intersect detected" << std::endl;
   }
   //Nach http://www.cs.princeton.edu/courses/archive/fall00/cs426/lectures/raycast/sld013.htm
   //Vector vom Strahlenursprung zum Mittelpunkt

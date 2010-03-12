@@ -29,7 +29,6 @@ triangle::intersect(ray r, shade& rec)
     r.ori = gettform() * r.ori;     //transformation auf den Ray anwenden
     r.dir = gettform() * r.dir;
     std::cout << "transf. matrix in triangle::intersect detected" << std::endl;
-
   }
   //Als erstes brauchen wir den normalen Vektor
   vector3d eineseite(a_, b_);

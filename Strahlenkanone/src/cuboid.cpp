@@ -41,7 +41,7 @@ cuboid::intersect(ray r, shade& rec)
   {
     r.ori = gettform() * r.ori;     //transformation auf den Ray anwenden
     r.dir = gettform() * r.dir;
-    std::cout << "transf. matrix in cuboid::intersect detected" << std::endl;
+    //std::cout << "transf. matrix in cuboid::intersect detected" << std::endl;
   }
   //Begrenzung des Richtungsvektors auf den Wertebereich des Cuboid durch
   //Einschränkung der Faktoren für jede Koordinate einzeln
