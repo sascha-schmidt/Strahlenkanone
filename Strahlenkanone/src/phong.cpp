@@ -74,7 +74,7 @@ phong::color(ray view, shade const& s)
 }
 
 rgb
-phong::color(ray view, shade const& s, unsigned const& depth)
+phong::color(ray view, shade const& s, unsigned depth)
 {
   if(depth > MAX_DEPTH) //Schwarz bei zuvielen Spiegelungen
   {
@@ -84,17 +84,19 @@ phong::color(ray view, shade const& s, unsigned const& depth)
   {
     return color(view,s);
   }
-  else //Spiegelung der Spiegelung
+  else if(s.material_ref.reflecting) //Spiegelung der Spiegelung
   {
     ray ausfall; //view gespiegel an n = ausgehender Strahl
-    ausfall.ori = s.hitpoint;
-    ausfall.dir =(2 * dot(view.dir, s.n) * s.n) - view.dir;
+    //TODO Problem here
+    ausfall.ori = s.hitpoint + 0.5 * s.n;
+    //TODO Problem and here
+    ausfall.dir = view.dir - (2 * dot(view.dir, s.n) * s.n);
     shade mir;
     sc_.intersect(ausfall, mir);
     if(mir.didhit)
     {
       //Wenn unser Ausfallsstrahl auf etwas trifft nehmen wir dessen Farbe
-      return color(ausfall, mir, (depth + 1));
+      return color(ausfall, mir, ++depth);
     }
     else //Wenn wir nichts treffen fliegt der Strahl ins unendliche
     {    //Also nehmen wir die Hintergrundfarbe

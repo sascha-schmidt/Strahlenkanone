@@ -122,7 +122,6 @@ bool
 shape::translate(double x, double y, double z)
 {
   matrix temp = make_translation(x,y,z);
-  //TODO: ist die Mulitplikation richtug rum ?
   tform_ = tform_ * temp;
   std::cout << "Translate::Matrix \n" << tform_;
   bbox();
@@ -133,7 +132,6 @@ bool
 shape::scale(double x, double y, double z)
 {
    matrix temp = make_scale(x,y,z);
-   //TODO: ist die Mulitplikation richtug rum ?
    tform_ = tform_ * temp;
    std::cout << "Scale::Matrix \n" << tform_;
    bbox();

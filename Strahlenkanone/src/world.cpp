@@ -18,7 +18,7 @@
 #include <cmath>
 
 // Anti-Aliasing: Wurzel aus Sample-Größe z.b 4 = 16 Subsamples
-#define AA_RES 2
+#define AA_RES 1
 
 world::world()
 : master_(), camera_fov_(), bg_(), width_(500), heigth_(500), beleucht_(), filename_("image.ppm")

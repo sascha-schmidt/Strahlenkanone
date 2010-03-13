@@ -21,7 +21,7 @@ public:
   void init(shape_composite sc, std::vector<light> l, rgb a, rgb b);
   rgb color(ray view, shade const& s);
   //Für mit Spiegelung
-  rgb color(ray view, shade const& s, unsigned const& depth);
+  rgb color(ray view, shade const& s, unsigned depth);
 
 private:
   //Vector mit allen Lichtern
