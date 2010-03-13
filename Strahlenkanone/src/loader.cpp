@@ -108,18 +108,19 @@ loader::load(char file[], world& w)
           double kd_r, kd_g, kd_b;
           double ks_r, ks_g, ks_b;
           double m;
+          bool mirror;
 
           iss >> mat_name >>
                   ka_r >> ka_g >> ka_b >>
                   kd_r >> kd_g >> kd_b >>
                   ks_r >> ks_g >> ks_b >>
-                  m;
+                  m >> mirror;
 
           rgb ka=rgb(ka_r, ka_g, ka_b);
           rgb kd=rgb(kd_r, kd_g, kd_b);
           rgb ks=rgb(ks_r, ks_g, ks_b);
 
-          material mat=material(ka, kd, ks, m);
+          material mat=material(ka, kd, ks, m, mirror);
 
           // Jedes Material kommt in den Temporären Material-Container
 

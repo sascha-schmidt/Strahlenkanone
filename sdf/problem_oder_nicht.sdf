@@ -13,8 +13,17 @@ define shape box back -400 -400 -501 400 400 -500 stuff
 define shape box obj1 0 20 -20 50 30 -30 blue
 define shape sphere obj2 0 0 -35 10 blue
 
+<<<<<<< HEAD:sdf/problem_oder_nicht.sdf
 #transform obj2 scale 1.5 1 1
 #transform obj2 translate 0 -20 0
+=======
+
+# größe verdreifachen + zur ellipse machen
+transform obj2 scale 1.5 1 2
+
+#transform obj1 rotate 26 1 0 0
+
+>>>>>>> 0d1d113b6430a7cb21135e91506a5873a8503a01:sdf/problem_oder_nicht.sdf
 
 define light ambient amb 0.1 0.1 0.1
 #define light diffuse li 0 50 0 0.5 0.1 0.1
