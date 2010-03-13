@@ -21,13 +21,15 @@ public:
   rgb ks;
   //Spiegelungsexponent
   double m;
+  //echte Spiegelung:
+  bool reflecting;
 
-  material(rgb a, rgb b, rgb c, double d)
-  : ka(a), kd(b), ks(c), m(d)
+  material(rgb a, rgb b, rgb c, double d, bool r = false)
+  : ka(a), kd(b), ks(c), m(d), reflecting(r)
   {
   }
   material()
-  : ka(), kd(), ks(), m()
+  : ka(), kd(), ks(), m(), reflecting(false)
   {
   }
 };
