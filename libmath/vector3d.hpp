@@ -8,6 +8,9 @@
 #ifndef _vector3d_HPP
 #define	_vector3d_HPP
 
+// includes, system
+#include <iosfwd> // fwd. decl: std::ostream
+
 class point3d;
 
 class vector3d
@@ -56,6 +59,8 @@ vector3d operator+(vector3d const& lhs, vector3d const& rhs);
 vector3d operator-(vector3d const& lhs, vector3d const& rhs);
 vector3d operator*(double lhs, vector3d const& rhs);
 vector3d operator*(vector3d const& lhs, double rhs);
+
+std::ostream& operator<<( std::ostream&, vector3d const&  );
 
 
 #endif	/* _vector3d_HPP */

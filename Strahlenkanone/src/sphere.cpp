@@ -22,10 +22,16 @@ sphere::~sphere()
 bool
 sphere::intersect(ray r, shade& rec)
 {
+    //std::cout << "PRE: ray.ori: " << r.ori << "PRE: ray.dir" << r.dir << "\n";
+    //std::cout << "PRE: ray.ori: " << r.ori << "PRE: ray.dir" << r.dir << "\n";
   if(gettform() != matrix()) //Wenn es sich nicht um die Einheitsmatrix handelt
   {
+    //std::cout << "Matrix:" << gettform() << "\n";
     r.ori = gettform() * r.ori;     //transformation auf den Ray anwenden
     r.dir = gettform() * r.dir;
+    r.dir.normalize();
+    //std::cout << "POST: ray.ori: " << r.ori << "POST: ray.dir" << r.dir << "\n";
+    //std::cout << "POST: ray.ori: " << r.ori << "POST: ray.dir" << r.dir << "\n";
     //std::cout << "transf. matrix in sphere::intersect detected" << std::endl;
   }
   //Nach http://www.cs.princeton.edu/courses/archive/fall00/cs426/lectures/raycast/sld013.htm
@@ -73,7 +79,7 @@ sphere::intersect(ray r, shade& rec)
       rec.hitpoint = gettformi() * rec.hitpoint;
     }
     normal.normalize();
-    rec.hitpoint = rec.hitpoint + 0.01 * normal;//minimal Verschiebung verhindert Schnitt mit sich selbst
+    rec.hitpoint = rec.hitpoint + 0.01*normal; //* normal;//minimal Verschiebung verhindert Schnitt mit sich selbst
     rec.n = normal;
     //TODO: Stimmt die Distance ?!?
     rec.distance = distance(r.ori, Pmin);

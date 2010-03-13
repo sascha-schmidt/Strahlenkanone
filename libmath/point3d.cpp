@@ -1,5 +1,9 @@
-#include <point3d.hpp>
+
 #include <cassert>
+#include <iomanip>                // std::fixed, std::setprecision
+#include <ostream>                // std::ostream
+
+#include <point3d.hpp>
 #include <vector3d.hpp>
 
 point3d::point3d ()
@@ -61,4 +65,22 @@ operator-(point3d const& lhs, vector3d const& rhs)
   double c = lhs[2] - rhs[2];
   //vierte koordinate = 0 + 1 = 1 keine Anpassung nötig
   return point3d(a,b,c);
+}
+
+std::ostream&
+operator<<(std::ostream& os, point3d const& a)
+{
+  std::ostream::sentry const cerberus(os);
+
+  if (cerberus) {
+    os << std::fixed << std::setprecision(3)
+       << '['
+       << a[0] << ','
+       << a[1] << ','
+       << a[2] << ','
+       << a[3] << ']'
+       << std::endl;
+  }
+
+  return os;
 }

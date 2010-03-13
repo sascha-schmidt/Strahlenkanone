@@ -34,6 +34,8 @@ shape::setbbox(ppp b)
 bool
 shape::bboxintersect(ray r)
 {
+    //std::cout << "shape::bboxintersect \n";
+    
   //Tranformationsmatrix muss nicht beachtet werden, da die composites keine haben
   //s. cuboid.cpp
   vector3d tmin(0.0, 0.0, 0.0);
@@ -122,6 +124,7 @@ shape::translate(double x, double y, double z)
   matrix temp = make_translation(x,y,z);
   //TODO: ist die Mulitplikation richtug rum ?
   tform_ = tform_ * temp;
+  std::cout << "Translate::Matrix \n" << tform_;
   bbox();
   return (true);
 }
@@ -132,6 +135,7 @@ shape::scale(double x, double y, double z)
    matrix temp = make_scale(x,y,z);
    //TODO: ist die Mulitplikation richtug rum ?
    tform_ = tform_ * temp;
+   std::cout << "Scale::Matrix \n" << tform_;
    bbox();
    return (true);
 }
@@ -141,6 +145,7 @@ shape::rotate(double a, double x, double y, double z)
 {
   matrix temp = make_rotation(a, x ,y ,z);
   tform_ = tform_ * temp;
+  std::cout << "Rotate::Matrix \n" << tform_;
   bbox();
   return (true);
 }

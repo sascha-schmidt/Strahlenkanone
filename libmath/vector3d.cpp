@@ -1,5 +1,8 @@
 #include <vector3d.hpp>
 #include <point3d.hpp>
+
+#include <iomanip>                // std::fixed, std::setprecision
+#include <ostream>                // std::ostream
 #include <cassert>
 #include <cmath>
 
@@ -173,4 +176,23 @@ vector3d
 operator*(vector3d const& lhs, double rhs)
 {
     return vector3d((lhs[0] * rhs), (lhs[1] * rhs), (lhs[2] * rhs));
+}
+
+std::ostream&
+operator<<(std::ostream& os, vector3d const& a)
+{
+  std::ostream::sentry const cerberus(os);
+
+  if (cerberus) {
+    os << std::fixed << std::setprecision(3)
+       << '['
+       << a[0] << ','
+       << a[1] << ','
+       << a[2] << ','
+       << a[3] 
+       << ']'
+       << std::endl;
+  }
+
+  return os;
 }

@@ -471,10 +471,10 @@ point3d
 operator*(matrix const& lhs, point3d const& rhs)
 {
   point3d   temp;
-  temp[0] = (lhs[0] * rhs[0] + lhs[1] * rhs[0] + lhs[2] * rhs[0] + lhs[3] * rhs[0]);
-  temp[1] = (lhs[4] * rhs[1] + lhs[5] * rhs[1] + lhs[6] * rhs[1] + lhs[7] * rhs[1]);
-  temp[2] = (lhs[8] * rhs[2] + lhs[9] * rhs[2] + lhs[10] * rhs[2] + lhs[11] * rhs[2]);
-  temp[3] = (lhs[12] * rhs[3] + lhs[13] * rhs[3] + lhs[14] * rhs[3] + lhs[15] * rhs[3]);
+  temp[0] = (lhs[0] * rhs[0] + lhs[1] * rhs[1] + lhs[2] * rhs[2] + lhs[3] * rhs[3]);
+  temp[1] = (lhs[4] * rhs[0] + lhs[5] * rhs[1] + lhs[6] * rhs[2] + lhs[7] * rhs[3]);
+  temp[2] = (lhs[8] * rhs[0] + lhs[9] * rhs[1] + lhs[10] * rhs[2] + lhs[11] * rhs[3]);
+  temp[3] = (lhs[12] * rhs[0] + lhs[13] * rhs[1] + lhs[14] * rhs[2] + lhs[15] * rhs[3]);
   //letzte Zeile der Matrix muss 0,0,0,1 sein damit es ein punkt bleibt:
   assert(temp[3] == 1);
   return temp;
@@ -485,9 +485,9 @@ operator*
 (matrix const& lhs, vector3d const& rhs)
 {
   vector3d   temp;
-  temp[0] = (lhs[0] * rhs[0] + lhs[1] * rhs[0] + lhs[2] * rhs[0] + lhs[3] * rhs[0]);
-  temp[1] = (lhs[4] * rhs[1] + lhs[5] * rhs[1] + lhs[6] * rhs[1] + lhs[7] * rhs[1]);
-  temp[2] = (lhs[8] * rhs[2] + lhs[9] * rhs[2] + lhs[10] * rhs[2] + lhs[11] * rhs[2]);
+  temp[0] = (lhs[0] * rhs[0] + lhs[1] * rhs[1] + lhs[2] * rhs[2] + lhs[3] * rhs[3]);
+  temp[1] = (lhs[4] * rhs[0] + lhs[5] * rhs[1] + lhs[6] * rhs[2] + lhs[7] * rhs[3]);
+  temp[2] = (lhs[8] * rhs[0] + lhs[9] * rhs[1] + lhs[10] * rhs[2] + lhs[11] * rhs[3]);
   //temp[3] = (lhs[12] * rhs[3] + lhs[13] * rhs[3] + lhs[14] * rhs[3] + lhs[15] * rhs[3]);
   //assert(temp[3] == 0);
   temp[3] = 0;  // schneller, weil rhs[3] immer 0

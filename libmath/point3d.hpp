@@ -8,6 +8,9 @@
 #ifndef _POINT3D_HPP
 #define	_POINT3D_HPP
 
+// includes, system
+#include <iosfwd> // fwd. decl: std::ostream
+
 class vector3d;
 
 class point3d
@@ -33,6 +36,9 @@ double distance(point3d const& lhs, point3d const& rhs);
 
 point3d  operator+(point3d const& lhs, vector3d const& rhs);
 point3d  operator-(point3d const& lhs, vector3d const& rhs);
+
+std::ostream& operator<<( std::ostream&, point3d const&);
+
 
 #endif	/* _POINT3D_HPP */
 

@@ -41,7 +41,8 @@ cuboid::intersect(ray r, shade& rec)
   {
     r.ori = gettform() * r.ori;     //transformation auf den Ray anwenden
     r.dir = gettform() * r.dir;
-    //std::cout << "transf. matrix in cuboid::intersect detected" << std::endl;
+//    std::cout << "transf. matrix in cuboid::intersect detected" << "\n" << gettform() << "\n";
+//    std::cout << r.ori << r.dir << "\n";
   }
   //Begrenzung des Richtungsvektors auf den Wertebereich des Cuboid durch
   //Einschränkung der Faktoren für jede Koordinate einzeln
@@ -140,10 +141,11 @@ cuboid::intersect(ray r, shade& rec)
         matrix back = gettformi();
         back.transpose();
         normal = back * normal;
+        normal.normalize();
         //Tranformation des Hitpoints
         rec.hitpoint = gettformi() * rec.hitpoint;
       }
-      rec.hitpoint = rec.hitpoint + 0.01 * normal; //minimal Verschiebung verhindert Schnitt mit sich selbst
+      rec.hitpoint = rec.hitpoint + 0.01*normal; //minimal Verschiebung verhindert Schnitt mit sich selbst
       rec.n = normal;
       rec.distance = distance(r.ori, p);
       return (true);
@@ -155,10 +157,15 @@ cuboid::intersect(ray r, shade& rec)
 void
 cuboid::bbox()
 {
+  // DEBUG
+ std::cout << "cuboid::bbox()" << std::endl;
+
   ppp temp;
   temp.first = fll_;
   temp.second = bur_;
   temp.first = gettform() * temp.first;
   temp.second = gettform() * temp.second;
   setbbox(temp);
+  std::cout << gettform() << std::endl;
+  
 }

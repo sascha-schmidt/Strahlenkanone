@@ -358,9 +358,6 @@ loader::load(char file[], world& w)
 
           iss >> x >> y >> z;
 
-
-          (*it_shape).second->scale(x, y, z);
-
           if (it_shape != shapes.end())
           {
             it_shape->second->scale(x, y, z);
