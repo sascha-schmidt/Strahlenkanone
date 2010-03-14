@@ -18,7 +18,7 @@ cuboid::cuboid(point3d a, point3d b, material m)
   bbox();
 }
 
-cuboid::cuboid(double x1,double y1,double z1,double x2,double y2,double z2, material m)
+cuboid::cuboid(double x1,double y1,double z1,double x2,double y2,double z2, material const& m)
 : fll_(point3d(x1,y1,z1)), bur_(point3d(x2,y2,z2)), shape(m)
 {
   fll_[0] = std::min(x1, x2);
@@ -35,7 +35,7 @@ cuboid::~cuboid()
 }
 
 bool
-cuboid::intersect(ray r, shade& rec)
+cuboid::intersect(ray r, shade& rec) const
 {
   if(gettform() != matrix()) //Wenn es sich nicht um die Einheitsmatrix handelt
   {

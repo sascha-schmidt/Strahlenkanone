@@ -25,7 +25,7 @@ public:
 
   void bbox();
 
-  bool intersect(ray r, shade &rec);
+  bool intersect(ray r, shade &rec) const;
 
   void add(shape* s);
 

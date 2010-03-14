@@ -4,7 +4,7 @@
 #include <utility>
 #include <iostream>
 
-#define MAX_DEPTH 3
+#define MAX_DEPTH 4
 
 phong::phong()
 : sc_(), lights_(), bg_(), ambient_()
@@ -12,7 +12,7 @@ phong::phong()
 }
 
 void
-phong::init(shape_composite sc, std::vector<light> l, rgb a, rgb b)
+phong::init(shape_composite const& sc, std::vector<light> const& l, rgb const& a, rgb const& b)
 {
   sc_ = sc;
   lights_ = l;
@@ -21,11 +21,11 @@ phong::init(shape_composite sc, std::vector<light> l, rgb a, rgb b)
 }
 
 rgb
-phong::color(ray view, shade const& s)
+phong::color(ray view, shade const& s) const
 {
   if (s.material_ref.reflecting) //bei spiegelendem Material
   {
-    return color(view, s, 0);
+    return reflect(view, s, 0);
   }
   else  //Andernfalls Farbe nach Phong
   {
@@ -42,7 +42,7 @@ phong::color(ray view, shade const& s)
     l.ori=s.hitpoint;
     vector3d v=view.dir * (-1); //zum Betrachter
     v.normalize();
-    for (std::vector<light>::iterator i=lights_.begin(); i != lights_.end(); std::advance(i, 1))
+    for (std::vector<light>::const_iterator i=lights_.begin(); i != lights_.end(); std::advance(i, 1))
     {
       l.dir=vector3d(s.hitpoint, (*i).pos);
       l.dir.normalize();
@@ -74,9 +74,9 @@ phong::color(ray view, shade const& s)
 }
 
 rgb
-phong::color(ray view, shade const& s, unsigned depth)
+phong::reflect(ray view, shade const& s, unsigned depth) const
 {
-  if(depth > MAX_DEPTH) //Schwarz bei zuvielen Spiegelungen
+  if(depth > MAX_DEPTH) //Schwarz/bg_ bei zuvielen Spiegelungen
   {
     return bg_;
   }
@@ -87,16 +87,15 @@ phong::color(ray view, shade const& s, unsigned depth)
   else if(s.material_ref.reflecting) //Spiegelung der Spiegelung
   {
     ray ausfall; //view gespiegel an n = ausgehender Strahl
-    //TODO Problem here
-    ausfall.ori = s.hitpoint + 0.5 * s.n;
-    //TODO Problem and here
+    ausfall.ori = s.hitpoint + 0.1 * s.n; //minimal verschiebung mal wieder
+    //Spiegelung an n =  v - 2*(v*n)*n
     ausfall.dir = view.dir - (2 * dot(view.dir, s.n) * s.n);
     shade mir;
     sc_.intersect(ausfall, mir);
     if(mir.didhit)
     {
       //Wenn unser Ausfallsstrahl auf etwas trifft nehmen wir dessen Farbe
-      return color(ausfall, mir, ++depth);
+      return reflect(ausfall, mir, ++depth);
     }
     else //Wenn wir nichts treffen fliegt der Strahl ins unendliche
     {    //Also nehmen wir die Hintergrundfarbe

@@ -85,14 +85,13 @@ bool world::render()
         for (std::size_t qq=0; qq < AA_RES; ++qq)
         {
           //Berechnung der Kamerafläche
-          double ux=(y - (0.5 * (heigth_ - 1)) + (pp + 0.5) / AA_RES);
-          double uy=(x - (0.5 * (width_ - 1)) + (qq + 0.5) / AA_RES);
+          double ux=(y - (0.5 * (width_ - 1)) + (pp + 0.5) / AA_RES);
+          double uy=(x - (0.5 * (heigth_ - 1)) + (qq + 0.5) / AA_RES);
 
           r.dir=vector3d(r.ori, point3d(ux, uy, -cam_abstand));
           r.dir.normalize();
 
           shade sh;
-          sh.world_ptr=this;
           master_.intersect(r, sh);
           if (sh.didhit)
           {

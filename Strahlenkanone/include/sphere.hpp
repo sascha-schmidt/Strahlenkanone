@@ -19,7 +19,7 @@ public:
   sphere(point3d c, double r, material const& m);
   sphere(double x, double y, double z, double r, material const& m);
   ~sphere();
-  bool intersect(ray r, shade& rec);
+  bool intersect(ray r, shade& rec) const;
 
   void bbox();
 

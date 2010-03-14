@@ -24,8 +24,6 @@ public:
   //Pointer aufs Material:
   material nothing;
   material& material_ref;
-  //Referenz zur Welt, ermöglicht Zugriff auf ihre Member
-  world* world_ptr;
   point3d hitpoint;
   //Normalvektor auf Schnittpunkt:
   vector3d n;
@@ -33,7 +31,7 @@ public:
   double distance;
 
   shade()
-  :didhit(false), material_ref(nothing), world_ptr(0), hitpoint(), n(), distance(std::numeric_limits<double>::max())
+  :didhit(false), material_ref(nothing), hitpoint(), n(), distance(std::numeric_limits<double>::max())
   {}
 
 };

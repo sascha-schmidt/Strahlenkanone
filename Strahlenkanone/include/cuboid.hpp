@@ -18,9 +18,9 @@ class cuboid : public shape
 {
 public:
   cuboid(point3d a, point3d b, material m);
-  cuboid(double x1,double y1,double z1,double x2,double y2,double z2, material m);
+  cuboid(double x1,double y1,double z1,double x2,double y2,double z2, material const& m);
   ~cuboid();
-  bool intersect(ray r, shade& rec);
+  bool intersect(ray r, shade& rec) const;
 
   void bbox();
 

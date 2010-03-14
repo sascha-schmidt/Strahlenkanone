@@ -20,7 +20,7 @@ public:
   triangle(double x1, double x2, double x3, double y1, double y2, double y3
           , double z1, double z2, double z3, material const& m);
   ~triangle();
-  bool intersect(ray r, shade& rec);
+  bool intersect(ray r, shade& rec) const;
 
   void bbox();
 

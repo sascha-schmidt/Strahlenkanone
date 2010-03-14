@@ -32,7 +32,7 @@ shape::setbbox(ppp b)
 }
 
 bool
-shape::bboxintersect(ray r)
+shape::bboxintersect(ray r) const
 {
     //std::cout << "shape::bboxintersect \n";
     
@@ -108,14 +108,6 @@ matrix const&
 shape::gettformi() const
 {
   return tformi_;
-}
-
-void
-shape::settform(matrix m)
-{
-  tform_ = m;
-  m.invert();
-  tformi_ = m;
 }
 
 bool

@@ -23,9 +23,10 @@ public:
 
   bool init(double c, std::string filename, int width, int heigth, shape_composite sc, std::vector<light> l, rgb la, rgb b);
 
-  //Bildberechnung. Vorläufig später Auslagerung in raytracer.hpp/cpp
-  bool render();
+  //Bildberechnung Auslagerung erfordert Zugriff auf world oder Datenduplexität
+  bool render(); //kein const wegen selbstreferenz für shade
 
+  //getter für Breite und höhe
   unsigned getwidth();
   unsigned getheigth();
 

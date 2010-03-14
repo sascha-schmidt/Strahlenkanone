@@ -22,7 +22,7 @@ triangle::~triangle()
 }
 
 bool
-triangle::intersect(ray r, shade& rec)
+triangle::intersect(ray r, shade& rec) const
 {
   if(gettform() != matrix()) //Wenn es sich nicht um die Einheitsmatrix handelt
   {

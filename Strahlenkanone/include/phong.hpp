@@ -18,10 +18,10 @@ class phong
 {
 public:
   phong();
-  void init(shape_composite sc, std::vector<light> l, rgb a, rgb b);
-  rgb color(ray view, shade const& s);
+  void init(shape_composite const& sc, std::vector<light> const& l, rgb const& a, rgb const& b);
+  rgb color(ray view, shade const& s) const;
   //Für mit Spiegelung
-  rgb color(ray view, shade const& s, unsigned depth);
+  rgb reflect(ray view, shade const& s, unsigned depth) const;
 
 private:
   //Vector mit allen Lichtern

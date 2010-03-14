@@ -11,8 +11,7 @@ shape_composite::shape_composite()
 
 shape_composite::~shape_composite()
 {
-  /*TODO Destructor ignorieren, weil nicht möglich bei verschachtelten composites
-    composite wird erst mit Programmende destruiert->
+  /*composite wird erst mit Programmende destruiert->
     alles im Stack und freestore wird eh gelöscht*/
 }
 
@@ -25,12 +24,12 @@ shape_composite::add(shape* s)
 }
 
 bool 
-shape_composite::intersect(ray r, shade &rec)
+shape_composite::intersect(ray r, shade &rec) const
 {
   bool temp = false;
   if(bboxintersect(r))
   {
-    for(std::vector<shape*>::iterator i = data_.begin(); i != data_.end(); std::advance(i ,1))
+    for(std::vector<shape*>::const_iterator i = data_.begin(); i != data_.end(); std::advance(i ,1))
     {
       bool akt = (*i)->intersect(r, rec);
       temp = (temp || akt);

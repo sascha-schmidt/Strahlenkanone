@@ -20,7 +20,7 @@ sphere::~sphere()
 }
 
 bool
-sphere::intersect(ray r, shade& rec)
+sphere::intersect(ray r, shade& rec) const
 {
     //std::cout << "PRE: ray.ori: " << r.ori << "PRE: ray.dir" << r.dir << "\n";
     //std::cout << "PRE: ray.ori: " << r.ori << "PRE: ray.dir" << r.dir << "\n";
@@ -81,7 +81,6 @@ sphere::intersect(ray r, shade& rec)
     normal.normalize();
     rec.hitpoint = rec.hitpoint + 0.01*normal; //* normal;//minimal Verschiebung verhindert Schnitt mit sich selbst
     rec.n = normal;
-    //TODO: Stimmt die Distance ?!?
     rec.distance = distance(r.ori, Pmin);
     return (true);
   }
@@ -91,17 +90,14 @@ sphere::intersect(ray r, shade& rec)
 void
 sphere::bbox()
 {
-  point3d mini;
-  point3d maxi;
+  //Der Extrempunkte sind alle 3 Koord. minus/plus den radius
   ppp temp;
-  mini[0] = center_[0] - radius_;
-  mini[1] = center_[1] - radius_;
-  mini[2] = center_[2] - radius_;
-  maxi[0] = center_[0] + radius_;
-  maxi[1] = center_[1] + radius_;
-  maxi[2] = center_[2] + radius_;
-  temp.first = mini;
-  temp.second = maxi;
+  temp.first[0] = center_[0] - radius_;
+  temp.first[1] = center_[1] - radius_;
+  temp.first[2] = center_[2] - radius_;
+  temp.second[0] = center_[0] + radius_;
+  temp.second[1] = center_[1] + radius_;
+  temp.second[2] = center_[2] + radius_;
   temp.first = gettform() * temp.first;
   temp.second = gettform() * temp.second;
   setbbox(temp);
