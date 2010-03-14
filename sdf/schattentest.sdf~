@@ -1,0 +1,8 @@
+define material white 1 1 1 1 1 1 1 1 1 1 0
+define material green 0 1 0 0 1 0 0 1 0 100 0
+
+define shape box floor 195 -700 -500 200 700 0 white
+define shape box pfahl 195 -40 -100 30 -100 -150 green
+
+define light ambient amb 0.1 0.1 0.1
+define light diffuse li 130 0 -120 0.8 0.8 0.8

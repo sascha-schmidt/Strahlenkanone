@@ -1,0 +1,32 @@
+define material white 1 1 1 1 1 1 1 1 1 1 0
+define material blue 0 0 1 0 0 1 0 0 1 4 0
+define material stuff 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0
+define material reflect 0 0 1 0 0 1 0 0 1 4 1 
+
+#cornell box
+define shape box top -400 -400 -500 -395 400 0 white
+define shape box floor 395 -400 -500 400 400 0 white
+define shape box left -400 -400 -500 400 -395 0 white
+define shape box right -400 395 -500 400 400 0 white
+define shape box back -400 -400 -501 400 400 -500 stuff
+define shape box front -400 -400 1 400 400 0 blue
+
+#objekte
+define shape box obj1 0 20 -20 50 30 -30 reflect
+define shape sphere obj2 0 0 -35 10 reflect
+#define shape sphere obj3 50 0 -60 15 reflect
+define shape box obj4 0 -20 -20 50 -30 -30 reflect
+
+#transform obj2 scale 1.5 1 1
+#transform obj2 translate 0 -20 0
+
+define light ambient amb 0.1 0.1 0.1
+#define light diffuse li 0 50 0 0.5 0.1 0.1
+#define light diffuse li2 100 0 10 0.8 0.8 0.8
+define light diffuse li3 -10 -20 -10 0.8 0.8 0.9
+
+#define light diffuse light1 0 200 -200
+
+camera eye 45
+
+render eye test.ppm 500 500
