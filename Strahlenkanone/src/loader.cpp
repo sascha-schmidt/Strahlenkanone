@@ -288,8 +288,8 @@ loader::load(char file[], world& w)
               // Der Temporäre Shape-Container der mit den Children des Composites gefüllt ist..
               // ersetzt den Normalen Shape Container. d.h. ist in einer SDF-Datei ein composite
               // vorhanden und shapes die nicht darin vorkommen so werden diese Verworfen
-              //sc = sc_tmp;
-              shapes.insert(std::pair<std::string, shape*>(name, sc_tmp));
+              sc = sc_tmp;
+              shapes.insert(std::pair<std::string, shape*>(name, sc));
             }
             else
             {
