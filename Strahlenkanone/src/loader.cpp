@@ -288,8 +288,8 @@ loader::load(char file[], world& w)
               // Der Temporäre Shape-Container der mit den Children des Composites gefüllt ist..
               // ersetzt den Normalen Shape Container. d.h. ist in einer SDF-Datei ein composite
               // vorhanden und shapes die nicht darin vorkommen so werden diese Verworfen
-              sc = sc_tmp;
-              shapes.insert(std::pair<std::string, shape*>(name, sc));
+              //sc = sc_tmp;
+              shapes.insert(std::pair<std::string, shape*>(name, sc_tmp));
             }
             else
             {
@@ -297,7 +297,9 @@ loader::load(char file[], world& w)
               if ( shapes.find("root") != shapes.end() )
               {
                 std::cout << "\nAnderes Composites gefunden: Füge es zum root-Composite hinzu..." << std::endl;
+
                 sc->add(sc_tmp);
+                shapes.insert(std::pair<std::string, shape*>(name, sc_tmp));
               }
             }
 
@@ -330,6 +332,7 @@ loader::load(char file[], world& w)
           iss >> offset[0] >> offset[1] >> offset[2];
 
          it_shape->second->translate(offset[0], offset[1], offset[2]);
+         std::cout << "translate" << std::endl;
                   
         }
 
