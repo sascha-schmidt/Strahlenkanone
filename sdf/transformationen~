@@ -1,0 +1,25 @@
+define material blue 0 0 1 0 0 1 0 0 1 2 0
+define material stuff 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0
+
+define shape sphere obj  0 0 -35 10 blue
+define shape sphere s1  -30 0 -35 6 stuff
+define shape sphere s2  -30 0 -35 6 stuff
+define shape sphere s3  -30 0 -35 6 stuff
+define shape sphere s4  -30 0 -35 6 stuff
+define shape box b1 40 -10 -20 20 10 -40 blue
+define shape triangle t2 10 -10 -20 20 0 -20 10 10 -20 blue
+
+define light ambient a 0.1 0.1 0.1
+define light diffuse li2 -100 0 100 0.6 0.6 0.6
+
+transform obj scale 1 2 1
+transform b1 scale 1 2 1
+transform t2 scale 2 1 1
+transform t2 translate 20 -30 0
+transform s2 rotate 0.4 -1 0 -1
+transform s3 rotate 0.8 -1 0 -1
+transform s4 rotate 1.2 -1 0 -1
+
+camera eye 40
+
+render eye test.ppm 500 500

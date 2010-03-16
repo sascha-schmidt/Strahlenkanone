@@ -1,0 +1,17 @@
+define material blue 0 0 1 0 0 1 0 0 1 2 0
+define material red 1 0 0 1 0 0 1 0 0 1 0
+define material green 0 1 0 0 1 0 0 1 0 100 0
+
+define shape triangle t2 -20 0 -20 0 -10 -20 0 10 -20 green
+define shape sphere s1 -20 0 -20 3 red
+define shape sphere s2 0 -10 -20 3 red
+define shape sphere s3 0 10 -20 3 red
+define shape box b1 10 -10 -15 3 -3 -10 blue
+define shape box b2 -10 10 -15 -3 3 -10 blue
+
+define light ambient a 0.1 0.1 0.1
+define light diffuse li2 -100 0 100 0.6 0.6 0.6
+
+camera eye 20
+
+render eye test.ppm 500 500
