@@ -22,17 +22,12 @@ sphere::~sphere()
 bool
 sphere::intersect(ray r, shade& rec) const
 {
-    //std::cout << "PRE: ray.ori: " << r.ori << "PRE: ray.dir" << r.dir << "\n";
-    //std::cout << "PRE: ray.ori: " << r.ori << "PRE: ray.dir" << r.dir << "\n";
-  if(gettform() != matrix()) //Wenn es sich nicht um die Einheitsmatrix handelt
+  if(is_tformed()) //Wenn wir eine Transformationsmatrix haben
   {
-    //std::cout << "Matrix:" << gettform() << "\n";
-    r.ori = gettform() * r.ori;     //transformation auf den Ray anwenden
-    r.dir = gettform() * r.dir;
+    matrix to = gettformi();
+    r.ori = to * r.ori;     //transformation auf den Ray anwenden
+    r.dir = to * r.dir;
     r.dir.normalize();
-    //std::cout << "POST: ray.ori: " << r.ori << "POST: ray.dir" << r.dir << "\n";
-    //std::cout << "POST: ray.ori: " << r.ori << "POST: ray.dir" << r.dir << "\n";
-    //std::cout << "transf. matrix in sphere::intersect detected" << std::endl;
   }
   //Nach http://www.cs.princeton.edu/courses/archive/fall00/cs426/lectures/raycast/sld013.htm
   //Vector vom Strahlenursprung zum Mittelpunkt
@@ -69,17 +64,17 @@ sphere::intersect(ray r, shade& rec) const
     rec.material_ref = getmater();
     vector3d normal(center_, Pmin);
     rec.hitpoint = Pmin;
-    if(gettform() != matrix())
+    if(is_tformed())
     {
-      //Rückstranformation der Normalen
-      matrix back = gettformi();
-      back.transpose();
-      normal = back * normal;
+      matrix fro = gettform();
       //Tranformation des Hitpoints
-      rec.hitpoint = gettformi() * rec.hitpoint;
+      rec.hitpoint = fro * rec.hitpoint;
+      //Rückstranformation der Normalen
+      fro.transpose();
+      normal = fro * normal;
     }
     normal.normalize();
-    rec.hitpoint = rec.hitpoint + 0.01*normal; //* normal;//minimal Verschiebung verhindert Schnitt mit sich selbst
+    rec.hitpoint = rec.hitpoint + 0.05*normal; //* normal;//minimal Verschiebung verhindert Schnitt mit sich selbst
     rec.n = normal;
     rec.distance = distance(r.ori, Pmin);
     return (true);
@@ -98,7 +93,11 @@ sphere::bbox()
   temp.second[0] = center_[0] + radius_;
   temp.second[1] = center_[1] + radius_;
   temp.second[2] = center_[2] + radius_;
-  temp.first = gettform() * temp.first;
-  temp.second = gettform() * temp.second;
+  if(is_tformed()) //Müssen wir transformieren
+  {
+    matrix to = gettform();
+    temp.first = to * temp.first;
+    temp.second = to * temp.second;
+  }
   setbbox(temp);
 }

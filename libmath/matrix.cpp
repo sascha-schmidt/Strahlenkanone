@@ -474,9 +474,10 @@ operator*(matrix const& lhs, point3d const& rhs)
   temp[0] = (lhs[0] * rhs[0] + lhs[1] * rhs[1] + lhs[2] * rhs[2] + lhs[3] * rhs[3]);
   temp[1] = (lhs[4] * rhs[0] + lhs[5] * rhs[1] + lhs[6] * rhs[2] + lhs[7] * rhs[3]);
   temp[2] = (lhs[8] * rhs[0] + lhs[9] * rhs[1] + lhs[10] * rhs[2] + lhs[11] * rhs[3]);
-  temp[3] = (lhs[12] * rhs[0] + lhs[13] * rhs[1] + lhs[14] * rhs[2] + lhs[15] * rhs[3]);
-  //letzte Zeile der Matrix muss 0,0,0,1 sein damit es ein punkt bleibt:
-  assert(temp[3] == 1);
+//  temp[3] = (lhs[12] * rhs[0] + lhs[13] * rhs[1] + lhs[14] * rhs[2] + lhs[15] * rhs[3]);
+//  letzte Zeile der Matrix muss 0,0,0,1 sein damit es ein punkt bleibt:
+//  assert(temp[3] == 1);
+  temp[3] = 1;
   return temp;
 }
 

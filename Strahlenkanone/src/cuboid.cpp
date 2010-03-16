@@ -37,12 +37,12 @@ cuboid::~cuboid()
 bool
 cuboid::intersect(ray r, shade& rec) const
 {
-  if(gettform() != matrix()) //Wenn es sich nicht um die Einheitsmatrix handelt
+  if(is_tformed()) //Wenn wir eine Transformationsmatrix haben
   {
-    r.ori = gettform() * r.ori;     //transformation auf den Ray anwenden
-    r.dir = gettform() * r.dir;
-//    std::cout << "transf. matrix in cuboid::intersect detected" << "\n" << gettform() << "\n";
-//    std::cout << r.ori << r.dir << "\n";
+    matrix to = gettformi();
+    r.ori = to * r.ori;     //transformation auf den Ray anwenden
+    r.dir = to * r.dir;
+    r.dir.normalize();
   }
   //Begrenzung des Richtungsvektors auf den Wertebereich des Cuboid durch
   //Einschränkung der Faktoren für jede Koordinate einzeln
@@ -136,14 +136,15 @@ cuboid::intersect(ray r, shade& rec) const
       rec.didhit = true; //Juchu getroffen
       rec.material_ref = getmater();
       rec.hitpoint = p;
-      if(gettform() != matrix())
+      if(is_tformed())
       {
-        matrix back = gettformi();
-        back.transpose();
-        normal = back * normal;
-        normal.normalize();
+        matrix fro = gettform();
         //Tranformation des Hitpoints
-        rec.hitpoint = gettformi() * rec.hitpoint;
+        rec.hitpoint = fro * rec.hitpoint;
+        //Rücktransformation der Normalen mit der Transponierten
+        fro.transpose();
+        normal = fro * normal;
+        normal.normalize();
       }
       rec.hitpoint = rec.hitpoint + 0.01*normal; //minimal Verschiebung verhindert Schnitt mit sich selbst
       rec.n = normal;
@@ -157,15 +158,14 @@ cuboid::intersect(ray r, shade& rec) const
 void
 cuboid::bbox()
 {
-  // DEBUG
- std::cout << "cuboid::bbox()" << std::endl;
-
   ppp temp;
   temp.first = fll_;
   temp.second = bur_;
-  temp.first = gettform() * temp.first;
-  temp.second = gettform() * temp.second;
+  if(is_tformed()) //Müssen wir transformieren
+  {
+    matrix to = gettform();
+    temp.first = to * temp.first;
+    temp.second = to * temp.second;
+  }
   setbbox(temp);
-  std::cout << gettform() << std::endl;
-  
 }

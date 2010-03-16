@@ -24,11 +24,12 @@ triangle::~triangle()
 bool
 triangle::intersect(ray r, shade& rec) const
 {
-  if(gettform() != matrix()) //Wenn es sich nicht um die Einheitsmatrix handelt
+  if(is_tformed()) //Wenn wir eine Transformationsmatrix haben
   {
-    r.ori = gettform() * r.ori;     //transformation auf den Ray anwenden
-    r.dir = gettform() * r.dir;
-    std::cout << "transf. matrix in triangle::intersect detected" << std::endl;
+    matrix to = gettformi();
+    r.ori = to * r.ori;     //transformation auf den Ray anwenden
+    r.dir = to * r.dir;
+    r.dir.normalize();
   }
   //Als erstes brauchen wir den normalen Vektor
   vector3d eineseite(a_, b_);
@@ -86,13 +87,15 @@ triangle::intersect(ray r, shade& rec) const
       rec.didhit = true; //Juchu getroffen
       rec.material_ref = getmater();
       rec.hitpoint = p;
-      if(gettform() != matrix())
+      if(is_tformed())
       {
-        matrix back = gettformi();
-        back.transpose();
-        normal = back * normal;
+        matrix fro = gettform();
         //Tranformation des Hitpoints
-        rec.hitpoint = gettformi() * rec.hitpoint;
+        rec.hitpoint = fro * rec.hitpoint;
+        //Rücktransformation der Normalen mit der Transponierten
+        fro.transpose();
+        normal = fro * normal;
+        normal.normalize();
       }
       rec.hitpoint = rec.hitpoint + 0.1 * normal; //minimal Verschiebung verhindert Schnitt mit sich selbst
       rec.n = normal;
@@ -118,7 +121,11 @@ triangle::bbox()
   maxi[2] = std::max(a_[2], std::max(b_[2], c_[2]));
   temp.first = mini;
   temp.second = maxi;
-  temp.first = gettform() * temp.first;
-  temp.second = gettform() * temp.second;
+  if(is_tformed()) //Müssen wir transformieren
+  {
+    matrix to = gettform();
+    temp.first = to * temp.first;
+    temp.second = to * temp.second;
+  }
   setbbox(temp);
 }

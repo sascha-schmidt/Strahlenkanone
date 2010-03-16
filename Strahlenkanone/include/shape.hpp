@@ -41,6 +41,9 @@ public:
   matrix const& gettform() const;
   matrix const& gettformi()  const;
 
+  //Müssen wir überhaupt transformieren
+  bool is_tformed() const;
+
   //Transformationen
   bool translate(double x, double y, double z);
   bool scale(double x, double y, double z);
@@ -55,6 +58,9 @@ private:
   //Transformationsmatrix
   matrix tform_;
   matrix tformi_;
+  //nur wenn wir eine Transformationsmatrix haben, müssen wir transformieren
+  bool tformed_;
+  //Matrial:
   material mater_;
 };
 

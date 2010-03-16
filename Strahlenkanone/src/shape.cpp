@@ -2,11 +2,11 @@
 #include <iostream>
 
 shape::shape()
-:bbox_(), tform_(), mater_()
+: tformed_(false)
 {}
 
 shape::shape(material const& m)
-: bbox_(), tform_(), mater_(m){}
+: tformed_(false), mater_(m){}
 
 shape::~shape()
 {}
@@ -111,11 +111,22 @@ shape::gettformi() const
 }
 
 bool
+shape::is_tformed() const
+{
+  return tformed_;
+}
+
+bool
 shape::translate(double x, double y, double z)
 {
   matrix temp = make_translation(x,y,z);
   tform_ = tform_ * temp;
-  std::cout << "Translate::Matrix \n" << tform_;
+  temp.invert();
+  tformi_ = tformi_ * temp;
+//  tform_ = temp * tform_;
+//  temp.invert();
+//  tformi_ = temp * tformi_;
+  tformed_ = (true);
   bbox();
   return (true);
 }
@@ -123,9 +134,14 @@ shape::translate(double x, double y, double z)
 bool
 shape::scale(double x, double y, double z)
 {
-   matrix temp = make_scale(x,y,z);
-   tform_ = tform_ * temp;
-   std::cout << "Scale::Matrix \n" << tform_;
+  matrix temp = make_scale(x,y,z);
+  tform_ = tform_ * temp;
+  temp.invert();
+  tformi_ = tformi_ * temp;
+//   tform_ = temp * tform_;
+//   temp.invert();
+//   tformi_ = temp * tformi_;
+   tformed_ = (true);
    bbox();
    return (true);
 }
@@ -135,7 +151,12 @@ shape::rotate(double a, double x, double y, double z)
 {
   matrix temp = make_rotation(a, x ,y ,z);
   tform_ = tform_ * temp;
-  std::cout << "Rotate::Matrix \n" << tform_;
+  temp.invert();
+  tformi_ = tformi_ * temp;
+//  tform_ = temp * tform_;
+//  temp.invert();
+//  tformi_ = temp * tformi_;
+  tformed_ = (true);
   bbox();
   return (true);
 }
@@ -145,6 +166,9 @@ shape::rotatex(double angle)
 {
   matrix temp = make_rotation_x(angle);
   tform_ = tform_ * temp;
+  temp.invert();
+  tformi_ = tformi_ * temp;
+  tformed_ = (true);
   bbox();
   return (true);
 }
@@ -154,6 +178,9 @@ shape::rotatey(double angle)
 {
   matrix temp = make_rotation_y(angle);
   tform_ = tform_ * temp;
+  temp.invert();
+  tformi_ = tformi_ * temp;
+  tformed_ = (true);
   bbox();
   return (true);
 }
@@ -164,6 +191,9 @@ shape::rotatez(double angle)
 
   matrix temp = make_rotation_z(angle);
   tform_ = tform_ * temp;
+  temp.invert();
+  tformi_ = tformi_ * temp;
+  tformed_ = (true);
   bbox();
   return (true);
 }

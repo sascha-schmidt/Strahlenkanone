@@ -47,6 +47,7 @@ shape_composite::rotate(double a, double x, double y, double z)
     bool akt = (*i)->rotate(a, x, y, z);
     temp = temp && akt;
   }
+  bbox();
   return temp;
 }
 
@@ -59,6 +60,7 @@ shape_composite::rotatex(double angle)
     bool akt = (*i)->rotatex(angle);
     temp = temp && akt;
   }
+  bbox();
   return temp;
 }
 
@@ -71,6 +73,7 @@ shape_composite::rotatey(double angle)
     bool akt = (*i)->rotatey(angle);
     temp = temp && akt;
   }
+  bbox();
   return temp;
 }
 
@@ -83,6 +86,7 @@ shape_composite::rotatez(double angle)
     bool akt = (*i)->rotatez(angle);
     temp = temp && akt;
   }
+  bbox();
   return temp;
 }
 
@@ -95,6 +99,7 @@ shape_composite::scale(double x, double y, double z)
     bool akt = (*i)->scale(x,y,z);
     temp = temp && akt;
   }
+  bbox();
   return temp;
 }
 
@@ -107,6 +112,7 @@ shape_composite::translate(double x, double y, double z)
     bool akt = (*i)->translate(x,y,z);
     temp = temp && akt;
   }
+  bbox();
   return temp;
 }
 
