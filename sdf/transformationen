@@ -12,6 +12,8 @@ define shape triangle t2 10 -10 -20 20 0 -20 10 10 -20 blue
 define light ambient a 0.1 0.1 0.1
 define light diffuse li2 -100 0 100 0.6 0.6 0.6
 
+
+define shape composite root t2 s1 s2 s3 s4
 define shape composite sca obj b1
 
 #transform obj scale 1 2 1
@@ -22,6 +24,7 @@ transform t2 translate 0 -30 0
 transform s2 rotate 0.4 -1 0 -1
 transform s3 rotate 0.8 -1 0 -1
 transform s4 rotate 1.2 -1 0 -1
+
 
 camera eye 40
 
