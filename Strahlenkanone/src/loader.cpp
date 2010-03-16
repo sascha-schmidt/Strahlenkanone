@@ -272,8 +272,7 @@ loader::load(char file[], world& w)
 
               if (it_shape != shapes.end() )
               {
-                sc_tmp->add((*it_shape).second);
-                std::cout << "WTF?" << sc_tmp->size();
+                sc_tmp->add((*it_shape).second);            
               }
               else std::cerr << "Composite" << name << ": Shape " << (*i) << " konnte nicht im Shape-Container gefunden werden" << std::endl;
 
@@ -285,11 +284,11 @@ loader::load(char file[], world& w)
             // heißt das Composite "root" wird es dem Shape-Container hinzugefügt
             if (name == "root")
             {
-              std::cout << "\n root composite detected: adding to shape" << std::endl;
+              std::cout << "\nroot composite vorhanden: Wird zum Shape-Container hinzugefügt.." << std::endl;
               // Der Temporäre Shape-Container der mit den Children des Composites gefüllt ist..
               // ersetzt den Normalen Shape Container. d.h. ist in einer SDF-Datei ein composite
               // vorhanden und shapes die nicht darin vorkommen so werden diese Verworfen
-              //sc = sc_tmp;
+              sc = sc_tmp;
               shapes.insert(std::pair<std::string, shape*>(name, sc_tmp));
             }
             else
@@ -297,7 +296,7 @@ loader::load(char file[], world& w)
               // Für den Fall das es mehrere Composites gibt werden diese einfach an das Root-Composite angehangen
               if ( shapes.find("root") != shapes.end() )
               {
-                std::cout << "\n non-root composite detected: adding to root-composite" << std::endl;
+                std::cout << "\nAnderes Composites gefunden: Füge es zum root-Composite hinzu..." << std::endl;
                 sc->add(sc_tmp);
               }
             }
@@ -323,8 +322,6 @@ loader::load(char file[], world& w)
         std::cout << name << "->";
 
         it_shape=shapes.find(name);
-        std::cout << "\n name des shapes das transformiert wird: " << it_shape->first << std::endl;
-
         iss >> string;
         
         if (string == "translate")
@@ -333,8 +330,7 @@ loader::load(char file[], world& w)
           iss >> offset[0] >> offset[1] >> offset[2];
 
          it_shape->second->translate(offset[0], offset[1], offset[2]);
-          std::cout << "\n translate auf " << (*it_shape).first << std::endl;
-          
+                  
         }
 
         if (string == "rotate")

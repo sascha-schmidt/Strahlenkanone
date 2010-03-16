@@ -113,10 +113,9 @@ shape::gettformi() const
 /* virtual */ bool
 shape::translate(double x, double y, double z)
 {
-    std::cout << "shape::translate !!! \n";
   matrix temp = make_translation(x,y,z);
   tform_ = tform_ * temp;
-  std::cout << "Translate::Matrix \n" << tform_;
+  std::cout << "\n shape::translate matrix \n" << tform_;
   bbox();
   return (true);
 }
@@ -126,7 +125,7 @@ shape::scale(double x, double y, double z)
 {
    matrix temp = make_scale(x,y,z);
    tform_ = tform_ * temp;
-   std::cout << "Scale::Matrix \n" << tform_;
+   std::cout << "\n shape::scale matrix \n" << tform_;
    bbox();
    return (true);
 }
@@ -136,7 +135,7 @@ shape::rotate(double a, double x, double y, double z)
 {
   matrix temp = make_rotation(a, x ,y ,z);
   tform_ = tform_ * temp;
-  std::cout << "Rotate::Matrix \n" << tform_;
+  std::cout << "\n shape::rotate matrix \n" << tform_;
   bbox();
   return (true);
 }
@@ -146,6 +145,7 @@ shape::rotatex(double angle)
 {
   matrix temp = make_rotation_x(angle);
   tform_ = tform_ * temp;
+  std::cout << "\n shape::rotatex matrix \n" << tform_;
   bbox();
   return (true);
 }
@@ -155,6 +155,7 @@ shape::rotatey(double angle)
 {
   matrix temp = make_rotation_y(angle);
   tform_ = tform_ * temp;
+  std::cout << "\n shape::rotatey matrix \n" << tform_;
   bbox();
   return (true);
 }
@@ -165,6 +166,7 @@ shape::rotatez(double angle)
 
   matrix temp = make_rotation_z(angle);
   tform_ = tform_ * temp;
+  std::cout << "\n shape::rotatez matrix \n" << tform_;
   bbox();
   return (true);
 }
