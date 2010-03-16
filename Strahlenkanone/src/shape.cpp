@@ -116,7 +116,7 @@ shape::is_tformed() const
   return tformed_;
 }
 
-bool
+/* virtual */ bool
 shape::translate(double x, double y, double z)
 {
   matrix temp = make_translation(x,y,z);
@@ -131,7 +131,7 @@ shape::translate(double x, double y, double z)
   return (true);
 }
 
-bool
+/* virtual */ bool
 shape::scale(double x, double y, double z)
 {
   matrix temp = make_scale(x,y,z);
@@ -146,7 +146,7 @@ shape::scale(double x, double y, double z)
    return (true);
 }
 
-bool
+/* virtual */ bool
 shape::rotate(double a, double x, double y, double z)
 {
   matrix temp = make_rotation(a, x ,y ,z);
@@ -161,7 +161,7 @@ shape::rotate(double a, double x, double y, double z)
   return (true);
 }
 
-bool
+/* virtual */ bool
 shape::rotatex(double angle)
 {
   matrix temp = make_rotation_x(angle);
@@ -173,7 +173,7 @@ shape::rotatex(double angle)
   return (true);
 }
 
-bool
+/* virtual */ bool
 shape::rotatey(double angle)
 {
   matrix temp = make_rotation_y(angle);
@@ -185,7 +185,7 @@ shape::rotatey(double angle)
   return (true);
 }
 
-bool
+/* virtual */ bool
 shape::rotatez(double angle)
 {
 
