@@ -273,6 +273,7 @@ loader::load(char file[], world& w)
               if (it_shape != shapes.end() )
               {
                 sc_tmp->add((*it_shape).second);
+                std::cout << "WTF?" << sc_tmp->size();
               }
               else std::cerr << "Composite" << name << ": Shape " << (*i) << " konnte nicht im Shape-Container gefunden werden" << std::endl;
 
@@ -288,8 +289,8 @@ loader::load(char file[], world& w)
               // Der Temporäre Shape-Container der mit den Children des Composites gefüllt ist..
               // ersetzt den Normalen Shape Container. d.h. ist in einer SDF-Datei ein composite
               // vorhanden und shapes die nicht darin vorkommen so werden diese Verworfen
-              sc = sc_tmp;
-              shapes.insert(std::pair<std::string, shape*>(name, sc));
+              //sc = sc_tmp;
+              shapes.insert(std::pair<std::string, shape*>(name, sc_tmp));
             }
             else
             {
@@ -322,6 +323,7 @@ loader::load(char file[], world& w)
         std::cout << name << "->";
 
         it_shape=shapes.find(name);
+        std::cout << "\n name des shapes das transformiert wird: " << it_shape->first << std::endl;
 
         iss >> string;
         
@@ -330,11 +332,9 @@ loader::load(char file[], world& w)
           vector3d offset;
           iss >> offset[0] >> offset[1] >> offset[2];
 
-          if (it_shape != shapes.end())
-          {
-            it_shape->second->translate(offset[0], offset[1], offset[2]);
-            std::cout << "translate" << std::endl;
-          }
+         it_shape->second->translate(offset[0], offset[1], offset[2]);
+          std::cout << "\n translate auf " << (*it_shape).first << std::endl;
+          
         }
 
         if (string == "rotate")
@@ -351,6 +351,46 @@ loader::load(char file[], world& w)
 
           
         }
+        if (string == "rotatex")
+        {
+          double angle;
+          iss >> angle;
+
+          if (it_shape != shapes.end())
+          {
+            it_shape->second->rotatex(angle);
+            std::cout << "rotatex" << std::endl;
+          }
+
+
+        }
+        if (string == "rotatey")
+        {
+          double angle;
+          iss >> angle;
+
+          if (it_shape != shapes.end())
+          {
+            it_shape->second->rotatey(angle);
+            std::cout << "rotatey" << std::endl;
+          }
+
+
+        }
+        if (string == "rotatez")
+        {
+          double angle;
+          iss >> angle;
+
+          if (it_shape != shapes.end())
+          {
+            it_shape->second->rotatez(angle);
+            std::cout << "rotatez" << std::endl;
+          }
+
+
+        }
+
         if (string == "scale")
         {
           double x;

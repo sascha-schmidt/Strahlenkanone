@@ -31,23 +31,28 @@ public:
   //erstell in abgeleiteten Klassen eine bbox
   virtual void bbox()=0;
   //setter und getter für bbox
-  ppp getbbox() const;
-  void setbbox(ppp b);
+  virtual ppp getbbox() const;
+  virtual void setbbox(ppp b);
   //testet ob bbox intersected, ausschlielich beim composite
   bool bboxintersect(ray r) const; //ray per Kopie für transform
 
   //getter für die tranformationsmatrix, alternativ protetected, aber abgleitete
   //Klassen müssen die matrix nicht ändern, deswegen lieber getter
-  matrix const& gettform() const;
-  matrix const& gettformi()  const;
+
+  // virtual weil shape_composite diese Funktionen überschreiben muss
+  
+  virtual matrix const& gettform() const;
+  virtual matrix const& gettformi()  const;
 
   //Transformationen
-  bool translate(double x, double y, double z);
-  bool scale(double x, double y, double z);
-  bool rotate (double a, double x, double y, double z);
-  bool rotatex(double angle);
-  bool rotatey(double angle);
-  bool rotatez(double angle);
+
+  // virtual weil shape_composite diese Funktionen überschreiben muss
+  virtual bool translate(double x, double y, double z);
+  virtual bool scale(double x, double y, double z);
+  virtual bool rotate (double a, double x, double y, double z);
+  virtual bool rotatex(double angle);
+  virtual bool rotatey(double angle);
+  virtual bool rotatez(double angle);
 
 private:
   //Bounding Box

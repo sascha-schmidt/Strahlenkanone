@@ -27,7 +27,7 @@ bool
 shape_composite::intersect(ray r, shade &rec) const
 {
   bool temp = false;
-  if(bboxintersect(r))
+  //if(bboxintersect(r))
   {
     for(std::vector<shape*>::const_iterator i = data_.begin(); i != data_.end(); std::advance(i ,1))
     {
@@ -41,9 +41,11 @@ shape_composite::intersect(ray r, shade &rec) const
 bool
 shape_composite::rotate(double a, double x, double y, double z)
 {
+    std::cout << "shape_composite::rotate" << std::endl;
   bool temp = true;
   for(std::vector<shape*>::iterator i = data_.begin(); i != data_.end(); std::advance(i ,1))
   {
+      std::cout << "shape_composite::rotate für element im container" << std::endl;
     bool akt = (*i)->rotate(a, x, y, z);
     temp = temp && akt;
   }
@@ -101,9 +103,11 @@ shape_composite::scale(double x, double y, double z)
 bool
 shape_composite::translate(double x, double y, double z)
 {
+  std::cout << "shape_composite::translate" << std::endl;
   bool temp = true;
-  for(std::vector<shape*>::iterator i = data_.begin(); i != data_.end(); std::advance(i ,1))
+  for(std::vector<shape*>::iterator i = data_.begin(); i != data_.end(); ++i)
   {
+   
     bool akt = (*i)->translate(x,y,z);
     temp = temp && akt;
   }
